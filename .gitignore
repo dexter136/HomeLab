@@ -1,0 +1,5 @@
+Chart.lock
+*.tfstate
+.terraform/
+*.tgz
+.terraform.lock.hcl

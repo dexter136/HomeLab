@@ -1,0 +1,58 @@
+{{- range $index, $appset := .Values.applicationsets }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ default $appset.name $appset.pnameoverride }}
+  namespace: argocd
+spec:
+  description: {{ $appset.name }}
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ $appset.name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  generators:
+    - git:
+        repoURL: {{ $.Values.git.repo }}
+        revision: {{ $.Values.git.revision }}
+        directories:
+          - path: {{ $appset.name }}/*
+  template:
+    metadata:
+      name: '{{ `{{path.basename}}` }}'
+    spec:
+      destination:
+        name: in-cluster
+        namespace: '{{ default `{{path.basename}}` $appset.namespace }}'
+      project: {{ default $appset.name $appset.pnameoverride }}
+      source:
+        repoURL: {{ $.Values.git.repo }}
+        path: '{{ `{{path}}` }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 10
+          backoff:
+            duration: 1m
+            factor: 2
+            maxDuration: 16m
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+{{- end }}

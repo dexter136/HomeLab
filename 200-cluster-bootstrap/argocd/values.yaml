@@ -1,0 +1,34 @@
+argo-cd:
+  global:
+    domain: argocd.dex136.xyz
+  configs:
+    params:
+      server.insecure: true
+      controller.diff.server.side: true
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls: true
+    metrics: &metrics
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  dex:
+    enabled: false
+  controller:
+    metrics: *metrics
+  repoServer:
+    metrics: *metrics
+  redis:
+    metrics: *metrics
+
+git:
+  repo: https://github.com/dexter136/HomeLab
+  revision: main
+applicationsets:
+  - name: 200-cluster-bootstrap
+    namespace: argocd
+    pnameoverride: argocd
