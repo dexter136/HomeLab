@@ -37,11 +37,6 @@ data "talos_client_configuration" "cluster" {
   endpoints            = ["192.168.1.230"]
 }
 
-output "talos_config" {
-  value     = data.talos_client_configuration.cluster.talos_config
-  sensitive = true
-}
-
 resource "talos_machine_configuration_apply" "controlplane" {
   for_each                    = var.controlplane
   client_configuration        = talos_machine_secrets.cluster.client_configuration
@@ -133,9 +128,3 @@ data "talos_cluster_kubeconfig" "cluster" {
   client_configuration = talos_machine_secrets.cluster.client_configuration
   node                 = local.nodes[0]
 }
-
-output "kube_config" {
-  value     = data.talos_cluster_kubeconfig.cluster.kubeconfig_raw
-  sensitive = true
-}
-
