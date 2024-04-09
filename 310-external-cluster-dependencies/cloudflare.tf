@@ -73,10 +73,21 @@ resource "cloudflare_api_token" "system_api_token" {
   }
 }
 
-resource "kubernetes_secret" "cf_api_token" {
+resource "kubernetes_secret" "external-dns-secret" {
   metadata {
     name      = "cloudflare-api-token"
-    namespace = "system"
+    namespace = "external-dns"
+  }
+
+  data = {
+    "api-token" = cloudflare_api_token.system_api_token.value
+  }
+}
+
+resource "kubernetes_secret" "cert-manager-secret" {
+  metadata {
+    name      = "cloudflare-api-token"
+    namespace = "cert-manager"
   }
 
   data = {
