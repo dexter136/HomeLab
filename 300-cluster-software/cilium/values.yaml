@@ -15,7 +15,7 @@ cillium:
     name: main
   containerRuntime:
     integration: containerd
-  devices: enp+
+  devices: eno+
   enableRuntimeDeviceDetection: true
   endpointRoutes:
     enabled: true
