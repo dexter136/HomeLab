@@ -16,14 +16,6 @@ data "talos_machine_configuration" "controlplane" {
         apiServer = {
           certSANs = ["kube.dex136.xyz", "192.168.1.230", "127.0.0.1"]
         }
-        network = {
-          cni = {
-            name = "none"
-          }
-        }
-        proxy = {
-          disabled = true
-        }
       }
     })
   ]
