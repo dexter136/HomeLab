@@ -15,6 +15,15 @@ data "talos_machine_configuration" "controlplane" {
         allowSchedulingOnControlPlanes = true
         apiServer = {
           certSANs = ["kube.dex136.xyz", "192.168.1.230", "127.0.0.1"]
+          disablePodSecurityPolicy = true
+        }
+        network = {
+          cni = {
+            name = "none"
+          }
+        }
+        proxy = {
+          disabled = true
         }
       }
     })
