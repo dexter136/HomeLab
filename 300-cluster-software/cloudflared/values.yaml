@@ -5,7 +5,7 @@ cloudflared:
     tunnel: homelab
     ingress:
       - hostname: '*.dex136.xyz'
-        service: https://ingress-nginx-controller.system
+        service: https://ingress-nginx-controller.ingress-nginx
         originRequest:
           noTLSVerify: true
       - service: http_status:404
