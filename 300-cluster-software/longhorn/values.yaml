@@ -7,4 +7,6 @@ longhorn:
     enabled: true
     ingressClassName: nginx
     host: longhorn.dex136.xyz
-    tls: false
+    tls: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
