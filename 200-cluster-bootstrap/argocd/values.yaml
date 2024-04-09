@@ -5,7 +5,13 @@ argo-cd:
     params:
       server.insecure: true
       controller.diff.server.side: true
-  server:
+    cm:
+      resource.customizations.ignoreDifferences.secret: |
+        jsonPointers:
+        - /data/tls.crt
+        - /data/tls.key
+        - /data/ca.crt
+  server:      
     ingress:
       enabled: true
       ingressClassName: nginx
