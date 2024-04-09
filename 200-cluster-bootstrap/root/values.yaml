@@ -5,6 +5,9 @@ applicationsets:
   - name: 200-cluster-bootstrap
     namespace: argocd
     pnameoverride: argocd
+  - name: 210-cilium
+    namespace: kube-system
+    pnameoverride: cilium
   - name: 300-cluster-software
     pnameoverride: system
 namespaces:
