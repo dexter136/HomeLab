@@ -34,7 +34,7 @@ data "talos_client_configuration" "cluster" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.cluster.client_configuration
   nodes                = local.nodes
-  endpoints            = ["https://192.168.1.230:6443"]
+  endpoints            = ["192.168.1.230"]
 }
 
 output "talos_config" {
@@ -46,13 +46,21 @@ resource "talos_machine_configuration_apply" "controlplane" {
   for_each                    = var.controlplane
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
-  node                        = each.value.init_ip
+  node                        = each.key
   config_patches = [
     yamlencode({
       machine = {
         install = {
           disk  = each.value.disk
-          image = "factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba:v1.6.7"
+          image = "factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.6.7"
+        }
+        kubelet = {
+          extraMounts = [{
+            destination = "/var/lib/longhorn"
+            type        = "bind"
+            source      = "/var/lib/longhorn"
+            options     = ["bind", "rshared", "rw"]
+          }]
         }
         network = {
           nameservers = ["192.168.1.230", "8.8.8.8"]
@@ -76,13 +84,21 @@ resource "talos_machine_configuration_apply" "worker" {
   for_each                    = var.worker
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.worker.machine_configuration
-  node                        = each.value.init_ip
+  node                        = each.key
   config_patches = [
     yamlencode({
       machine = {
         install = {
           disk  = each.value.disk
-          image = "factory.talos.dev/installer/4dd8e3a8b6203d3c14f049da8db4d3bb0d6d3e70c5e89dfcc1e709e81914f63c:v1.6.7"
+          image = "factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.6.7"
+        }
+        kubelet = {
+          extraMounts = [{
+            destination = "/var/lib/longhorn"
+            type        = "bind"
+            source      = "/var/lib/longhorn"
+            options     = ["bind", "rshared", "rw"]
+          }]
         }
         network = {
           nameservers = ["192.168.1.230", "8.8.8.8"]
