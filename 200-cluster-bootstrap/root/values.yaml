@@ -4,12 +4,14 @@ git:
 applicationsets:
   - name: 200-cluster-bootstrap
     namespace: argocd
-    pnameoverride: argocd
+    projectName: argocd
   - name: 210-cilium
     namespace: kube-system
-    pnameoverride: cilium
+    projectName: cilium
   - name: 300-cluster-software
-    pnameoverride: system
+    projectName: system
+  - name: 500-apps
+    projectName: apps
 namespaces:
   - name: metallb
     labels:
