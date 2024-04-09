@@ -3,7 +3,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: {{ default $appset.name $appset.pnameoverride }}
+  name: {{ default $appset.name $appset.projectName }}
   namespace: argocd
 spec:
   description: {{ $appset.name }}
@@ -38,7 +38,7 @@ spec:
       destination:
         name: in-cluster
         namespace: '{{ default `{{path.basename}}` $appset.namespace }}'
-      project: {{ default $appset.name $appset.pnameoverride }}
+      project: {{ default $appset.name $appset.projectName }}
       source:
         repoURL: {{ $.Values.git.repo }}
         path: '{{ `{{path}}` }}'
