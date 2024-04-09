@@ -41,6 +41,12 @@ locals {
           }]
           hostname = "${v.name}"
         }
+        features = {
+          kubePrism = {
+            enabled = true
+            port = 7445
+          }
+        }
       }
     }
   }
