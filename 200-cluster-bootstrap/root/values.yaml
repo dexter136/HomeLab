@@ -1,0 +1,18 @@
+git:
+  repo: https://github.com/dexter136/HomeLab
+  revision: main
+applicationsets:
+  - name: 200-cluster-bootstrap
+    namespace: argocd
+    pnameoverride: argocd
+  - name: 300-cluster-software
+    pnameoverride: system
+namespaces:
+  - name: metallb
+    labels:
+      pod-security.kubernetes.io/audit: privileged
+      pod-security.kubernetes.io/enforce: privileged
+      pod-security.kubernetes.io/warn: privileged
+  - name: longhorn
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
