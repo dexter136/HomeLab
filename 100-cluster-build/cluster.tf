@@ -14,7 +14,7 @@ data "talos_machine_configuration" "controlplane" {
       cluster = {
         allowSchedulingOnControlPlanes = true
         apiServer = {
-          certSANs = ["kube.dex136.xyz", "192.168.1.230"]
+          certSANs = ["kube.dex136.xyz", "192.168.1.230", "127.0.0.1"]
         }
       }
     })
@@ -52,7 +52,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
       machine = {
         install = {
           disk  = each.value.disk
-          image = "factory.talos.dev/installer/4dd8e3a8b6203d3c14f049da8db4d3bb0d6d3e70c5e89dfcc1e709e81914f63c:v1.6.7"
+          image = "factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba:v1.6.7"
         }
         network = {
           nameservers = ["192.168.1.230", "8.8.8.8"]
