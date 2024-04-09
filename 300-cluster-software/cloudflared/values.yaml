@@ -1,0 +1,16 @@
+cloudflared:
+  credentials:
+    existingSecret: cloudflared-credentials
+  config:
+    tunnel: homelab
+    ingress:
+      - hostname: '*.dex136.xyz'
+        service: https://ingress-nginx-controller.system
+        originRequest:
+          noTLSVerify: true
+      - service: http_status:404
+
+  podMonitor:
+    enabled: true
+    metricsEndpoints:
+      - port: http
