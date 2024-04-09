@@ -1,5 +1,5 @@
 resource "talos_machine_secrets" "cluster" {
-  talos_version = local.talos_version
+  talos_version = var.talos_version
 }
 
 data "talos_machine_configuration" "controlplane" {
@@ -7,7 +7,7 @@ data "talos_machine_configuration" "controlplane" {
   machine_type       = "controlplane"
   cluster_endpoint   = var.cluster_endpoint
   machine_secrets    = talos_machine_secrets.cluster.machine_secrets
-  talos_version      = local.talos_version
+  talos_version      = var.talos_version
   kubernetes_version = var.kubernetes_version
   config_patches = [
     yamlencode({
@@ -26,7 +26,7 @@ data "talos_machine_configuration" "worker" {
   machine_type       = "worker"
   cluster_endpoint   = var.cluster_endpoint
   machine_secrets    = talos_machine_secrets.cluster.machine_secrets
-  talos_version      = local.talos_version
+  talos_version      = var.talos_version
   kubernetes_version = var.kubernetes_version
 }
 
@@ -34,7 +34,7 @@ data "talos_client_configuration" "cluster" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.cluster.client_configuration
   nodes                = local.nodes
-  endpoints            = ["192.168.1.230"]
+  endpoints            = ["192.168.1.231"]
 }
 
 resource "talos_machine_configuration_apply" "controlplane" {
@@ -42,37 +42,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
   node                        = each.key
-  config_patches = [
-    yamlencode({
-      machine = {
-        install = {
-          disk  = each.value.disk
-          image = "factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.6.7"
-        }
-        kubelet = {
-          extraMounts = [{
-            destination = "/var/lib/longhorn"
-            type        = "bind"
-            source      = "/var/lib/longhorn"
-            options     = ["bind", "rshared", "rw"]
-          }]
-        }
-        network = {
-          nameservers = ["192.168.1.230", "8.8.8.8"]
-          interfaces = [{
-            interface = each.value.interface
-            addresses = ["${each.key}/24"]
-            routes = [{
-              network = "0.0.0.0/0"
-              gateway = "192.168.1.1"
-            }]
-            dhcp = true
-          }]
-          hostname = "${each.value.name}"
-        }
-      }
-    })
-  ]
+  config_patches = [yamlencode(local.machine_configs[each.key])]
 }
 
 resource "talos_machine_configuration_apply" "worker" {
@@ -80,37 +50,7 @@ resource "talos_machine_configuration_apply" "worker" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.worker.machine_configuration
   node                        = each.key
-  config_patches = [
-    yamlencode({
-      machine = {
-        install = {
-          disk  = each.value.disk
-          image = "factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.6.7"
-        }
-        kubelet = {
-          extraMounts = [{
-            destination = "/var/lib/longhorn"
-            type        = "bind"
-            source      = "/var/lib/longhorn"
-            options     = ["bind", "rshared", "rw"]
-          }]
-        }
-        network = {
-          nameservers = ["192.168.1.230", "8.8.8.8"]
-          interfaces = [{
-            interface = each.value.interface
-            addresses = ["${each.key}/24"]
-            routes = [{
-              network = "0.0.0.0/0"
-              gateway = "192.168.1.1"
-            }]
-            dhcp = true
-          }]
-          hostname = "${each.value.name}"
-        }
-      }
-    })
-  ]
+  config_patches = [yamlencode(local.machine_configs[each.key])]
 }
 
 resource "talos_machine_bootstrap" "cluster" {

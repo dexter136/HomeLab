@@ -29,3 +29,5 @@ cluster_name = "aisling-homelab"
 cluster_endpoint = "https://kube.dex136.xyz:6443"
 
 kubernetes_version = "1.29.2"
+talos_version = "v1.6.7"
+talos_factory_key = "613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245"
