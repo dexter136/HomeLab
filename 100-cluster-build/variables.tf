@@ -17,3 +17,11 @@ variable "cluster_endpoint" {
 variable "kubernetes_version" {
   type = string
 }
+
+variable "talos_version" {
+  type = string
+}
+
+variable "talos_factory_key" {
+  type = string
+}
