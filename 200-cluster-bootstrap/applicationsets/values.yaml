@@ -1,9 +1,0 @@
-git:
-  repo: https://github.com/dexter136/HomeLab
-  revision: main
-applicationsets:
-  - name: 200-cluster-bootstrap
-    namespace: argocd
-    pnameoverride: argocd
-  - name: 300-cluster-software
-    pnameoverride: system
