@@ -1,4 +1,4 @@
-cillium:
+cilium:
   autoDirectNodeRoutes: true
   bandwidthManager:
     enabled: true
