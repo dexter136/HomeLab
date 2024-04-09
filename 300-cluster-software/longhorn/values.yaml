@@ -1,0 +1,10 @@
+longhorn:
+  longhornUI:
+    replicas: 1
+  persistence:
+    defaultClassReplicaCount: 2
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    host: longhorn.dex136.xyz
+    tls: false
