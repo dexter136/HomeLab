@@ -1,0 +1,24 @@
+alertmanager-discord:
+  env:
+    TZ: America/New_York
+    DISCORD_USERNAME: "Alertmanager"
+    DISCORD_WEBHOOK:
+      valueFrom:
+        secretKeyRef:
+          name: discord-secret
+          key: DISCORD_WEBHOOK
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: &host alertmanager-discord.dex136.xyz
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: alertmanager-discord-tls-certificate
+          hosts:
+            - *host

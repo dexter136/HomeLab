@@ -10,3 +10,8 @@ variable "cloudflare_api_key" {
 variable "cloudflare_account_id" {
   type = string
 }
+
+variable "DISCORD_WEBHOOK" {
+  type      = string
+  sensitive = true
+}
