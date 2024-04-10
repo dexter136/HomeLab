@@ -1,25 +1,15 @@
 kube-prometheus-stack:
   cleanPrometheusOperatorObjectNames: true
   grafana:
-    defaultDashboardsTimezone: America/New_York
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        hajimari.io/enable: "true"
-        hajimari.io/icon: chart-areaspline
-        hajimari.io/appName: "Grafana"
-      hosts:
-        - &host grafana.dex136.xyz
-      tls:
-        - secretName: grafana-general-tls
-          hosts:
-            - *host
-    additionalDataSources:
-      - name: Loki
-        type: loki
-        url: http://loki.monitoring:3100
+    enabled: false
+    forceDeployDashboards: true
+    sidecar:
+      dashboards:
+        annotations:
+          grafana_folder: Kubernetes
+        multicluster:
+          etcd:
+            enabled: true
   kubelet:
     enabled: true
     serviceMonitor:

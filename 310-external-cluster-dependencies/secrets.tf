@@ -49,3 +49,29 @@ resource "kubernetes_secret" "unpackerr-secret" {
     UN_SONARR_0_API_KEY = module.mediapass["sonarr"].api_key
   }
 }
+
+resource "random_password" "grafana_pg" {
+  length  = 16
+  special = true
+}
+
+resource "kubernetes_secret" "grafana" {
+  metadata {
+    name      = "grafana-secret"
+    namespace = "monitoring"
+  }
+
+  data = {
+    GF_DATABASE_NAME         = "grafana"
+    GF_DATABASE_HOST         = "postgres-rw.database.svc.cluster.local:5432"
+    GF_DATABASE_USER         = "grafana"
+    GF_DATABASE_PASSWORD     = random_password.grafana_pg.result
+    GF_DATABASE_SSL_MODE     = "disable"
+    GF_DATABASE_TYPE         = "postgres"
+    INIT_POSTGRES_DBNAME     = "grafana"
+    INIT_POSTGRES_HOST       = "postgres-rw.database.svc.cluster.local:5432"
+    INIT_POSTGRES_USER       = "grafana"
+    INIT_POSTGRES_PASS       = random_password.grafana_pg.result
+    INIT_POSTGRES_SUPER_PASS = random_password.pg.result
+  }
+}
