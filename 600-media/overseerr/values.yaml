@@ -1,4 +1,4 @@
-overseerr:
+app-template:
   controllers:
     overseerr:
       containers:
