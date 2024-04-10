@@ -11,6 +11,6 @@ cloudflared:
       - service: http_status:404
 
   podMonitor:
-    enabled: false
+    enabled: true
     metricsEndpoints:
       - port: http

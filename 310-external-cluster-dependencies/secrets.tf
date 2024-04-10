@@ -55,6 +55,12 @@ resource "random_password" "grafana_pg" {
   special = true
 }
 
+resource "random_password" "grafana_admin" {
+  length  = 16
+  special = true
+}
+
+
 resource "kubernetes_secret" "grafana" {
   metadata {
     name      = "grafana-secret"
@@ -69,9 +75,21 @@ resource "kubernetes_secret" "grafana" {
     GF_DATABASE_SSL_MODE     = "disable"
     GF_DATABASE_TYPE         = "postgres"
     INIT_POSTGRES_DBNAME     = "grafana"
-    INIT_POSTGRES_HOST       = "postgres-rw.database.svc.cluster.local:5432"
+    INIT_POSTGRES_HOST       = "postgres-rw.database.svc.cluster.local"
     INIT_POSTGRES_USER       = "grafana"
     INIT_POSTGRES_PASS       = random_password.grafana_pg.result
     INIT_POSTGRES_SUPER_PASS = random_password.pg.result
+  }
+}
+
+resource "kubernetes_secret" "grafana_admin" {
+  metadata {
+    name      = "grafana-admin"
+    namespace = "monitoring"
+  }
+
+  data = {
+    admin-user     = "admin"
+    admin-password = random_password.grafana_admin.result
   }
 }

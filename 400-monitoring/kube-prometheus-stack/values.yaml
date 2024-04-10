@@ -7,9 +7,6 @@ kube-prometheus-stack:
       dashboards:
         annotations:
           grafana_folder: Kubernetes
-        multicluster:
-          etcd:
-            enabled: true
   kubelet:
     enabled: true
     serviceMonitor:
