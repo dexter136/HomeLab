@@ -1,0 +1,35 @@
+uptime-kuma:
+  env:
+    TZ: America/New_York
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: heart
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/uptime-kuma/dark.css"></head>';
+            sub_filter_once on;
+      hosts:
+        - host: &host status.dex136.xyz
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: status-tls-certificate
+          hosts:
+            - *host
+  persistence:
+    data:
+      enabled: true
+      mountPath: /app/data
+      existingClaim: pvc-uptime-kuma
+  resources:
+    requests:
+      cpu: 8m
+      memory: 120Mi
