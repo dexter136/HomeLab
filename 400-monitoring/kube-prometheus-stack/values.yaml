@@ -43,17 +43,11 @@ kube-prometheus-stack:
           sourceLabels: ["__name__"]
           regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
   kubeControllerManager:
-    enabled: true
-    endpoints: &cp
-      - 192.168.1.231
-      - 192.168.1.232
-      - 192.168.1.233
+    enabled: false
   kubeEtcd:
-    enabled: true
-    endpoints: *cp
+    enabled: false
   kubeScheduler:
-    enabled: true
-    endpoints: *cp
+    enabled: false
   kubeProxy:
     enabled: false
   prometheus:
