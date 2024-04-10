@@ -1,6 +1,6 @@
 locals {
   node_identities = merge(var.controlplane, var.worker)
-  nodes         = keys(local.node_identities)
+  nodes           = keys(local.node_identities)
   control_hosts = [for k, v in var.controlplane : {
     hostname = v.name
     ip       = k
@@ -13,7 +13,7 @@ locals {
 
   extraHostEntries = local.control_hosts
 
-  machine_configs = {for k,v in local.node_identities :
+  machine_configs = { for k, v in local.node_identities :
     k => {
       machine = {
         install = {
@@ -44,7 +44,7 @@ locals {
         features = {
           kubePrism = {
             enabled = true
-            port = 7445
+            port    = 7445
           }
         }
       }

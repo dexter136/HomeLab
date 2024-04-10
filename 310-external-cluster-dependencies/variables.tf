@@ -15,3 +15,8 @@ variable "DISCORD_WEBHOOK" {
   type      = string
   sensitive = true
 }
+
+variable "pihole_password" {
+  type      = string
+  sensitive = true
+}
