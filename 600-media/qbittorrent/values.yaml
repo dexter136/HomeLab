@@ -69,6 +69,8 @@ app-template:
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "pirate"
       hosts:
         - host: &host qb.dex136.xyz
           paths:
@@ -78,6 +80,7 @@ app-template:
                 port: http
       tls:
         - hosts: [*host]
+          secretName: qbittorrent-tls-certificate
   persistence:
     config:
       existingClaim: qbittorrent
