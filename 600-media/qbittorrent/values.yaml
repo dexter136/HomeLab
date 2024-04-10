@@ -89,4 +89,4 @@ app-template:
       server: 192.168.1.8
       path: /volume1/Torrents/
       globalMounts:
-        - path: /media
+        - path: /torrents

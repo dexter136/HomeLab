@@ -37,3 +37,15 @@ module "mediapass" {
   pg_pass  = random_password.pg.result
   name     = each.key
 }
+
+resource "kubernetes_secret" "unpackerr-secret" {
+  metadata {
+    name      = "unpackerr-secret"
+    namespace = "media"
+  }
+
+  data = {
+    UN_RADARR_0_API_KEY = module.mediapass["radarr"].api_key
+    UN_SONARR_0_API_KEY = module.mediapass["sonarr"].api_key
+  }
+}

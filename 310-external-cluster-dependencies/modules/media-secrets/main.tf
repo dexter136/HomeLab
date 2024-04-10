@@ -5,8 +5,7 @@ resource "random_password" "api" {
 
 resource "random_password" "pg" {
   length  = 16
-  special = true
-  override_special = "!@#$%&*()-_=+?"
+  special = false
 }
 
 resource "kubernetes_secret" "secret" {
