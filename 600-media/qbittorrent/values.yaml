@@ -43,7 +43,7 @@ app-template:
             requests:
               cpu: 100m
             limits:
-              memory: 12Gi
+              memory: 8Gi
       pod:
         securityContext:
           runAsUser: 568
