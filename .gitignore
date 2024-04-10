@@ -3,3 +3,4 @@ Chart.lock
 .terraform/
 *.tgz
 .terraform.lock.hcl
+000-vars/310.tfvars

@@ -1,0 +1,96 @@
+app-template:
+  controllers:
+    sonarr:
+      initContainers:
+        init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 16
+          envFrom: &envFrom
+            - secretRef:
+                name: sonarr-secret
+      containers:
+        app:
+          image:
+            repository: ghcr.io/onedr0p/sonarr
+            tag: 4.0.3
+          env:
+            PUSHOVER_DEBUG: "false"
+            SONARR__AUTHENTICATION_METHOD: External
+            SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+            SONARR__INSTANCE_NAME: Sonarr
+            SONARR__PORT: &port 80
+            SONARR__LOG_LEVEL: info
+            SONARR__THEME: dark
+            TZ: America/New_York
+          envFrom: *envFrom
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 1Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          runAsNonRoot: true
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+          supplementalGroups: [10000]
+  service:
+    app:
+      controller: sonarr
+      ports:
+        http:
+          port: *port
+  ingress:
+    app:
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "television"
+      hosts:
+        - host: &host "sonarr.dex136.xyz"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+      tls:
+        - hosts: [*host]
+          secretName: sonarr-tls-certificate
+  persistence:
+    config:
+      existingClaim: sonarr
+    tmp:
+      type: emptyDir
+    media:
+      type: nfs
+      server: 192.168.1.8
+      path: /volume1/MediaLibrary/
+      globalMounts:
+        - path: /media
+    complete:
+      type: nfs
+      path: /volume1/Torrents/Completed
+      server: 192.168.1.8
+      globalMounts:
+        - path: /complete
