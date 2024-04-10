@@ -8,8 +8,8 @@ hajimari:
     darkTheme: blackboard
     namespaceSelector:
       any: true
-    title: "Dexterslab"
-    name: "Sean"
+    title: "HomeLab"
+    name: "Aisling"
     customApps:
       - group: External Services
         apps:
