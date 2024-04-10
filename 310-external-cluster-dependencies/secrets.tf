@@ -26,3 +26,14 @@ resource "kubernetes_secret" "postgres-secret" {
     password = random_password.pg.result
   }
 }
+
+locals {
+  media_apps = ["sonarr"]
+}
+
+module "mediapass" {
+  for_each = toset(local.media_apps)
+  source   = "./modules/media-secrets"
+  pg_pass  = random_password.pg.result
+  name     = each.key
+}
