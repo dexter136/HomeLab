@@ -15,6 +15,9 @@ applicationsets:
     namespace: monitoring
   - name: 500-apps
     projectName: apps
+  - name: 600-media
+    projectName: media
+    namespace: media
 namespaces:
   - name: metallb
     labels:
