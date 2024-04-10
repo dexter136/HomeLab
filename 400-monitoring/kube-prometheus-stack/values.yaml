@@ -32,7 +32,7 @@ kube-prometheus-stack:
           sourceLabels: ["__name__"]
           regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
   kubeApiServer:
-    enabled: true
+    enabled: false
     serviceMonitor:
       metricRelabelings:
         # Drop high cardinality labels
