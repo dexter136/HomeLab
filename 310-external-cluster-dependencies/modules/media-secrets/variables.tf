@@ -1,8 +1,8 @@
 variable "name" {
-    type = string
+  type = string
 }
 
 variable "pg_pass" {
-    type = string
-    sensitive = true
+  type      = string
+  sensitive = true
 }
