@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.5.7"
+  required_version = "~> 1.7.0"
 
   backend "remote" {
     hostname     = "app.terraform.io"
@@ -18,7 +18,7 @@ terraform {
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.26.0"
+      version = "~> 2.28.0"
     }
 
     http = {
