@@ -11,8 +11,8 @@ resource "kubernetes_secret" "discord-secret" {
 
 
 resource "random_password" "pg" {
-  length           = 16
-  special          = true
+  length  = 16
+  special = true
 }
 
 resource "kubernetes_secret" "postgres-secret" {
@@ -22,7 +22,7 @@ resource "kubernetes_secret" "postgres-secret" {
   }
 
   data = {
-    username = "aisling"
+    username = "postgres"
     password = random_password.pg.result
   }
 }

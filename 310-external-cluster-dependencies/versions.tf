@@ -27,7 +27,7 @@ terraform {
     }
 
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = "3.6.0"
     }
   }
@@ -39,6 +39,7 @@ provider "cloudflare" {
 }
 
 provider "kubernetes" {
+  config_path = "~/.kube/config"
 }
 
 provider "random" {
