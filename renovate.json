@@ -8,6 +8,9 @@
       "matchPackagePatterns": [
         "*"
       ],
+      "excludePackagePatterns": [
+        "^hashicorp/terraform"
+      ],
       "matchUpdateTypes": [
         "minor",
         "patch"
