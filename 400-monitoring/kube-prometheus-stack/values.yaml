@@ -1,4 +1,5 @@
 kube-prometheus-stack:
+  cleanPrometheusOperatorObjectNames: true
   grafana:
     defaultDashboardsTimezone: America/New_York
     ingress:
