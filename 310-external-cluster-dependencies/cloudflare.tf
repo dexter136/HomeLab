@@ -84,6 +84,17 @@ resource "kubernetes_secret" "external-dns-secret" {
   }
 }
 
+resource "kubernetes_secret" "external-dns-pihole-secret" {
+  metadata {
+    name      = "pihole-password"
+    namespace = "external-dns"
+  }
+
+  data = {
+    "EXTERNAL_DNS_PIHOLE_PASSWORD" = var.pihole_password
+  }
+}
+
 resource "kubernetes_secret" "cert-manager-secret" {
   metadata {
     name      = "cloudflare-api-token"

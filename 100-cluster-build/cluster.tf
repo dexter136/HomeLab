@@ -14,7 +14,7 @@ data "talos_machine_configuration" "controlplane" {
       cluster = {
         allowSchedulingOnControlPlanes = true
         apiServer = {
-          certSANs = ["kube.dex136.xyz", "192.168.1.230", "127.0.0.1"]
+          certSANs                 = ["kube.dex136.xyz", "192.168.1.230", "127.0.0.1"]
           disablePodSecurityPolicy = true
         }
         network = {
@@ -51,7 +51,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
   node                        = each.key
-  config_patches = [yamlencode(local.machine_configs[each.key])]
+  config_patches              = [yamlencode(local.machine_configs[each.key])]
 }
 
 resource "talos_machine_configuration_apply" "worker" {
@@ -59,7 +59,7 @@ resource "talos_machine_configuration_apply" "worker" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.worker.machine_configuration
   node                        = each.key
-  config_patches = [yamlencode(local.machine_configs[each.key])]
+  config_patches              = [yamlencode(local.machine_configs[each.key])]
 }
 
 resource "talos_machine_bootstrap" "cluster" {
