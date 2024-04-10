@@ -17,6 +17,9 @@ argo-cd:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "wrench"
+        hajimari.io/appName: "ArgoCD"
       tls: true
     metrics: &metrics
       enabled: true
