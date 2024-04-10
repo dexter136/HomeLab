@@ -1,6 +1,6 @@
 resource "random_password" "api" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "pg" {

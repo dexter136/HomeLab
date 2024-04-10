@@ -28,7 +28,7 @@ resource "kubernetes_secret" "postgres-secret" {
 }
 
 locals {
-  media_apps = ["sonarr"]
+  media_apps = ["sonarr", "prowlarr"]
 }
 
 module "mediapass" {
