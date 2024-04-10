@@ -47,6 +47,44 @@ locals {
             port    = 7445
           }
         }
+        files = [
+          {
+            content     = <<EOT
+[plugins."io.containerd.grpc.v1.cri"]
+  enable_unprivileged_ports = true
+  enable_unprivileged_icmp = true
+[plugins."io.containerd.grpc.v1.cri".containerd]
+  discard_unpacked_layers = false
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  discard_unpacked_layers = false
+            EOT
+            permissions = 0
+            path        = "/etc/cri/conf.d/20-customization.part"
+            op          = "create"
+          },
+          {
+            content     = <<EOT
+[ NFSMount_Global_Options ]
+nfsvers=4.1
+hard=True
+noatime=True
+nodiratime=True
+rsize=131072
+wsize=131072
+nconnect=8
+          EOT
+            permissions = 420
+            path        = "/etc/nfsmount.conf"
+            op          = "overwrite"
+          }
+        ]
+        sysctls = {
+          "fs.inotify.max_queued_events"  = "65536"
+          "fs.inotify.max_user_instances" = "8192"
+          "fs.inotify.max_user_watches"   = "524288"
+          "net.core.rmem_max"             = "2500000"
+          "net.core.wmem_max"             = "2500000"
+        }
       }
     }
   }
