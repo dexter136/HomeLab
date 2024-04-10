@@ -90,10 +90,10 @@ app-template:
         - path: /media
     complete:
       type: nfs
-      path: /volume1/Torrents/Completed
+      path: /volume1/Torrents
       server: 192.168.1.8
       globalMounts:
-        - path: /complete
+        - path: /torrents
     backup:
       type: nfs
       path: /volume1/GeneralStorage/Backup/sonarr
