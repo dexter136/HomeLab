@@ -3,13 +3,17 @@
   "extends": [
     "config:base"
   ],
+  "ignorePaths": [
+    "**/global-secrets/**"
+  ],
   "packageRules": [
+    {
+      "matchPackagePatterns": ["hashicorp/terraform"],
+      "enabled": false
+    },
     {
       "matchPackagePatterns": [
         "*"
-      ],
-      "excludePackagePatterns": [
-        "^hashicorp/terraform"
       ],
       "matchUpdateTypes": [
         "minor",
