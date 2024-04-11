@@ -93,3 +93,4 @@ cilium:
           hajimari.io/enable: "true"
           hajimari.io/icon: "telescope"
           hajimari.io/appName: "Hubble"
+          hajimari.io/group: "monitoring"
