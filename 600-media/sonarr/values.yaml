@@ -32,9 +32,9 @@ app-template:
                 httpGet:
                   path: /ping
                   port: *port
-                initialDelaySeconds: 0
-                periodSeconds: 10
-                timeoutSeconds: 1
+                initialDelaySeconds: 10
+                periodSeconds: 60
+                timeoutSeconds: 5
                 failureThreshold: 3
             readiness: *probes
           securityContext:
@@ -45,7 +45,7 @@ app-template:
             requests:
               cpu: 10m
             limits:
-              memory: 1Gi
+              memory: 2Gi
       pod:
         securityContext:
           runAsUser: 568
