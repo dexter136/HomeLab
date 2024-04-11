@@ -25,6 +25,7 @@ argo-cd:
         hajimari.io/enable: "true"
         hajimari.io/icon: "wrench"
         hajimari.io/appName: "ArgoCD"
+        hajimari.io/group: "system"
       tls: true
     metrics: &metrics
       enabled: true

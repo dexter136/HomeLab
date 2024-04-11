@@ -13,6 +13,7 @@ longhorn:
       hajimari.io/enable: "true"
       hajimari.io/icon: "bugle"
       hajimari.io/appName: "Longhorn"
+      hajimari.io/group: "system"
   metrics:
     serviceMonitor:
       enabled: true
