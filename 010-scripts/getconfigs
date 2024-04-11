@@ -1,0 +1,18 @@
+#!/bin/sh
+
+overwrite=false
+
+while getopts "o" arg; do
+  case $arg in
+    o) overwrite=true
+  esac
+done
+
+(cd 100-cluster-build; terraform output -raw talos_config > ../000-vars/TALOS_CONFIG)
+
+(cd 100-cluster-build; terraform output -raw kube_config > ../000-vars/KUBE_CONFIG)
+
+if $overwrite; then
+    cp 000-vars/TALOS_CONFIG ~/.talos/config
+    cp 000-vars/KUBE_CONFIG ~/.kube/config
+fi
