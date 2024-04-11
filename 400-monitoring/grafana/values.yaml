@@ -116,7 +116,7 @@ grafana:
       cert-manager:
         url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
         datasource: Prometheus
-    Kubernetes:
+    kubernetes:
       kubernetes-api-server:
         gnetId: 15761
         revision: 16
@@ -152,7 +152,7 @@ grafana:
       nginx-request-handling-performance:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
         datasource: Prometheus
-    Prometheus:
+    prometheus:
       prometheus:
         gnetId: 19105
         revision: 3
