@@ -1,3 +1,10 @@
+locals {
+  config_directory="../000-configs/generated_configs"
+  node_identities = merge(var.controlplane, var.worker)
+  nodes           = keys(local.node_identities)
+  apply_mode = "staged"
+}
+
 resource "talos_machine_secrets" "cluster" {
   talos_version = var.talos_version
 }
@@ -9,25 +16,7 @@ data "talos_machine_configuration" "controlplane" {
   machine_secrets    = talos_machine_secrets.cluster.machine_secrets
   talos_version      = var.talos_version
   kubernetes_version = var.kubernetes_version
-  config_patches = [
-    yamlencode({
-      cluster = {
-        allowSchedulingOnControlPlanes = true
-        apiServer = {
-          certSANs                 = ["kube.dex136.xyz", "192.168.1.230", "127.0.0.1"]
-          disablePodSecurityPolicy = true
-        }
-        network = {
-          cni = {
-            name = "none"
-          }
-        }
-        proxy = {
-          disabled = true
-        }
-      }
-    })
-  ]
+  config_patches = [file("${local.config_directory}/clusterpatches.yaml")]
 }
 
 data "talos_machine_configuration" "worker" {
@@ -43,7 +32,7 @@ data "talos_client_configuration" "cluster" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.cluster.client_configuration
   nodes                = local.nodes
-  endpoints            = ["192.168.1.231"]
+  endpoints            = [local.nodes[0]]
 }
 
 resource "talos_machine_configuration_apply" "controlplane" {
@@ -51,7 +40,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
   node                        = each.key
-  config_patches              = [yamlencode(local.machine_configs[each.key])]
+  config_patches              = [file("${local.config_directory}/${each.value}.yaml")]
 }
 
 resource "talos_machine_configuration_apply" "worker" {
@@ -59,7 +48,7 @@ resource "talos_machine_configuration_apply" "worker" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.worker.machine_configuration
   node                        = each.key
-  config_patches              = [yamlencode(local.machine_configs[each.key])]
+  config_patches              = [file("${local.config_directory}/${each.value}.yaml")]
 }
 
 resource "talos_machine_bootstrap" "cluster" {
@@ -76,4 +65,14 @@ data "talos_cluster_kubeconfig" "cluster" {
   ]
   client_configuration = talos_machine_secrets.cluster.client_configuration
   node                 = local.nodes[0]
+}
+
+output "talos_config" {
+  value     = data.talos_client_configuration.cluster.talos_config
+  sensitive = true
+}
+
+output "kube_config" {
+  value     = data.talos_cluster_kubeconfig.cluster.kubeconfig_raw
+  sensitive = true
 }

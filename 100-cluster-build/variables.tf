@@ -21,7 +21,3 @@ variable "kubernetes_version" {
 variable "talos_version" {
   type = string
 }
-
-variable "talos_factory_key" {
-  type = string
-}

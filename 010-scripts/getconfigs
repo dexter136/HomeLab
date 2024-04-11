@@ -8,11 +8,10 @@ while getopts "o" arg; do
   esac
 done
 
-(cd 100-cluster-build; terraform output -raw talos_config > ../000-vars/TALOS_CONFIG)
-
-(cd 100-cluster-build; terraform output -raw kube_config > ../000-vars/KUBE_CONFIG)
+terraform -chdir="./100-cluster-build" output -raw talos_config > 000-configs/generated_configs/TALOS_CONFIG
+terraform -chdir="./100-cluster-build" output -raw kube_config > 000-configs/generated_configs/KUBE_CONFIG
 
 if $overwrite; then
-    cp 000-vars/TALOS_CONFIG ~/.talos/config
-    cp 000-vars/KUBE_CONFIG ~/.kube/config
+    cp 000-configs/generated_configs/TALOS_CONFIG ~/.talos/config
+    cp 000-configs/generated_configs/KUBE_CONFIG ~/.kube/config
 fi
