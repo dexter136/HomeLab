@@ -7,6 +7,10 @@ argo-cd:
       server.insecure: true
       controller.diff.server.side: true
     cm:
+      resource.ignoreResourceUpdatesEnabled: true
+      resource.customizations.ignoreResourceUpdates.all: |
+        jsonPointers:
+          - /status
       resource.customizations.ignoreDifferences.secret: |
         jsonPointers:
         - /data/tls.crt

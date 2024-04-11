@@ -4,7 +4,7 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   loadBalancerIPs: true
   interfaces: ["^eno.*"]
@@ -17,7 +17,7 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: l2-pool
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
