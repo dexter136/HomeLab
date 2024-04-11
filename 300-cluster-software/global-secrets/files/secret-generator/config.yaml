@@ -1,0 +1,54 @@
+# Postgres
+- name: pg.password
+  data:
+    - key: password
+      length: 32
+      special: true
+
+# Grafana
+- name: grafana.admin
+  data:
+    - key: password
+      length: 32
+      special: false
+- name: grafana.pg
+  data:
+    - key: password
+      length: 32
+      special: false
+
+#Sonarr
+- name: sonarr.api
+  data:
+    - key: password
+      length: 32
+      special: false
+- name: sonarr.pg
+  data:
+    - key: password
+      length: 32
+      special: false
+
+#Radarr
+- name: radarr.api
+  data:
+    - key: password
+      length: 32
+      special: false
+- name: radarr.pg
+  data:
+    - key: password
+      length: 32
+      special: false
+
+#Prowlarr
+- name: prowlarr.api
+  data:
+    - key: password
+      length: 32
+      special: false
+- name: prowlarr.pg
+  data:
+    - key: password
+      length: 32
+      special: false
