@@ -3,6 +3,7 @@ Chart.lock
 .terraform/
 *.tgz
 .terraform.lock.hcl
-000-vars/310.tfvars
-000-vars/TALOS_CONFIG
-000-vars/KUBE_CONFIG
+generated_configs/
+*.tfplan
+KUBE_CONFIG
+TALOS_CONFIG
