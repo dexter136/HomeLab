@@ -19,7 +19,7 @@ applicationsets:
     projectName: media
     namespace: media
 namespaces:
-  - name: metallb
+  - name: spegel
     labels:
       pod-security.kubernetes.io/audit: privileged
       pod-security.kubernetes.io/enforce: privileged
