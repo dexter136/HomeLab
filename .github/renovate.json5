@@ -1,21 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ],
-  "ignorePaths": [
-    "**/global-secrets/**"
-  ],
-  "packageRules": [
-    {
-      "matchPackagePatterns": ["hashicorp/terraform"],
-      "enabled": false
-    }
-  ]
-}
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
     "config:recommended",
     "docker:enableMajor",
     "replacements:k8s-registry-move",
