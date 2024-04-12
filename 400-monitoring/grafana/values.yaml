@@ -39,7 +39,7 @@ grafana:
             path: /var/lib/grafana/dashboards/default-folder
         - name: kubernetes
           orgId: 1
-          folder: kubernetes
+          folder: Kubernetes
           type: file
           disableDeletion: false
           editable: true
@@ -47,7 +47,7 @@ grafana:
             path: /var/lib/grafana/dashboards/kubernetes-folder
         - name: nginx
           orgId: 1
-          folder: nginx
+          folder: Nginx
           type: file
           disableDeletion: false
           editable: true
@@ -55,7 +55,7 @@ grafana:
             path: /var/lib/grafana/dashboards/nginx-folder
         - name: prometheus
           orgId: 1
-          folder: prometheus
+          folder: Prometheus
           type: file
           disableDeletion: false
           editable: true
