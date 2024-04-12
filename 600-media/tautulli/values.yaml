@@ -61,7 +61,7 @@
             port: *port
     ingress:
       app:
-        className: internal
+        className: nginx
         hosts:
           - host: &host tautulli.dex136.xyz
             paths:
