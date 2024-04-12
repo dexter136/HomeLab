@@ -26,52 +26,7 @@ variable "github_webhook" {
   sensitive = true
 }
 
-variable "PODCAST_0" {
-  type      = string
-  sensitive = true
-}
-
-variable "PODCAST_1" {
-  type      = string
-  sensitive = true
-}
-
-variable "PODCAST_2" {
-  type      = string
-  sensitive = true
-}
-
-variable "PODCAST_3" {
-  type      = string
-  sensitive = true
-}
-
-variable "PODCAST_4" {
-  type      = string
-  sensitive = true
-}
-
-variable "FILEPATH_0" {
-  type      = string
-  sensitive = true
-}
-
-variable "FILEPATH_1" {
-  type      = string
-  sensitive = true
-}
-
-variable "FILEPATH_2" {
-  type      = string
-  sensitive = true
-}
-
-variable "FILEPATH_3" {
-  type      = string
-  sensitive = true
-}
-
-variable "FILEPATH_4" {
-  type      = string
+variable "podcasts" {
+  type      = map(any)
   sensitive = true
 }
