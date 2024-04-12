@@ -17,12 +17,12 @@ uptime-kuma:
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/uptime-kuma/dark.css"></head>';
             sub_filter_once on;
       hosts:
-        - host: &host status.dex136.xyz
+        - host: &host kuma.dex136.xyz
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: status-tls-certificate
+        - secretName: kuma-tls-certificate
           hosts:
             - *host
   persistence:
