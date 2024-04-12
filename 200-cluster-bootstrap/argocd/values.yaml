@@ -16,7 +16,7 @@ argo-cd:
         - /data/tls.crt
         - /data/tls.key
         - /data/ca.crt
-  server:      
+  server:
     ingress:
       enabled: true
       ingressClassName: nginx

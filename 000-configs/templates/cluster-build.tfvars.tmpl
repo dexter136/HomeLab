@@ -1,7 +1,7 @@
 {{ define "talostfvars" -}}
 controlplane = {
 {{- range $node := (datasource "inventory").nodes }}
-{{- if (has $node "controlplane") }}  
+{{- if (has $node "controlplane") }}
   "{{ $node.ip }}" = "{{ $node.name }}"
 {{- end -}}
 {{- end }}

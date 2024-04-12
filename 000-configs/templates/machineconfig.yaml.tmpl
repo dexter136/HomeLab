@@ -18,9 +18,9 @@ machine:
     nameservers:
       - 192.168.1.230
       - 8.8.8.8
-    interfaces: 
+    interfaces:
       - interface: {{ .node.interface }}
-        addresses: 
+        addresses:
         - {{ .node.ip}}/24
         routes:
           - network: 0.0.0.0/0
@@ -31,7 +31,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-  files: 
+  files:
     - content: |
         [plugins."io.containerd.grpc.v1.cri"]
           enable_unprivileged_ports = true
@@ -65,7 +65,7 @@ machine:
     topology.kubernetes.io/region: main
     topology.kubernetes.io/zone: {{ if (has .node "controlplane") }}m{{ else }}w{{ end }}
 cluster:
-  network:  
+  network:
     cni:
       name: "none"
   discovery:
