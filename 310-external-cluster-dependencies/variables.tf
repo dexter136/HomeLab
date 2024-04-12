@@ -21,6 +21,11 @@ variable "pihole_password" {
   sensitive = true
 }
 
+variable "github_webhook" {
+  type      = string
+  sensitive = true
+}
+
 variable "PODCAST_0" {
   type      = string
   sensitive = true
