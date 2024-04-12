@@ -47,11 +47,8 @@
         "network": "connection",
         "networking": "connection",
         "observability": "event",
-        "rook-ceph": "base",
-        "storage": "dump",
-        "system-upgrade": "update",
-        "tools": "tools",
-        "volsync": "aws"
+        "longhorn": "dump",
+        "010-scripts": "tools",
     },
     "sops.defaults.ageKeyFile": "age.key",
     "vs-kubernetes": {
