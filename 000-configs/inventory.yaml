@@ -3,22 +3,22 @@ nodes:
     disk: /dev/nvme0n1
     interface: eno1
     name: control-0
-    controlplane: true
+    type: controlplane
   - ip: 192.168.1.232
     disk: /dev/sda
     interface: eno1
     name: control-1
-    controlplane: true
+    type: controlplane
   - ip: 192.168.1.233
     disk: /dev/nvme0n1
     interface: eno1
     name: control-2
-    controlplane: true
+    type: controlplane
   - ip: 192.168.1.234
     disk: /dev/nvme0n1
     interface: eno1
     name: worker-0
-    worker: true
+    type: worker
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetes_version: 1.29.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer

@@ -63,7 +63,7 @@ machine:
     net.core.wmem_max: 2500000
   nodeLabels:
     topology.kubernetes.io/region: main
-    topology.kubernetes.io/zone: {{ if (has .node "controlplane") }}m{{ else }}w{{ end }}
+    topology.kubernetes.io/zone: {{ .node.type }}
 cluster:
   network:
     cni:
@@ -75,7 +75,7 @@ cluster:
             disabled: false
         service:
             disabled: false
-  {{- if (has .node "controlplane") }}
+  {{- if eq .node.type "controlplane" }}
   allowSchedulingOnControlPlanes: true
   allowSchedulingOnMasters: true
   apiServer:
@@ -98,6 +98,7 @@ cluster:
   {{ end }}
 {{ end }}
 
+{{ defineDatasource "inventory" "000-configs/inventory.yaml" }}
 {{- range $node := (datasource "inventory").nodes}}
 {{- $ctx := dict "node" $node }}
 {{- $outPath := printf "000-configs/generated_configs/%s.yaml" $node.name }}
