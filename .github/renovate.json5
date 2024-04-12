@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor",
+    "replacements:k8s-registry-move",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":skipStatusChecks",
+    ":timezone(America/New_York)",
+    "github>dexter136/HomeLab//.github/renovate/allowedVersions.json5",
+    "github>dexter136/HomeLab//.github/renovate/autoMerge.json5",
+    "github>dexter136/HomeLab//.github/renovate/commitMessage.json5",
+    "github>dexter136/HomeLab//.github/renovate/customManagers.json5",
+    "github>dexter136/HomeLab//.github/renovate/grafanaDashboards.json5",
+    "github>dexter136/HomeLab//.github/renovate/groups.json5",
+    "github>dexter136/HomeLab//.github/renovate/labels.json5",
+    "github>dexter136/HomeLab//.github/renovate/packageRules.json5",
+    "github>dexter136/HomeLab//.github/renovate/semanticCommits.json5"
+  ],
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "ignorePaths": ["**/global-secrets/**"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["hashicorp/terraform"],
+      "enabled": false
+    }
+  ],
+  "kubernetes": {
+    "fileMatch": [
+      "(^|/)\\.taskfiles/.+\\.ya?ml(?:\\.j2)?$",
+      "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  }
+}
