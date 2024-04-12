@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: statuspage
-        image: ghcr.io/dexter136/statuspage:1.0
+        image: ghcr.io/dexter136/statuspage:1.3
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
