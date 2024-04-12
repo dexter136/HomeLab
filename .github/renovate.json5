@@ -22,7 +22,7 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
-  "ignorePaths": ["**/global-secrets/**"],
+  "ignorePaths": ["**/global-secrets/**","**/gitea/files/config/**"],
   "packageRules": [
     {
       "matchPackagePatterns": ["hashicorp/terraform"],
