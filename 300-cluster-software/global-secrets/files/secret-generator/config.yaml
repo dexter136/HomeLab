@@ -5,6 +5,14 @@
       length: 32
       special: true
 
+#Gatus
+- name: gatus.pg
+  data:
+    - key: password
+      length: 32
+      special: false
+
+
 # Grafana
 - name: grafana.admin
   data:
