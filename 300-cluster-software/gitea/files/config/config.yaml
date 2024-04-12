@@ -1,0 +1,14 @@
+organizations:
+  - name: ops
+    description: Operations
+    teams:
+      - name: Owners
+        members:
+          - renovate
+repositories:
+  - name: homelab
+    owner: ops
+    private: false
+    migrate:
+      source: https://github.com/dexter136/HomeLab
+      mirror: false
