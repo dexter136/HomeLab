@@ -1,5 +1,4 @@
 #!/bin/sh
 
 gomplate -d inventory=000-configs/inventory.yaml -f 000-configs/templates/machineconfig.yaml.tmpl
-gomplate -d inventory=000-configs/inventory.yaml -f 000-configs/templates/clusterpatches.yaml.tmpl
 gomplate -d inventory=000-configs/inventory.yaml -f 000-configs/templates/cluster-build.tfvars.tmpl
