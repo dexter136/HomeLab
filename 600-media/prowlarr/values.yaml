@@ -1,6 +1,8 @@
 app-template:
   controllers:
     prowlarr:
+      annotations:
+        reloader.stakater.com/auto: "true"
       initContainers:
         init-db:
           image:

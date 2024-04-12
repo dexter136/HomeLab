@@ -1,6 +1,8 @@
 app-template:
   controllers:
     overseerr:
+      annotations:
+        reloader.stakater.com/auto: "true"
       containers:
         app:
           image:
