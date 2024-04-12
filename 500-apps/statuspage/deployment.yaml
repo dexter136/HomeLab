@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: statuspage-service
+spec:
+  selector:
+    app: statuspage
+  ports:
+  - protocol: "TCP"
+    port: 6000
+    targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statuspage
+spec:
+  selector:
+    matchLabels:
+      app: statuspage
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: statuspage
+    spec:
+      containers:
+      - name: statuspage
+        image: ghcr.io/dexter136/statuspage:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: 2m
+            memory: 100Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: bottle-tonic-plus
+  name: statuspage
+  namespace: statuspage
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: statuspage.dex136.xyz
+      http:
+        paths:
+          - backend:
+              service:
+                name: statuspage-service
+                port:
+                  number: 6000
+            path: /
+            pathType: Prefix
+  tls:
+  - secretName: statuspage-general-tls
+    hosts:
+      - statuspage.dex136.xyz
