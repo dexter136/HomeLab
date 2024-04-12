@@ -62,6 +62,10 @@
     ingress:
       app:
         className: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "television"
         hosts:
           - host: &host tautulli.dex136.xyz
             paths:
