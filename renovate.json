@@ -10,17 +10,6 @@
     {
       "matchPackagePatterns": ["hashicorp/terraform"],
       "enabled": false
-    },
-    {
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch"
     }
   ]
 }
