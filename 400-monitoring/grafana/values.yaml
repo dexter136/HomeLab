@@ -100,15 +100,18 @@ grafana:
         revision: 6
         datasource: Prometheus
       cloudflared:
+        # renovate: depName="Cloudflare Tunnels (cloudflared)"
         gnetId: 17457
         revision: 6
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
       external-dns:
+        # renovate: depName="External-dns"
         gnetId: 15038
         revision: 3
         datasource: Prometheus
       unpackerr:
+        # renovate: depName="Unpackerr"
         gnetId: 18817
         revision: 1
         datasource:
@@ -118,45 +121,53 @@ grafana:
         datasource: Prometheus
     kubernetes:
       kubernetes-api-server:
+        # renovate: depName="Kubernetes / System / API Server"
         gnetId: 15761
         revision: 16
         datasource: Prometheus
       kubernetes-coredns:
+        # renovate: depName="Kubernetes / System / CoreDNS"
         gnetId: 15762
         revision: 17
         datasource: Prometheus
       kubernetes-global:
+        # renovate: depName="Kubernetes / Views / Global"
         gnetId: 15757
         revision: 37
         datasource: Prometheus
       kubernetes-namespaces:
+        # renovate: depName="Kubernetes / Views / Namespaces"
         gnetId: 15758
         revision: 34
         datasource: Prometheus
       kubernetes-nodes:
+        # renovate: depName="Kubernetes / Views / Nodes"
         gnetId: 15759
         revision: 29
         datasource: Prometheus
       kubernetes-pods:
+        # renovate: depName="Kubernetes / Views / Pods"
         gNetId: 15760
         revision: 21
         datasource: Prometheus
       kubernetes-volumes:
+        # renovate: depName="K8s / Storage / Volumes / Cluster"
         gnetId: 11454
         revision: 14
         datasource: Prometheus
-    nginx:
+  nginx:
       nginx:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
         datasource: Prometheus
       nginx-request-handling-performance:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
         datasource: Prometheus
+  prometheus:
     prometheus:
-      prometheus:
-        gnetId: 19105
-        revision: 3
-        datasource: Prometheus
+      # renovate: depName="Prometheus"
+      gnetId: 19105
+      revision: 3
+      datasource: Prometheus
   plugins:
     - grafana-clock-panel
     - grafana-piechart-panel
