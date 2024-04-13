@@ -1,0 +1,108 @@
+app-template:
+  controllers:
+    minio:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        app:
+          image:
+            repository: quay.io/minio/minio
+            tag: RELEASE.2024-04-06T05-26-02Z
+          env:
+            TZ: America/New_York
+            MINIO_UPDATE: "off"
+            MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring:9090
+            MINIO_PROMETHEUS_JOB_ID: minio
+            MINIO_PROMETHEUS_AUTH_TYPE: public
+            MINIO_BROWSER_REDIRECT_URL: https://minio.dex136.xyz
+            MINIO_SERVER_URL: https://s3.dex136.xyz
+            MINIO_API_CORS_ALLOW_ORIGIN: https://minio.dex136.xyz,https://s3.dex136.xyz
+          envFrom:
+            - secretRef:
+                name: minio
+          args: ["server", "/data", "--console-address", ":9001"]
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /minio/health/live
+                  port: &api-port 9000
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 50m
+            limits:
+              memory: 750Mi
+      pod:
+        securityContext:
+          runAsUser: 103
+          runAsGroup: 103
+          fsGroup: 103
+          fsGroupChangePolicy: OnRootMismatch
+  service:
+    app:
+      controller: minio
+      ports:
+        http:
+          primary: true
+          port: 9001
+        api:
+          port: *api-port
+  serviceMonitor:
+    app:
+      serviceName: minio
+      endpoints:
+        - port: api
+          scheme: http
+          path: /minio/v2/metrics/cluster
+          interval: 1m
+          scrapeTimeout: 10s
+  ingress:
+    app:
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/icon: "pail"
+        hajimari.io/enable: "true"
+      hosts:
+        - host: &console-host "minio.dex136.xyz"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+      tls:
+        - hosts: [*console-host]
+          secretName: minio-tls-certificate
+    s3:
+      className: nginx
+      annotations:
+        hajimari.io/enable: "false"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+        nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          chunked_transfer_encoding off;
+      hosts:
+        - host: &api-host s3.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: api
+      tls:
+        - hosts: [*api-host]
+          secretName: s3-tls-certificate
+  persistence:
+    data:
+      existingClaim: minio
+      globalMounts:
+       - path: /data
