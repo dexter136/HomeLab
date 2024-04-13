@@ -27,6 +27,6 @@ variable "github_webhook" {
 }
 
 variable "podcasts" {
-  type      = map(any)
+  type      = string
   sensitive = true
 }

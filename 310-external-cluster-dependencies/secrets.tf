@@ -9,14 +9,15 @@ resource "kubernetes_secret" "discord-secret" {
   }
 }
 
-resource "kubernetes_secret" "podcastdownload" {
+resource "kubernetes_config_map" "podcastdownload" {
   metadata {
-    name      = "podcastdownload-secret"
+    name      = "podcastdownload-config"
     namespace = "media"
   }
 
-  data = var.podcasts
-
+  data = {
+    config = var.podcasts
+  }
 }
 
 resource "kubernetes_secret" "argocd-webhook" {

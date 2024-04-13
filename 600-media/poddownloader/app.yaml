@@ -3,7 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   namespace: media
-  name: podcastdownload-regularjob
+  name: podcastdownload
 spec:
   schedule: "0 */2 * * *"
   failedJobsHistoryLimit: 1
@@ -16,58 +16,21 @@ spec:
           restartPolicy: Never
           containers:
           - name: poddown
-            image: ghcr.io/dexter136/poddown:1.0
-            imagePullPolicy: Always
-            env:
-              - name: LAST_N
-                value: "5"
-              - name: OVERWRITE
-                value: "false"
-            envFrom:
-            - secretRef:
-                name: "podcastdownload-secret"
-            volumeMounts:
-            - name: podcasts
-              mountPath: /podcasts
-          volumes:
-          - name: podcasts
-            nfs:
-              server: 192.168.1.8
-              path: /volume1/MediaLibrary/Podcasts
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  namespace: media
-  name: podcastdownload-weeklybacklog
-spec:
-  schedule: "0 2 * * 0"
-  failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 3
-  concurrencyPolicy: Forbid
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          restartPolicy: Never
-          containers:
-          - name: poddown
-            image: ghcr.io/dexter136/poddown:1.0
+            image: ghcr.io/dexter136/podcastdownloader:0.2
             imagePullPolicy: IfNotPresent
-            env:
-              - name: LAST_N
-                value: "20"
-              - name: OVERWRITE
-                value: "false"
-            envFrom:
-            - secretRef:
-                name: "podcastdownload-secret"
             volumeMounts:
             - name: podcasts
               mountPath: /podcasts
+            - name: config-volume
+              mountPath: /config
           volumes:
           - name: podcasts
             nfs:
               server: 192.168.1.8
               path: /volume1/MediaLibrary/Podcasts
----
+          - name: config-volume
+            configMap:
+              name: podcastdownload-config
+              items:
+                - key: config
+                  path: config.yaml
