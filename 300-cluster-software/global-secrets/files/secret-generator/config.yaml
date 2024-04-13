@@ -37,6 +37,20 @@
       length: 32
       special: false
 
+# Minio
+- name: minio.password
+  data:
+    - key: password
+      length: 32
+      special: false
+
+- name: minio.user
+  data:
+    - key: password
+      length: 32
+      special: false
+
+
 #Sonarr
 - name: sonarr.api
   data:
