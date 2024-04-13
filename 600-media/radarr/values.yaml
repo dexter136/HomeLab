@@ -15,7 +15,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/radarr
-            tag: 5.3
+            tag: 5.4
           env:
             PUSHOVER_DEBUG: "false"
             RADARR__AUTHENTICATION_METHOD: External
