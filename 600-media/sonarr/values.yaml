@@ -15,7 +15,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/onedr0p/sonarr
-            tag: 4.0.3
+            tag: 4.0.4
           env:
             PUSHOVER_DEBUG: "false"
             SONARR__AUTHENTICATION_METHOD: External
