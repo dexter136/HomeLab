@@ -6,6 +6,7 @@ gitea:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       hajimari.io/enable: "true"
       hajimari.io/icon: "source-repository"
+      hajimari.io/group: "system"
     hosts:
       - host: &host git.dex136.xyz
         paths:
