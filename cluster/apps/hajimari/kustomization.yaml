@@ -6,6 +6,7 @@ helmCharts:
   version: 2.0.2
   releaseName: hajimari
   valuesFile: values.yaml
+  namespace: hajimari
 generators:
 - ./secret-generator.yaml
 resources:
