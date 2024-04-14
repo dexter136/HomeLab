@@ -1,7 +1,9 @@
 ingress-nginx:
   controller:
+    replicaCount: 3
     allowSnippetAnnotations: true
     config:
+      block-user-agents: "GPTBot,~*GPTBot*,ChatGPT-User,~*ChatGPT-User*,Google-Extended,~*Google-Extended*,CCBot,~*CCBot*,Omgilibot,~*Omgilibot*,FacebookBot,~*FacebookBot*"
       enable-brotli: "true"
       enable-ocsp: "true"
       enable-real-ip: "true"
@@ -19,5 +21,14 @@ ingress-nginx:
       enabled: true
       serviceMonitor:
         enabled: true
-  tcp:
-    22: gitea/gitea-ssh:22
+        namespaceSelector:
+          any: true
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: ingress-nginx
+            app.kubernetes.io/instance: nginx-internal
+            app.kubernetes.io/component: controller
