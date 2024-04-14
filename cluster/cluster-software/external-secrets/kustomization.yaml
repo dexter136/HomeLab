@@ -7,3 +7,5 @@ helmCharts:
   releaseName: external-secrets
   valuesFile: values.yaml
   namespace: external-secrets
+resources:
+  - clustersecretstore.yaml
