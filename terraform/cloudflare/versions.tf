@@ -16,11 +16,6 @@ terraform {
       version = "~> 4.29.0"
     }
 
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.29.0"
-    }
-
     http = {
       source  = "hashicorp/http"
       version = "~> 3.4.0"
@@ -36,10 +31,6 @@ terraform {
 provider "cloudflare" {
   email   = var.cloudflare_email
   api_key = var.cloudflare_api_key
-}
-
-provider "kubernetes" {
-  config_path = "~/.kube/config"
 }
 
 provider "random" {

@@ -10,8 +10,3 @@ variable "cloudflare_api_key" {
 variable "cloudflare_account_id" {
   type = string
 }
-
-variable "pihole_password" {
-  type      = string
-  sensitive = true
-}
