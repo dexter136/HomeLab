@@ -75,6 +75,8 @@ cluster:
             disabled: false
         service:
             disabled: false
+  coreDNS:
+    disabled: true
   {{- if eq .node.type "controlplane" }}
   allowSchedulingOnControlPlanes: true
   allowSchedulingOnMasters: true
