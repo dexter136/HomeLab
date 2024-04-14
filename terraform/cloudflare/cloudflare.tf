@@ -59,13 +59,6 @@ resource "cloudflare_api_token" "system_api_token" {
   }
 }
 
-resource "kubernetes_secret" "cert-manager-secret" {
-  metadata {
-    name      = "cloudflare-api-token"
-    namespace = "cert-manager"
-  }
-
-  data = {
-    "api-token" = cloudflare_api_token.system_api_token.value
-  }
+output "system_api_token" {
+  value = cloudflare_api_token.system_api_token.value
 }
