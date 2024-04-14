@@ -1,76 +1,75 @@
+env:
+  TZ: America/New_York
 hajimari:
-  env:
-    TZ: America/New_York
-  hajimari:
-    defaultEnable: false
-    showAppGroups: true
-    lightTheme: blackboard
-    darkTheme: blackboard
-    showAppUrls: false
-    alwaysTargetBlank: true
-    namespaceSelector:
-      any: true
-    title: "HomeLab"
-    name: "Aisling"
-    customApps:
-      - group: Media
-        apps:
-          - name: Plex
-            url: http://plex.dex136.xyz
-            icon: "television-play"
-      - group: system
-        apps:
-          - name: NAS
-            url: http://nas.dex136.xyz
-            icon: "harddisk"
-          - name: PiHole
-            icon: "cancel"
-            url: http://pi.dex136.xyz/
-    globalBookmarks:
-      - group: Documentation
-        bookmarks:
-          - name: Kubernetes
-            url: 'https://kubernetes.io/docs/home/'
-          - name: Talos
-            url: 'https://www.talos.dev/v1.6/'
-          - name: Longhorn
-            url: 'https://longhorn.io/docs/latest/'
-      - group: Github Repositories
-        bookmarks:
-          - name: Homelab Repo
-            url: 'https://github.com/dexter136/HomeLab'
-      - group: Cloud Services
-        bookmarks:
-          - name: Terraform Cloud
-            url: 'https://app.terraform.io/'
-          - name: Cloudflare
-            url: 'https://dash.cloudflare.com/'
-          - name: Office 365
-            url: 'https://admin.microsoft.com/'
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-      hosts:
-        - host: &host home.dex136.xyz
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - secretName: hajimari-tls-certificate
-          hosts:
-            - *host
-  resources:
-    requests:
-      cpu: 1m
-      memory: 40Mi
-  persistence:
-    data:
-      enabled: true
-      existingClaim: hajimari-data
-  podSecurityContext:
-      fsGroup: 101
+  defaultEnable: false
+  showAppGroups: true
+  lightTheme: blackboard
+  darkTheme: blackboard
+  showAppUrls: false
+  alwaysTargetBlank: true
+  namespaceSelector:
+    any: true
+  title: "HomeLab"
+  name: "Aisling"
+  customApps:
+    - group: Media
+      apps:
+        - name: Plex
+          url: http://plex.dex136.xyz
+          icon: "television-play"
+    - group: system
+      apps:
+        - name: NAS
+          url: http://nas.dex136.xyz
+          icon: "harddisk"
+        - name: PiHole
+          icon: "cancel"
+          url: http://pi.dex136.xyz/
+  globalBookmarks:
+    - group: Documentation
+      bookmarks:
+        - name: Kubernetes
+          url: 'https://kubernetes.io/docs/home/'
+        - name: Talos
+          url: 'https://www.talos.dev/v1.6/'
+        - name: Longhorn
+          url: 'https://longhorn.io/docs/latest/'
+    - group: Github Repositories
+      bookmarks:
+        - name: Homelab Repo
+          url: 'https://github.com/dexter136/HomeLab'
+    - group: Cloud Services
+      bookmarks:
+        - name: Terraform Cloud
+          url: 'https://app.terraform.io/'
+        - name: Cloudflare
+          url: 'https://dash.cloudflare.com/'
+        - name: Office 365
+          url: 'https://admin.microsoft.com/'
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
+      external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    hosts:
+      - host: &host home.dex136.xyz
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: hajimari-tls-certificate
+        hosts:
+          - *host
+resources:
+  requests:
+    cpu: 1m
+    memory: 40Mi
+persistence:
+  data:
+    enabled: true
+    existingClaim: hajimari-data
+podSecurityContext:
+    fsGroup: 101

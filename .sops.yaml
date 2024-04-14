@@ -1,0 +1,11 @@
+---
+creation_rules:
+  - path_regex: secret(\.sops)?\.ya?ml
+    input_type: yaml
+    encrypted_regex: ^(data|stringData)$
+    key_groups:
+      - age:
+          - age15j6twvva426zpeacwhpmvnfp90v9pctluluxx4v6aldpczulgfqszafkq5
+stores:
+  yaml:
+    indent: 2
