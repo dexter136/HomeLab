@@ -46,7 +46,6 @@ metadata:
     hajimari.io/enable: "true"
     hajimari.io/icon: bottle-tonic-plus
   name: statuspage
-  namespace: statuspage
 spec:
   ingressClassName: nginx
   rules:
