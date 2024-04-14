@@ -1,10 +1,6 @@
 git:
   repo: https://github.com/dexter136/HomeLab
   revision: main
-applicationsets:
-  - name: 200-cluster-bootstrap
-    namespace: argocd
-    projectName: argocd
 applications:
   - name: apps
     projectName: apps
