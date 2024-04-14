@@ -9,3 +9,5 @@ helmCharts:
   namespace: external-secrets
 resources:
   - clustersecretstore.yaml
+generators:
+- ./secret-generator.yaml
