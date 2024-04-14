@@ -19,6 +19,9 @@ applications:
   - name: kube-system
     namespace: kube-system
     projectName: kube-system
+  - name: network
+    namespace: network
+    projectname: network
 namespaces:
   - name: monitoring
     labels:
