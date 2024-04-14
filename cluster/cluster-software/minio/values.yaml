@@ -71,6 +71,7 @@ app-template:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/icon: "pail"
         hajimari.io/enable: "true"
+        hajimari.io/group: "system"
       hosts:
         - host: &console-host "minio.dex136.xyz"
           paths:

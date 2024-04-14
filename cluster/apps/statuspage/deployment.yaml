@@ -45,6 +45,7 @@ metadata:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     hajimari.io/enable: "true"
     hajimari.io/icon: bottle-tonic-plus
+    hajimari.io/group: "monitoring"
   name: statuspage
 spec:
   ingressClassName: nginx
