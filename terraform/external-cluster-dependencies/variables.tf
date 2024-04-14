@@ -11,22 +11,12 @@ variable "cloudflare_account_id" {
   type = string
 }
 
-variable "DISCORD_WEBHOOK" {
-  type      = string
-  sensitive = true
-}
-
 variable "pihole_password" {
   type      = string
   sensitive = true
 }
 
 variable "github_webhook" {
-  type      = string
-  sensitive = true
-}
-
-variable "podcasts" {
   type      = string
   sensitive = true
 }
