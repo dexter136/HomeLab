@@ -7,7 +7,5 @@ helmCharts:
   releaseName: cert-manager
   valuesFile: values.yaml
   namespace: network
-generators:
-  - ./secret-generator.yaml
 resources:
   - clusterissuer.yaml
