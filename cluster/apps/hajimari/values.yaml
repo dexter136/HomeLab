@@ -73,3 +73,5 @@ persistence:
     existingClaim: hajimari-data
 podSecurityContext:
     fsGroup: 101
+serviceAccount:
+  create: true
