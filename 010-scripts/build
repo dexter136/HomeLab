@@ -1,5 +1,0 @@
-#!/bin/sh
-
-./010-scripts/generate_configs
-./010-scripts/terraform -c -a
-./010-scripts/getconfigs
