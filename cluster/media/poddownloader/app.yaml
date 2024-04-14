@@ -29,8 +29,8 @@ spec:
               server: 192.168.1.8
               path: /volume1/MediaLibrary/Podcasts
           - name: config-volume
-            configMap:
-              name: podcastdownload-config
+            secret:
+              secretName: podcasts
               items:
                 - key: config
                   path: config.yaml
