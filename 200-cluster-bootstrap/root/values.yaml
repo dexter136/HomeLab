@@ -13,11 +13,12 @@ applicationsets:
   - name: 400-monitoring
     projectName: monitoring
     namespace: monitoring
-  - name: 500-apps
-    projectName: apps
   - name: 600-media
     projectName: media
     namespace: media
+applications:
+  - name: apps
+    projectName: apps
 namespaces:
   - name: spegel
     labels:
