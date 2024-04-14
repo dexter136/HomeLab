@@ -4,6 +4,7 @@ git:
 applications:
   - name: apps
     projectName: apps
+    namespace: default
   - name: bootstrap
     namespace: argocd
     projectName: argocd
