@@ -15,8 +15,3 @@ variable "pihole_password" {
   type      = string
   sensitive = true
 }
-
-variable "github_webhook" {
-  type      = string
-  sensitive = true
-}
