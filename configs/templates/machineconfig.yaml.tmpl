@@ -98,9 +98,9 @@ cluster:
   {{ end }}
 {{ end }}
 
-{{ defineDatasource "inventory" "000-configs/inventory.yaml" }}
+{{ defineDatasource "inventory" "configs/inventory.yaml" }}
 {{- range $node := (datasource "inventory").nodes}}
 {{- $ctx := dict "node" $node }}
-{{- $outPath := printf "000-configs/generated_configs/%s.yaml" $node.name }}
+{{- $outPath := printf "configs/generated_configs/%s.yaml" $node.name }}
 {{- tmpl.Exec "machineconfigtemplate" $ctx | file.Write $outPath }}
 {{- end -}}

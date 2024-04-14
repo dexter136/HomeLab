@@ -1,4 +1,0 @@
-#!/bin/sh
-
-gomplate -f 000-configs/templates/machineconfig.yaml.tmpl
-gomplate -f 000-configs/templates/cluster-build.tfvars.tmpl
