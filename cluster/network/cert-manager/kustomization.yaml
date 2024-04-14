@@ -6,7 +6,7 @@ helmCharts:
   version: v1.14.4
   releaseName: cert-manager
   valuesFile: values.yaml
-  namespace: cert-manager
+  namespace: network
 generators:
   - ./secret-generator.yaml
 resources:

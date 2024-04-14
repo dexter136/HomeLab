@@ -6,13 +6,13 @@ helmCharts:
   version: 1.14.4
   releaseName: external-dns
   valuesFile: values.yaml
-  namespace: external-dns
+  namespace: network
 - name: external-dns
   includeCRDs: false
   repo: https://kubernetes-sigs.github.io/external-dns
   version: 1.14.4
   releaseName: external-dns-pihole
   valuesFile: values-pi.yaml
-  namespace: external-dns
+  namespace: network
 generators:
 - ./secret-generator.yaml

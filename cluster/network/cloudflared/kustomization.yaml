@@ -6,7 +6,7 @@ helmCharts:
   version: 0.4.3
   releaseName: cloudflared
   valuesFile: values.yaml
-  namespace: cloudflared
+  namespace: network
 generators:
   - ./secret-generator.yaml
 
