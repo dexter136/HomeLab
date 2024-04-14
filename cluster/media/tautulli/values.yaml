@@ -6,10 +6,16 @@
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/tautulli
-              tag: 2.13.4@sha256:809bccf944ee56c33af99993841e797e18dc85243639788de3c9d668c291b215
+              repository: ghcr.io/tautulli/tautulli
+              tag: v2.13.4@sha256:fb5e22c7a4d9e770703a30d145f355786fecb28dfca6df56c5073c457f3c8a8e
             env:
               TZ: America/New_York
+            command: ["/usr/local/bin/python", "Tautulli.py"]
+            args: [
+              "--config", "/config/config.ini",
+              "--datadir", "/config",
+              "--port", "80"
+            ]
             probes:
               liveness: &probes
                 enabled: true
@@ -17,7 +23,7 @@
                 spec:
                   httpGet:
                     path: /status
-                    port: &port 8181
+                    port: &port 80
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -32,21 +38,6 @@
                 cpu: 10m
               limits:
                 memory: 1Gi
-          jbops:
-            image:
-              repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.2.1@sha256:004c213800fac0b71fa2f51979513f5fb383df713c4eaf514ddab65c9efa78b8
-            env:
-              GITSYNC_REPO: https://github.com/blacktwin/JBOPS
-              GITSYNC_REF: master
-              GITSYNC_PERIOD: 24h
-              GITSYNC_ROOT: /add-ons
-            securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 128Mi
         pod:
           securityContext:
             runAsUser: 568
@@ -80,6 +71,4 @@
       config:
         existingClaim: tautulli
       tmp:
-        type: emptyDir
-      add-ons:
         type: emptyDir
