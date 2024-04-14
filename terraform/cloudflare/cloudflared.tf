@@ -18,22 +18,6 @@ resource "cloudflare_record" "tunnel" {
   ttl     = 1 # Auto
 }
 
-resource "kubernetes_secret" "cloudflared_credentials" {
-  metadata {
-    name      = "cloudflared-credentials"
-    namespace = "cloudflared"
-  }
-
-  data = {
-    "credentials.json" = jsonencode({
-      AccountTag   = var.cloudflare_account_id
-      TunnelName   = cloudflare_tunnel.homelab.name
-      TunnelID     = cloudflare_tunnel.homelab.id
-      TunnelSecret = base64encode(random_password.tunnel_secret.result)
-    })
-  }
-}
-
 output "TunnelName" {
   value = cloudflare_tunnel.homelab.name
 }
