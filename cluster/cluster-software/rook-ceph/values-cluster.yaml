@@ -174,9 +174,6 @@ cephObjectStores:
             memory: 2Gi
         instances: 2
         priorityClassName: system-cluster-critical
-      healthCheck:
-        bucket:
-          interval: 60s
     storageClass:
       enabled: true
       name: ceph-bucket
