@@ -8,17 +8,20 @@ applicationsets:
   - name: 210-cilium
     namespace: kube-system
     projectName: cilium
-  - name: 300-cluster-software
-    projectName: system
-  - name: 400-monitoring
-    projectName: monitoring
-    namespace: monitoring
-  - name: 600-media
-    projectName: media
-    namespace: media
 applications:
   - name: apps
     projectName: apps
+  - name: cluster-software
+    projectName: system
+  - name: media
+    projectName: media
+    namespace: media
+  - name: monitoring
+    projectName: monitoring
+    namespace: monitoring
+  - name: kube-system
+    namespace: kube-system
+    projectName: kube-system
 namespaces:
   - name: spegel
     labels:
