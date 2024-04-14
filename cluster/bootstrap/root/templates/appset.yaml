@@ -34,6 +34,8 @@ spec:
   template:
     metadata:
       name: '{{ `{{path.basename}}` }}'
+      annotations:
+        argocd.argoproj.io/compare-options: IncludeMutationWebhook=true
     spec:
       destination:
         name: in-cluster
