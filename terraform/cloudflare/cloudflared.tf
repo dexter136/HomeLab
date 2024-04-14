@@ -19,13 +19,16 @@ resource "cloudflare_record" "tunnel" {
 }
 
 output "TunnelName" {
-  value = cloudflare_tunnel.homelab.name
+  value     = cloudflare_tunnel.homelab.name
+  sensitive = true
 }
 
 output "TunnelID" {
-  value = cloudflare_tunnel.homelab.id
+  value     = cloudflare_tunnel.homelab.id
+  sensitive = true
 }
 
 output "TunnelSecret" {
-  value = base64encode(random_password.tunnel_secret.result)
+  value     = random_password.tunnel_secret.result
+  sensitive = true
 }

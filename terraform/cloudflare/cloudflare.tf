@@ -60,5 +60,6 @@ resource "cloudflare_api_token" "system_api_token" {
 }
 
 output "system_api_token" {
-  value = cloudflare_api_token.system_api_token.value
+  value     = cloudflare_api_token.system_api_token.value
+  sensitive = true
 }
