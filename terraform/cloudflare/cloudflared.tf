@@ -33,3 +33,15 @@ resource "kubernetes_secret" "cloudflared_credentials" {
     })
   }
 }
+
+output "TunnelName" {
+  value = cloudflare_tunnel.homelab.name
+}
+
+output "TunnelID" {
+  value = cloudflare_tunnel.homelab.id
+}
+
+output "TunnelSecret" {
+  value = base64encode(random_password.tunnel_secret.result)
+}
