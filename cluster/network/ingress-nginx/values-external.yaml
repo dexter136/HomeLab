@@ -1,3 +1,4 @@
+fullnameOverride: nginx-external
 controller:
   replicaCount: 1
   service:
@@ -6,7 +7,7 @@ controller:
       io.cilium/lb-ipam-ips: 192.168.1.243
   ingressClassResource:
     name: external
-    default: true
+    default: false
     controllerValue: k8s.io/external
   admissionWebhooks:
     objectSelector:

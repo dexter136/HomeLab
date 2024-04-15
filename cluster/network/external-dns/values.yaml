@@ -1,5 +1,6 @@
 provider: cloudflare
 txtOwnerId: homelab
+txtPrefix: k8s.
 env:
   - name: CF_API_TOKEN
     valueFrom:
@@ -7,10 +8,12 @@ env:
         name: cloudflare-api-token
         key: api-token
 extraArgs:
-  - --annotation-filter=external-dns.alpha.kubernetes.io/exclude notin (true)
+  - --ingress-class=external
+  - --cloudflare-proxied
+  - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+  - --crd-source-kind=DNSEndpoint
 interval: 5m
+sources: ["crd", "ingress"]
 triggerLoopOnEvent: true
-metrics:
+serviceMonitor:
   enabled: true
-  serviceMonitor:
-    enabled: true

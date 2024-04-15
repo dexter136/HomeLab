@@ -87,9 +87,7 @@ cilium:
           - &host hubble.dex136.xyz
         tls:
           - hosts: [*host]
-            secretName: hubble-tls
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-prod
           hajimari.io/enable: "true"
           hajimari.io/icon: "telescope"
           hajimari.io/appName: "Hubble"
