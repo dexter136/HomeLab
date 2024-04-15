@@ -9,3 +9,4 @@ helmCharts:
   namespace: network
 resources:
   - clusterissuer.yaml
+  - certificates.yaml
