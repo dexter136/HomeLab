@@ -44,6 +44,8 @@ spec:
       source:
         repoURL: {{ $.Values.git.repo }}
         path: '{{ `{{path}}` }}'
+        kustomize:
+          namespace: '{{ default `{{path.basename}}` $appset.namespace }}'
       syncPolicy:
         automated:
           prune: true
@@ -58,3 +60,4 @@ spec:
           - CreateNamespace=true
           - ServerSideApply=true
 {{- end }}
+{{- range $index, $namespace := .Values.namespaces }}
