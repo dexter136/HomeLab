@@ -51,7 +51,6 @@ app-template:
     external:
       className: external
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: external.dex136.xyz
         hajimari.io/enable: "true"
         hajimari.io/icon: "database-check-outline"
         external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
