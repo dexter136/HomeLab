@@ -60,4 +60,3 @@ spec:
           - CreateNamespace=true
           - ServerSideApply=true
 {{- end }}
-{{- range $index, $namespace := .Values.namespaces }}
