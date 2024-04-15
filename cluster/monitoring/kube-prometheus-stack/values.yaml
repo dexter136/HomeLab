@@ -71,7 +71,6 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: internal
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
         hajimari.io/icon: text-box-search
         hajimari.io/appName: "Prometheus"

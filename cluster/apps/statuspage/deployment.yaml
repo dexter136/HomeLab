@@ -40,12 +40,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     hajimari.io/enable: "true"
     hajimari.io/icon: bottle-tonic-plus
     hajimari.io/group: "monitoring"
+    external-dns.alpha.kubernetes.io/target: external.dex136.xyz
   name: statuspage
 spec:
   ingressClassName: external

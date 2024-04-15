@@ -181,7 +181,6 @@ grafana:
     enabled: true
     ingressClassName: internal
     annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
         hajimari.io/icon: chart-areaspline
         hajimari.io/appName: "Grafana"
