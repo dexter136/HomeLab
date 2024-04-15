@@ -1,19 +1,19 @@
 controller:
-  replicaCount: 3
+  replicaCount: 1
   service:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: internal.dex136.xyz
-      io.cilium/lb-ipam-ips: 192.168.1.240
+      external-dns.alpha.kubernetes.io/hostname: external.dex136.xyz
+      io.cilium/lb-ipam-ips: 192.168.1.243
   ingressClassResource:
-    name: internal
+    name: external
     default: true
-    controllerValue: k8s.io/internal
+    controllerValue: k8s.io/external
   admissionWebhooks:
     objectSelector:
       matchExpressions:
         - key: ingress-class
           operator: In
-          values: ["internal"]
+          values: ["external"]
   allowSnippetAnnotations: true
   config:
     block-user-agents: "GPTBot,~*GPTBot*,ChatGPT-User,~*ChatGPT-User*,Google-Extended,~*Google-Extended*,CCBot,~*CCBot*,Omgilibot,~*Omgilibot*,FacebookBot,~*FacebookBot*"
@@ -44,5 +44,5 @@ controller:
       labelSelector:
         matchLabels:
           app.kubernetes.io/name: ingress-nginx
-          app.kubernetes.io/instance: nginx-internal
+          app.kubernetes.io/instance: nginx-external
           app.kubernetes.io/component: controller
