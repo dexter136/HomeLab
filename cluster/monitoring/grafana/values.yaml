@@ -179,7 +179,7 @@ grafana:
     enabled: true
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: internal
     annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
@@ -189,7 +189,6 @@ grafana:
       - &host grafana.dex136.xyz
     tls:
       - hosts: [*host]
-        secretName: grafana-general-tls
   persistence:
     enabled: false
   testFramework:

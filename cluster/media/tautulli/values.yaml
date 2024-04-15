@@ -52,7 +52,7 @@
             port: *port
     ingress:
       app:
-        className: nginx
+        className: internal
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           hajimari.io/enable: "true"
@@ -66,7 +66,6 @@
                   port: http
         tls:
           - hosts: [*host]
-            secretName: tautulli-tls-certificate
     persistence:
       config:
         existingClaim: tautulli

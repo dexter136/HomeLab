@@ -49,9 +49,8 @@ app-template:
           port: *port
   ingress:
     external:
-      className: nginx
+      className: external
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
         external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         hajimari.io/enable: "true"
@@ -65,11 +64,9 @@ app-template:
                 port: http
       tls:
         - hosts: [*host]
-          secretName: overseerr-external-tls-certificate
     app:
-      className: nginx
+      className: internal
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
         hajimari.io/icon: "database-check"
       hosts:
@@ -81,7 +78,6 @@ app-template:
                 port: http
       tls:
         - hosts: [*host]
-          secretName: overseerr-tls-certificate
   persistence:
     config:
       existingClaim: overseerr
