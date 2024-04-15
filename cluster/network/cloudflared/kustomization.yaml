@@ -9,4 +9,5 @@ helmCharts:
   namespace: network
 generators:
   - ./secret-generator.yaml
-
+resources:
+  - dnsendpoint.yaml
