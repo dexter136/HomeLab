@@ -4,7 +4,7 @@ config:
   tunnel: homelab
   ingress:
     - hostname: '*.dex136.xyz'
-      service: https://ingress-nginx-controller.ingress-nginx
+      service: https://ingress-nginx-controller.network
       originRequest:
         noTLSVerify: true
     - service: http_status:404
