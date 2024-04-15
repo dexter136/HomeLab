@@ -50,7 +50,7 @@ coredns:
       effect: NoSchedule
   topologySpreadConstraints:
     - maxSkew: 1
-      topologyKey: kubernetes.io/target
+      topologyKey: kubernetes.io/hostname
       whenUnsatisfiable: DoNotSchedule
       labelSelector:
         matchLabels:

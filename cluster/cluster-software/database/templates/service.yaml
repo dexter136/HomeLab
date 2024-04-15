@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: postgres-lb
   annotations:
-    external-dns.alpha.kubernetes.io/target: postgres.dex136.xyz
+    external-dns.alpha.kubernetes.io/hostname: postgres.dex136.xyz
     io.cilium/lb-ipam-ips: 192.168.1.241
 spec:
   type: LoadBalancer
