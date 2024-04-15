@@ -13,7 +13,6 @@ env:
         name: pihole-password
         key: pihole-pass
 extraArgs:
-  - --annotation-filter=external-dns.alpha.kubernetes.io/exclude notin (true)
   - '--pihole-server=http://192.168.1.230:32500'
   - '--pihole-tls-skip-verify'
 interval: 5m
