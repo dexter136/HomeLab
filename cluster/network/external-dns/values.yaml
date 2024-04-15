@@ -1,5 +1,6 @@
 provider: cloudflare
 txtOwnerId: homelab
+txtPrefix: k8s.
 env:
   - name: CF_API_TOKEN
     valueFrom:
