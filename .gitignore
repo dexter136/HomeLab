@@ -8,3 +8,4 @@ generated_configs/
 KUBE_CONFIG
 TALOS_CONFIG
 *.agekey
+*.key
