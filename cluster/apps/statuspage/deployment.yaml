@@ -43,6 +43,7 @@ metadata:
     hajimari.io/enable: "true"
     hajimari.io/icon: bottle-tonic-plus
     hajimari.io/group: "monitoring"
+    external-dns.alpha.kubernetes.io/hostname: external.dex136.xyz
   name: statuspage
 spec:
   ingressClassName: external
