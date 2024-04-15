@@ -29,7 +29,7 @@ app-template:
           protocol: TCP
   ingress:
     app:
-      className: nginx
+      className: external
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
@@ -49,8 +49,7 @@ app-template:
                 identifier: app
                 port: http
       tls:
-        - secretName: kuma-tls-certificate
-          hosts: [*host]
+        - hosts: [*host]
   persistence:
     config:
       existingClaim: pvc-uptime-kuma

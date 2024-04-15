@@ -82,7 +82,7 @@ cilium:
       rollOutPods: true
       ingress:
         enabled: true
-        className: nginx
+        className: internal
         hosts:
           - &host hubble.dex136.xyz
         tls:

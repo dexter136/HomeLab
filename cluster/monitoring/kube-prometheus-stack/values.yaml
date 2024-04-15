@@ -69,7 +69,7 @@ kube-prometheus-stack:
                 storage: 80Gi
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: internal
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
@@ -78,8 +78,7 @@ kube-prometheus-stack:
       hosts:
         - &host prometheus.dex136.xyz
       tls:
-        - secretName: prometheus-general-tls
-          hosts:
+        - hosts:
             - *host
   alertmanager:
     config:
@@ -105,15 +104,13 @@ kube-prometheus-stack:
             continue: true
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: internal
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
         hajimari.io/icon: alert
         hajimari.io/appName: "Alert Manager"
       hosts:
         - &host alertmanager.dex136.xyz
       tls:
-        - secretName: alertmanager-general-tls
-          hosts:
+        - hosts:
             - *host

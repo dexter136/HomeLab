@@ -64,9 +64,8 @@ app-template:
           port: *port
   ingress:
     app:
-      className: nginx
+      className: internal
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
         hajimari.io/icon: "television"
       hosts:
@@ -78,7 +77,6 @@ app-template:
                 port: http
       tls:
         - hosts: [*host]
-          secretName: sonarr-tls-certificate
   persistence:
     config:
       existingClaim: sonarr

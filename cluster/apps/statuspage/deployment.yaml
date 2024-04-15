@@ -48,7 +48,7 @@ metadata:
     hajimari.io/group: "monitoring"
   name: statuspage
 spec:
-  ingressClassName: nginx
+  ingressClassName: external
   rules:
     - host: statuspage.dex136.xyz
       http:
@@ -61,6 +61,5 @@ spec:
             path: /
             pathType: Prefix
   tls:
-  - secretName: statuspage-general-tls
-    hosts:
+  - hosts:
       - statuspage.dex136.xyz

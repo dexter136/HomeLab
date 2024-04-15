@@ -5,7 +5,7 @@ longhorn:
     defaultClassReplicaCount: 2
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: internal
     host: longhorn.dex136.xyz
     tls: true
     annotations:

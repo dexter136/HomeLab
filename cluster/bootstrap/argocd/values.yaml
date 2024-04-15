@@ -20,7 +20,7 @@ argo-cd:
   server:
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: internal
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/enable: "true"
@@ -36,7 +36,7 @@ argo-cd:
     metrics: *metrics
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: internal
       hostname: "argocd-wh.dex136.xyz"
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
