@@ -2,23 +2,27 @@
 
 apply=false
 upgrade=false
-init=false
 cluster=false
 external=false
-while getopts "auice" arg; do
+generate=false
+while getopts "agucelo" arg; do
   case $arg in
     a) apply=true;;
+    g) generate=true;;
     u) upgrade=true;;
-    i) init=true;;
     c) cluster=true;;
     e) external=true;;
   esac
 done
 
+if $generate; then
+    ./scripts/generate_configs.sh
+fi
+
 if $external; then
     if $upgrade; then
         terraform -chdir="./terraform/cloudflare" init -upgrade
-    elif $init; then
+    else
         terraform -chdir="./terraform/cloudflare"
     fi
     if $apply; then
@@ -30,7 +34,7 @@ fi
 if $cluster; then
     if $upgrade; then
         terraform -chdir="./terraform/talos" init -upgrade
-    elif $init; then
+    else
         terraform -chdir="./terraform/talos" init
     fi
     if $apply; then
