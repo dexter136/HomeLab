@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dex136-xyz
+spec:
+  secretName: dex136-xyz-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: dex136.xyz
+  dnsNames:
+    - dex136.xyz
+    - "*.dex136.xyz"
