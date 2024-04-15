@@ -6,6 +6,10 @@ creation_rules:
     key_groups:
       - age:
           - age15j6twvva426zpeacwhpmvnfp90v9pctluluxx4v6aldpczulgfqszafkq5
+  - path_regex: tfvars\.json
+    key_groups:
+      - age:
+          - age15j6twvva426zpeacwhpmvnfp90v9pctluluxx4v6aldpczulgfqszafkq5
 stores:
   yaml:
     indent: 2
