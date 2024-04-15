@@ -1,9 +1,0 @@
-{{- range $index, $namespace := .Values.namespaces }}
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ $namespace.name }}
-  labels:
-    {{- toYaml $namespace.labels | nindent 4 }}
-{{- end}}
