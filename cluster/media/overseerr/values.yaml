@@ -51,8 +51,6 @@ app-template:
     external:
       className: external
       annotations:
-        external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
         hajimari.io/enable: "true"
         hajimari.io/icon: "database-check-outline"
       hosts:

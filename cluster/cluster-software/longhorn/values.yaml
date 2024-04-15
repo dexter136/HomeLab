@@ -9,7 +9,6 @@ longhorn:
     host: longhorn.dex136.xyz
     tls: true
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
       hajimari.io/enable: "true"
       hajimari.io/icon: "bugle"
       hajimari.io/appName: "Longhorn"

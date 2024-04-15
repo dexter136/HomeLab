@@ -50,10 +50,6 @@ ingress:
   main:
     enabled: true
     ingressClassName: external
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
-      external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     hosts:
       - host: &host home.dex136.xyz
         paths:
