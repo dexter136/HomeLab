@@ -3,31 +3,29 @@ git:
   revision: main
 applications:
   - name: apps
-    projectName: apps
     namespace: default
+    noCreateNamespace: true
   - name: bootstrap
     namespace: argocd
     projectName: argocd
   - name: cluster-software
     projectName: system
   - name: media
-    projectName: media
     namespace: media
   - name: monitoring
-    projectName: monitoring
     namespace: monitoring
-  - name: kube-system
-    namespace: kube-system
-    projectName: kube-system
-  - name: network
-    namespace: network
-    projectname: network
-namespaces:
-  - name: monitoring
     labels:
       pod-security.kubernetes.io/audit: privileged
       pod-security.kubernetes.io/enforce: privileged
       pod-security.kubernetes.io/warn: privileged
+  - name: kube-system
+    namespace: kube-system
+    noCreateNamespace: true
+  - name: network
+    namespace: network
+namespaces:
   - name: longhorn
     labels:
       pod-security.kubernetes.io/enforce: privileged
+  - name: database
+  - name: external-secrets
