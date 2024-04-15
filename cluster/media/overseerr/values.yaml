@@ -53,6 +53,7 @@ app-template:
       annotations:
         hajimari.io/enable: "true"
         hajimari.io/icon: "database-check-outline"
+        external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
       hosts:
         - host: &host overseerr.dex136.xyz
           paths:
@@ -67,6 +68,7 @@ app-template:
       annotations:
         hajimari.io/enable: "true"
         hajimari.io/icon: "database-check"
+        external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
       hosts:
         - host: &host requests.dex136.xyz
           paths:

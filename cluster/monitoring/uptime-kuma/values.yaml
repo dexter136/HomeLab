@@ -34,6 +34,7 @@ app-template:
         hajimari.io/enable: "true"
         hajimari.io/icon: heart
         hajimari.io/group: "system"
+        external-dns.alpha.kubernetes.io/target: "homelab-tunnel.dex136.xyz"
         nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/uptime-kuma/dark.css"></head>';
