@@ -25,6 +25,8 @@ metadata:
   name: {{ $appset.name }}
   namespace: {{ $.Release.Namespace }}
 spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
   generators:
     - git:
         repoURL: {{ $.Values.git.repo }}
@@ -46,7 +48,7 @@ spec:
         path: '{{ `{{path}}` }}'
       syncPolicy:
         automated:
-          prune: true
+          prune: false
           selfHeal: true
         retry:
           limit: 10
