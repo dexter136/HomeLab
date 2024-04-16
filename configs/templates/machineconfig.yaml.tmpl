@@ -68,6 +68,10 @@ cluster:
   network:
     cni:
       name: "none"
+    podSubnets:
+      - 10.42.0.0/16
+    serviceSubnets:
+      - 10.43.0.0/16
   discovery:
     enabled: true
     registries:
