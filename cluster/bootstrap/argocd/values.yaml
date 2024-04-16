@@ -53,8 +53,6 @@ argo-cd:
     env:
       - name: SOPS_AGE_KEY_FILE
         value: /.config/sops/age/keys.txt
-      - name: XDG_CONFIG_HOME
-        value: /.config
     volumes:
       - name: sops-age
         secret:
