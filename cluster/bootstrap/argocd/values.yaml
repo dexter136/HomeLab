@@ -17,6 +17,21 @@ argo-cd:
         - /data/tls.crt
         - /data/tls.key
         - /data/ca.crt
+      resource.customizations.health.postgresql.cnpg.io_Cluster: |
+        hs = {}
+        if obj.status ~= nil then
+          hs.message = obj.status.phase
+          if obj.status.instances > obj.status.readyInstances then
+            hs.status = "Progressing"
+          end
+          if obj.status.instances == obj.status.readyInstances then
+            hs.status = "Healthy"
+          end
+          return hs
+        end
+        hs.status = "Progressing"
+        hs.message = "Waiting for healthy state"
+        return hs
   server:
     ingress:
       enabled: true
