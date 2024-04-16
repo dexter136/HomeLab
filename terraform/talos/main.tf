@@ -39,6 +39,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
   node                        = each.key
+  apply_mode                  = var.apply_mode
   config_patches              = [file("${local.config_directory}/${each.value}.yaml")]
 }
 
@@ -47,6 +48,7 @@ resource "talos_machine_configuration_apply" "worker" {
   client_configuration        = talos_machine_secrets.cluster.client_configuration
   machine_configuration_input = data.talos_machine_configuration.worker.machine_configuration
   node                        = each.key
+  apply_mode                  = var.apply_mode
   config_patches              = [file("${local.config_directory}/${each.value}.yaml")]
 }
 

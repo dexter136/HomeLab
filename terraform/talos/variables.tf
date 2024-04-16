@@ -21,3 +21,8 @@ variable "kubernetes_version" {
 variable "talos_version" {
   type = string
 }
+
+variable "apply_mode" {
+  type    = string
+  default = "staged"
+}
