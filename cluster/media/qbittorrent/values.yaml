@@ -24,6 +24,10 @@ app-template:
                 fieldRef:
                   fieldPath: status.podIP
             QBT_BitTorrent__Session__InterfaceName: eth0
+            QBT_BitTorrent__Session__DefaultSavePath: "/torrents/Completed"
+            QBT_BitTorrent__Session__TorrentExportDirectory: "/torrents/Files"
+            QBT_BitTorrent__Session__TempPath: "/torrents/downloading"
+            QBT_BitTorrent__Session__TempPathEnabled: true
           probes:
             liveness: &probes
               enabled: true
