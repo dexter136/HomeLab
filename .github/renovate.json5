@@ -32,7 +32,7 @@
   "kubernetes": {
     "fileMatch": [
       "(^|/)\\.taskfiles/.+\\.ya?ml(?:\\.j2)?$",
-      "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
+      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
     ]
   }
 }

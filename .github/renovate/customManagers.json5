@@ -5,9 +5,7 @@
       "customType": "regex",
       "description": ["Process custom dependencies"],
       "fileMatch": [
-        "(^|/).taskfiles/.+\\.ya?ml(?:\\.j2)?$",
-        "(^|/)ansible/.+\\.ya?ml(?:\\.j2)?$",
-        "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
+        "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
       ],
       "matchStrings": [
         // # renovate: datasource=github-releases depName=k3s-io/k3s
@@ -25,7 +23,7 @@
       "customType": "regex",
       "description": ["Process CloudnativePG Postgresql version"],
       "fileMatch": [
-        "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
+        "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
       ],
       "matchStrings": [
         "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
