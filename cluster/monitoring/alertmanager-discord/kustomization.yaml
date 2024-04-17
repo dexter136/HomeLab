@@ -5,8 +5,7 @@ helmCharts:
   repo: https://bjw-s.github.io/helm-charts
   version: 3.1.0
   releaseName: alertmanager-discord
-  valuesFile: values.yaml
+  valuesFile: helmvalues.yaml
   namespace: monitoring
 generators:
-- ./secret-generator.yaml
-
+- ./secretgenerator.yaml
