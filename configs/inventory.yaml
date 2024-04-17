@@ -27,3 +27,4 @@ talos_factory_key: cc169ba41a8764e704b81d10b4319b2f2f0b530810ea3e881e0a3a5597213
 cluster_name: aisling-homelab
 controlplane_proxy_hostname: kube.dex136.xyz
 controlplane_proxy_ip: 192.168.1.230
+cluster_virtual_ip: 192.168.1.239
