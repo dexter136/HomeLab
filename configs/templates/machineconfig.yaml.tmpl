@@ -95,12 +95,20 @@ cluster:
     - {{ (ds "inventory").cluster_virtual_ip }}
     - 127.0.0.1
     disablePodSecurityPolicy: true
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
   proxy:
+    image: registry.k8s.io/kube-proxy:{{ (ds "inventory").kubernetes_version }}
     disabled: true
   controllerManager:
+    image: registry.k8s.io/kube-controller-manager:{{ (ds "inventory").kubernetes_version }}
     extraArgs:
       bind-address: "0.0.0.0"
   scheduler:
+    image: registry.k8s.io/kube-scheduler:{{ (ds "inventory").kubernetes_version }}
     extraArgs:
       bind-address: "0.0.0.0"
   etcd:
