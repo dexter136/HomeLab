@@ -32,6 +32,18 @@ machine:
         {{- end }}
     hostname: {{ .node.name }}
   features:
+    rbac: true
+    stableHostname: true
+    {{- if eq .node.type "controlplane" }}
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - system-upgrade
+    {{- end }}
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
     kubePrism:
       enabled: true
       port: 7445
@@ -80,9 +92,9 @@ cluster:
     enabled: true
     registries:
         kubernetes:
-            disabled: false
+          disabled: false
         service:
-            disabled: false
+          disabled: false
   coreDNS:
     disabled: true
   {{- if eq .node.type "controlplane" }}
