@@ -1,0 +1,93 @@
+controllers:
+  overseerr:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      app:
+        image:
+          repository: ghcr.io/sct/overseerr
+          tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
+        env:
+          TZ: America/New_York
+          LOG_LEVEL: "info"
+          PORT: &port 80
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/v1/status
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 1Gi
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+service:
+  app:
+    controller: overseerr
+    ports:
+      http:
+        port: *port
+ingress:
+  external:
+    className: external
+    annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "database-check-outline"
+      external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
+    hosts:
+      - host: &host overseerr.dex136.xyz
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts: [*host]
+  app:
+    className: internal
+    annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "database-check"
+    hosts:
+      - host: &host requests.dex136.xyz
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts: [*host]
+persistence:
+  config:
+    existingClaim: overseerr
+    globalMounts:
+      - path: /app/config
+  cache:
+    existingClaim: overseerr-cache
+    globalMounts:
+      - path: /app/config/cache
+  logs:
+    type: emptyDir
+    globalMounts:
+      - path: /app/config/logs
+  tmp:
+    type: emptyDir

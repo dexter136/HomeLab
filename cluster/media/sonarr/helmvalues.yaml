@@ -1,0 +1,101 @@
+controllers:
+  sonarr:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    initContainers:
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16
+        envFrom: &envFrom
+          - secretRef:
+              name: sonarr-secret
+    containers:
+      app:
+        image:
+          repository: ghcr.io/onedr0p/sonarr
+          tag: 4.0.4
+        env:
+          PUSHOVER_DEBUG: "false"
+          SONARR__AUTHENTICATION_METHOD: External
+          SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+          SONARR__INSTANCE_NAME: Sonarr
+          SONARR__PORT: &port 80
+          SONARR__LOG_LEVEL: info
+          SONARR__THEME: dark
+          TZ: America/New_York
+        envFrom: *envFrom
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 10
+              periodSeconds: 60
+              timeoutSeconds: 5
+              failureThreshold: 3
+          readiness: *probes
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 1Gi
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+service:
+  app:
+    controller: sonarr
+    ports:
+      http:
+        port: *port
+ingress:
+  app:
+    className: internal
+    annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "television"
+    hosts:
+      - host: &host "sonarr.dex136.xyz"
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts: [*host]
+persistence:
+  config:
+    existingClaim: sonarr
+  tmp:
+    type: emptyDir
+  media:
+    type: nfs
+    server: 192.168.1.8
+    path: /volume1/MediaLibrary/
+    globalMounts:
+      - path: /media
+  complete:
+    type: nfs
+    path: /volume1/Torrents
+    server: 192.168.1.8
+    globalMounts:
+      - path: /torrents
+  backup:
+    type: nfs
+    path: /volume1/GeneralStorage/Backup/sonarr
+    server: 192.168.1.8
+    globalMounts:
+      - path: /Backups
