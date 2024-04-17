@@ -16,7 +16,7 @@ worker = {
 }
 
 cluster_name       = "{{ ( datasource "inventory").cluster_name }}"
-cluster_endpoint   = "https://{{ (datasource "inventory").controlplane_proxy_hostname }}:6443"
+cluster_endpoint   = "https://{{ (datasource "inventory").cluster_virtual_ip }}:6443"
 kubernetes_version = "{{ (datasource "inventory").kubernetes_version }}"
 talos_version      = "{{ (datasource "inventory").talos_version }}"
 {{ end -}}

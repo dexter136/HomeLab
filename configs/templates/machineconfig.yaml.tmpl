@@ -26,6 +26,10 @@ machine:
           - network: 0.0.0.0/0
             gateway: 192.168.1.1
         dhcp: true
+        {{- if eq .node.type "controlplane" }}
+        vip:
+          ip: {{ (ds "inventory").cluster_virtual_ip }}
+        {{- end }}
     hostname: {{ .node.name }}
   features:
     kubePrism:
@@ -87,8 +91,9 @@ cluster:
   apiServer:
     certSANs:
     - "{{ (ds "inventory").controlplane_proxy_hostname }}"
-    - "{{ (ds "inventory").controlplane_proxy_ip }}"
-    - "127.0.0.1"
+    - {{ (ds "inventory").controlplane_proxy_ip }}
+    - {{ (ds "inventory").cluster_virtual_ip }}
+    - 127.0.0.1
     disablePodSecurityPolicy: true
   proxy:
     disabled: true
