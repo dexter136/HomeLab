@@ -18,7 +18,6 @@ extraArgs:
 interval: 5m
 triggerLoopOnEvent: true
 sources: ["ingress"]
-metrics:
+serviceMonitor:
   enabled: true
-  serviceMonitor:
-    enabled: true
+

@@ -5,7 +5,7 @@ helmCharts:
   repo: https://charts.jetstack.io
   version: v1.14.4
   releaseName: cert-manager
-  valuesFile: values.yaml
+  valuesFile: helmvalues.yaml
   namespace: network
 resources:
   - clusterissuer.yaml
