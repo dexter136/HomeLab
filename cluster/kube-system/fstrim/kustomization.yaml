@@ -5,5 +5,5 @@ helmCharts:
   repo: https://bjw-s.github.io/helm-charts
   version: 3.1.0
   releaseName: fstrim
-  valuesFile: values.yaml
+  valuesFile: helmvalues.yaml
   namespace: kube-system
