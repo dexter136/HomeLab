@@ -7,6 +7,8 @@ helmCharts:
   releaseName: ingress-nginx
   valuesFile: helmvalues-internal.yaml
   namespace: network
+  apiVersions:
+    - monitoring.coreos.com/v1
 - name: ingress-nginx
   includeCRDs: false
   repo: https://kubernetes.github.io/ingress-nginx
@@ -14,3 +16,5 @@ helmCharts:
   releaseName: ingress-nginx-external
   valuesFile: helmvalues-external.yaml
   namespace: network
+  apiVersions:
+    - monitoring.coreos.com/v1

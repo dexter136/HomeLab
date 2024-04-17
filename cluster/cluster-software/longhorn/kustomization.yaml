@@ -7,4 +7,5 @@ helmCharts:
   releaseName: longhorn
   valuesFile: helmvalues.yaml
   namespace: longhorn
-
+  apiVersions:
+    - monitoring.coreos.com/v1
