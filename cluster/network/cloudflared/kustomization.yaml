@@ -5,9 +5,9 @@ helmCharts:
   repo: https://khuedoan.github.io/charts
   version: 0.4.3
   releaseName: cloudflared
-  valuesFile: values.yaml
+  valuesFile: helmvalues.yaml
   namespace: network
 generators:
-  - ./secret-generator.yaml
+  - ./secretgenerator.yaml
 resources:
   - dnsendpoint.yaml
