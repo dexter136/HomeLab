@@ -3,15 +3,12 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
-    "replacements:k8s-registry-move",
-    ":automergeBranch",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
     ":skipStatusChecks",
     ":timezone(America/New_York)",
     "github>dexter136/HomeLab//.github/renovate/allowedVersions.json5",
-    "github>dexter136/HomeLab//.github/renovate/autoMerge.json5",
     "github>dexter136/HomeLab//.github/renovate/commitMessage.json5",
     "github>dexter136/HomeLab//.github/renovate/customManagers.json5",
     "github>dexter136/HomeLab//.github/renovate/grafanaDashboards.json5",
@@ -29,6 +26,11 @@
       "enabled": false
     }
   ],
+  "helm-values": {
+    "fileMatch": [
+      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  },
   "kubernetes": {
     "fileMatch": [
       "(^|/)\\.taskfiles/.+\\.ya?ml(?:\\.j2)?$",
