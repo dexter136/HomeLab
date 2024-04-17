@@ -7,5 +7,7 @@ helmCharts:
   releaseName: argocd
   valuesFile: helmvalues.yaml
   namespace: argocd
+  apiVersions:
+    - monitoring.coreos.com/v1
 generators:
 - ./secretgenerator.yaml
