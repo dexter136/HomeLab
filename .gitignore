@@ -10,3 +10,4 @@ TALOS_CONFIG
 *.agekey
 *.key
 .tool-versions
+charts/
