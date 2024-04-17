@@ -122,6 +122,12 @@ grafana:
         revision: 1
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
+      pihole:
+        # renovate: depName="pi-hole-exporter"
+        gnetId: 10176
+        revision: 3
+        datasource:
+          - { name: DS_PROMETHEUS, value: Prometheus }
       cert-manager:
         url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
         datasource: Prometheus
