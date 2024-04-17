@@ -20,7 +20,7 @@ nodes:
     name: worker-0
     type: worker
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetes_version: v1.29.2
+kubernetes_version: v1.29.4
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talos_version: v1.6.7
 talos_factory_key: cc169ba41a8764e704b81d10b4319b2f2f0b530810ea3e881e0a3a5597213ce0
