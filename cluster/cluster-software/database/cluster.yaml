@@ -34,3 +34,42 @@ spec:
     podMonitorMetricRelabelings:
       - { sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace }
       - { regex: cluster, action: labeldrop }
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: database
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secrets
+  target:
+    name: cloudnative-pg-secret
+    template:
+      engineVersion: v2
+      data:
+        password: '{{ .PG_PASSWORD }}'
+        username: "postgres"
+  data:
+    - secretKey: PG_PASSWORD
+      remoteRef:
+        key: pg
+        property: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-lb
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: postgres.dex136.xyz
+    io.cilium/lb-ipam-ips: 192.168.1.241
+spec:
+  type: LoadBalancer
+  ports:
+    - name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    cnpg.io/cluster: postgres16
+    role: primary
