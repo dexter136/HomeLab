@@ -4,10 +4,8 @@ helmCharts:
 - name: app-template
   repo: https://bjw-s.github.io/helm-charts
   version: 3.1.0
-  releaseName: pihole-monitor
+  releaseName: uptime-kuma
   valuesFile: helmvalues.yaml
   namespace: monitoring
-generators:
-- ./secretgenerator.yaml
 resources:
-- scrapeconfig.yaml
+  - pvc.yaml

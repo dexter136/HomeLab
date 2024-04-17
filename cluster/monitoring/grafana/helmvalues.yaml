@@ -1,0 +1,220 @@
+extraInitContainers:
+  - name: 01-init-db
+    image: ghcr.io/onedr0p/postgres-init:16
+    envFrom:
+      - secretRef:
+          name: &secret grafana-secret
+replicas: 1
+env:
+  GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+  GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+  GF_EXPLORE_ENABLED: true
+  GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+  GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+  GF_SERVER_ROOT_URL: https://grafana.dex136.xyz
+  GF_SECURITY_COOKIE_SAMESITE: grafana
+envFromSecrets:
+  - name: *secret
+grafana.ini:
+  analytics:
+    check_for_updates: false
+    check_for_plugin_updates: false
+    reporting_enabled: false
+  news:
+    news_feed_enabled: false
+admin:
+  existingSecret: grafana-admin
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default-folder
+      - name: kubernetes
+        orgId: 1
+        folder: Kubernetes
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/kubernetes-folder
+      - name: nginx
+        orgId: 1
+        folder: Nginx
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/nginx-folder
+      - name: prometheus
+        orgId: 1
+        folder: Prometheus
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/prometheus-folder
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    deleteDatasources:
+      - { name: Alertmanager, orgId: 1 }
+      - { name: Loki, orgId: 1 }
+      - { name: Prometheus, orgId: 1 }
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        uid: prometheus
+        access: proxy
+        url: http://kube-prometheus-stack-prometheus.monitoring:9090/
+        isDefault: true
+        jsonData:
+          httpMethod: POST
+          timeInterval: 1m
+      - name: Alertmanager
+        type: alertmanager
+        uid: alertmanager
+        url: http://kube-prometheus-stack-alertmanager.monitoring:9093/
+        access: proxy
+        jsonData:
+          handleGrafanaManagedAlerts: false
+          implementation: prometheus
+      - name: Loki
+        type: loki
+        url: http://loki.monitoring:3100
+dashboards:
+  default:
+    argocd:
+      gnetId: 14584
+      revision: 1
+      datasource: Prometheus
+    longhorn:
+      gnetId: 13032
+      revision: 6
+      datasource: Prometheus
+    cloudflared:
+      # renovate: depName="Cloudflare Tunnels (cloudflared)"
+      gnetId: 17457
+      revision: 6
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    external-dns:
+      # renovate: depName="External-dns"
+      gnetId: 15038
+      revision: 3
+      datasource: Prometheus
+    unpackerr:
+      # renovate: depName="Unpackerr"
+      gnetId: 18817
+      revision: 1
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    spegel:
+      # renovate: depName="Spegel"
+      gnetId: 18089
+      revision: 1
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    pihole:
+      # renovate: depName="pi-hole-exporter"
+      gnetId: 10176
+      revision: 3
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    cert-manager:
+      url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+      datasource: Prometheus
+    external-secrets:
+      url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
+      datasource: Prometheus
+  kubernetes:
+    kubernetes-api-server:
+      # renovate: depName="Kubernetes / System / API Server"
+      gnetId: 15761
+      revision: 16
+      datasource: Prometheus
+    kubernetes-coredns:
+      # renovate: depName="Kubernetes / System / CoreDNS"
+      gnetId: 15762
+      revision: 17
+      datasource: Prometheus
+    kubernetes-global:
+      # renovate: depName="Kubernetes / Views / Global"
+      gnetId: 15757
+      revision: 37
+      datasource: Prometheus
+    kubernetes-namespaces:
+      # renovate: depName="Kubernetes / Views / Namespaces"
+      gnetId: 15758
+      revision: 34
+      datasource: Prometheus
+    kubernetes-nodes:
+      # renovate: depName="Kubernetes / Views / Nodes"
+      gnetId: 15759
+      revision: 29
+      datasource: Prometheus
+    kubernetes-pods:
+      # renovate: depName="Kubernetes / Views / Pods"
+      gNetId: 15760
+      revision: 21
+      datasource: Prometheus
+    kubernetes-volumes:
+      # renovate: depName="K8s / Storage / Volumes / Cluster"
+      gnetId: 11454
+      revision: 14
+      datasource: Prometheus
+  nginx:
+    nginx:
+      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+      datasource: Prometheus
+    nginx-request-handling-performance:
+      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+      datasource: Prometheus
+  prometheus:
+    prometheus:
+      # renovate: depName="Prometheus"
+      gnetId: 19105
+      revision: 3
+      datasource: Prometheus
+plugins:
+  - grafana-clock-panel
+  - grafana-piechart-panel
+  - grafana-worldmap-panel
+  - natel-discrete-panel
+  - pr0ps-trackmap-panel
+  - vonage-status-panel
+serviceMonitor:
+  enabled: true
+ingress:
+  enabled: true
+  ingressClassName: internal
+  annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/icon: chart-areaspline
+      hajimari.io/appName: "Grafana"
+  hosts:
+    - &host grafana.dex136.xyz
+  tls:
+    - hosts: [*host]
+persistence:
+  enabled: false
+testFramework:
+  enabled: false
+sidecar:
+  dashboards:
+    enabled: true
+    searchNamespace: ALL
+    labelValue: ""
+    label: grafana_dashboard
+    folderAnnotation: grafana_folder
+    provider:
+      disableDelete: true
+      foldersFromFilesStructure: true
+  datasources:
+    enabled: false
