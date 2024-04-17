@@ -7,6 +7,8 @@ helmCharts:
   releaseName: external-secrets
   valuesFile: helmvalues.yaml
   namespace: external-secrets
+  apiVersions:
+    - monitoring.coreos.com/v1
 resources:
   - clustersecretstore.yaml
 generators:

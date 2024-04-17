@@ -7,3 +7,5 @@ helmCharts:
   releaseName: loki
   valuesFile: helmvalues.yaml
   namespace: monitoring
+  apiVersions:
+    - monitoring.coreos.com/v1

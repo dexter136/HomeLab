@@ -20,4 +20,3 @@ triggerLoopOnEvent: true
 sources: ["ingress"]
 serviceMonitor:
   enabled: true
-
