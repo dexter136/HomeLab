@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   loadBalancerIPs: true
-  interfaces: ["^eno.*"]
+  interfaces: ["^en.*"]
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux
