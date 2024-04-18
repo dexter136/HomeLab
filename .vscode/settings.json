@@ -37,6 +37,7 @@
         ".github/workflows": "robot",
         // namespaces
         "actions-runner-system": "github",
+        "bootstrap": "Ci",
         "cert-manager": "guard",
         "default": "home",
         "digester-system": "hook",
@@ -44,6 +45,7 @@
         "argocd": "pipe",
         "kube-system": "kubernetes",
         "monitoring": "event",
+        "media": "television",
         "network": "connection",
         "networking": "connection",
         "observability": "event",
