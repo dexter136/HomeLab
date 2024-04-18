@@ -7,7 +7,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  instances: 4
+  instances: 5
   imageName: ghcr.io/cloudnative-pg/postgresql:16.2-13
   primaryUpdateStrategy: unsupervised
   storage:
@@ -32,8 +32,8 @@ spec:
     enablePodMonitor: true
     # Ref: https://github.com/cloudnative-pg/cloudnative-pg/issues/2501
     podMonitorMetricRelabelings:
-      - { sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace }
-      - { regex: cluster, action: labeldrop }
+      - {sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace}
+      - {regex: cluster, action: labeldrop}
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
