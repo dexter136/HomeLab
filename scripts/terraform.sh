@@ -5,13 +5,15 @@ upgrade=false
 cluster=false
 external=false
 generate=false
-while getopts "agucelo" arg; do
+apply_mode=""
+while getopts "agucem:" arg; do
   case $arg in
     a) apply=true;;
     g) generate=true;;
     u) upgrade=true;;
     c) cluster=true;;
     e) external=true;;
+    m) apply_mode="-var=apply_mode=${OPTARG}"
   esac
 done
 
@@ -38,8 +40,8 @@ if $cluster; then
         terraform -chdir="./terraform/talos" init
     fi
     if $apply; then
-        terraform -chdir="./terraform/talos" apply -var-file=../../configs/generated_configs/cluster-build.tfvars -auto-approve
+        terraform -chdir="./terraform/talos" apply -var-file=../../configs/generated_configs/cluster-build.tfvars $apply_mode -auto-approve
     else
-        terraform -chdir="./terraform/talos" plan -var-file=../../configs/generated_configs/cluster-build.tfvars -no-color
+        terraform -chdir="./terraform/talos" plan -var-file=../../configs/generated_configs/cluster-build.tfvars $apply_mode
     fi
 fi
