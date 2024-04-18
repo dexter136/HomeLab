@@ -25,7 +25,7 @@ if $external; then
     if $upgrade; then
         terraform -chdir="./terraform/cloudflare" init -upgrade
     else
-        terraform -chdir="./terraform/cloudflare"
+        terraform -chdir="./terraform/cloudflare" init
     fi
     if $apply; then
         terraform -chdir="./terraform/cloudflare" apply -var-file=../../configs/generated_configs/external.tfvars.json -auto-approve
