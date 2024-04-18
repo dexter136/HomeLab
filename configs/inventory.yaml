@@ -19,6 +19,11 @@ nodes:
     interface: eno1
     name: worker-0
     type: worker
+  - ip: 192.168.1.235
+    disk: /dev/nvme0n1
+    interface: enp2s0
+    name: worker-1
+    type: worker
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetes_version: v1.29.4
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
