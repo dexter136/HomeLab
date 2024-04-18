@@ -14,7 +14,7 @@ cluster:
   name: main
 containerRuntime:
   integration: containerd
-devices: eno+
+devices: en+
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
