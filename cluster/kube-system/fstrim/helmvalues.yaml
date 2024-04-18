@@ -3,7 +3,7 @@ controllers:
     type: cronjob
     cronjob:
       schedule: "@weekly"
-      parallelism: 4 # Set to my total number of nodes
+      parallelism: 5 # Set to my total number of nodes
       successfulJobsHistory: 1
       failedJobsHistory: 1
     containers:
