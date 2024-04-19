@@ -12,7 +12,7 @@ resource "talos_machine_secrets" "cluster" {
 data "talos_machine_configuration" "controlplane" {
   cluster_name       = var.cluster_name
   machine_type       = "controlplane"
-  cluster_endpoint   = var.cluster_endpoint
+  cluster_endpoint   = "https://${var.cluster_endpoint}:6443"
   machine_secrets    = talos_machine_secrets.cluster.machine_secrets
   talos_version      = var.talos_version
   kubernetes_version = var.kubernetes_version
@@ -21,7 +21,7 @@ data "talos_machine_configuration" "controlplane" {
 data "talos_machine_configuration" "worker" {
   cluster_name       = var.cluster_name
   machine_type       = "worker"
-  cluster_endpoint   = var.cluster_endpoint
+  cluster_endpoint   = "https://${var.cluster_endpoint}:6443"
   machine_secrets    = talos_machine_secrets.cluster.machine_secrets
   talos_version      = var.talos_version
   kubernetes_version = var.kubernetes_version
@@ -31,7 +31,7 @@ data "talos_client_configuration" "cluster" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.cluster.client_configuration
   nodes                = local.nodes
-  endpoints            = [local.nodes[0]]
+  endpoints            = [var.cluster_endpoint]
 }
 
 resource "talos_machine_configuration_apply" "controlplane" {
@@ -65,6 +65,7 @@ data "talos_cluster_kubeconfig" "cluster" {
     talos_machine_bootstrap.cluster
   ]
   client_configuration = talos_machine_secrets.cluster.client_configuration
+  endpoint             = var.cluster_endpoint
   node                 = local.nodes[0]
 }
 

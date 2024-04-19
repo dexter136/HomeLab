@@ -19,7 +19,7 @@ variable "kubernetes_version" {
 }
 
 variable "pinned_talos_version" {
-  type = string
+  type    = string
   default = "v1.6.7"
 }
 
