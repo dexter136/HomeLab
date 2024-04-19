@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: poddown
-            image: ghcr.io/dexter136/podcastdownloader:0.2
+            image: ghcr.io/dexter136/podcastdownloader:0.3
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - name: podcasts
