@@ -12,7 +12,7 @@ echo "Starting cnpg maintenance"
 kubectl cnpg maintenance set postgres --reusePVC -n database
 
 for node in "${nodeIPs[@]}"; do
-    echo "Upgrading Talos on node '${node}'"
+    echo "Upgrading Talos on node ${node} to talos version ${talos}."
     talosctl --nodes $node upgrade \
         --image="factory.talos.dev/installer/${factory}:${talos}" \
         --wait=true --timeout=10m --preserve=true
