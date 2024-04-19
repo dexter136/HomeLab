@@ -6,7 +6,7 @@ locals {
 }
 
 resource "talos_machine_secrets" "cluster" {
-  talos_version = var.talos_version
+  talos_version = var.pinned_talos_version
 }
 
 data "talos_machine_configuration" "controlplane" {
