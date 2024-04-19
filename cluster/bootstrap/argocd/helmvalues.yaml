@@ -63,6 +63,7 @@ repoServer:
   metrics: *metrics
   image:
     repository: ghcr.io/dexter136/argocd-sops
+    tag: v2.10.7-m1
   env:
     - name: SOPS_AGE_KEY_FILE
       value: /.config/sops/age/keys.txt
