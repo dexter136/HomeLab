@@ -6,6 +6,7 @@ machine:
     extraKernelArgs:
       - mitigations=off
   kubelet:
+    image: ghcr.io/siderolabs/kubelet:{{ (ds "inventory").kubernetes_version }}
     extraMounts:
       - destination: /var/lib/longhorn
         type: bind
