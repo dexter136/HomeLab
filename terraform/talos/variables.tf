@@ -20,6 +20,7 @@ variable "kubernetes_version" {
 
 variable "talos_version" {
   type = string
+  default = "v1.6.7"
 }
 
 variable "apply_mode" {
