@@ -86,7 +86,7 @@ ingress:
       - hosts: [*host]
 persistence:
   config:
-    existingClaim: qbittorrent
+    type: emptyDir
   media:
     type: nfs
     server: 192.168.1.8
