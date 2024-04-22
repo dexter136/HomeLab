@@ -7,4 +7,9 @@ helmCharts:
   releaseName: rook-ceph-operator
   valuesFile: operator-helmvalues.yaml
   namespace: rook-ceph
-
+- name: rook-ceph-cluster
+  repo: https://charts.rook.io/release
+  version: v1.14.2
+  releaseName: rook-ceph-cluster
+  valuesFile: cluster-helmvalues.yaml
+  namespace: rook-ceph
