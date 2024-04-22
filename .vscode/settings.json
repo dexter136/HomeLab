@@ -50,6 +50,7 @@
         "networking": "connection",
         "observability": "event",
         "longhorn": "dump",
+        "rook-ceph": "dump",
         "scripts": "tools",
     },
     "sops.defaults.ageKeyFile": "age.key",

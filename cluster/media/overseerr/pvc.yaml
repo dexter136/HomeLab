@@ -5,11 +5,11 @@ metadata:
   name: overseerr
 spec:
   accessModes:
-    - "ReadWriteOnce"
-  storageClassName: "longhorn"
+    - ReadWriteOnce
+  storageClassName: ceph-block
   resources:
     requests:
-      storage: "1Gi"
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -17,8 +17,8 @@ metadata:
   name: overseerr-cache
 spec:
   accessModes:
-    - "ReadWriteOnce"
-  storageClassName: "longhorn"
+    - ReadWriteOnce
+  storageClassName: ceph-block
   resources:
     requests:
-      storage: "1Gi"
+      storage: 5Gi
