@@ -30,3 +30,5 @@ namespaces:
   - name: database
   - name: external-secrets
   - name: rook-ceph
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
