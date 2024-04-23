@@ -66,8 +66,9 @@ app-template:
           scrapeTimeout: 10s
   ingress:
     app:
-      className: internal
+      className: nginx
       annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
         hajimari.io/icon: "pail"
         hajimari.io/enable: "true"
         hajimari.io/group: "system"
@@ -80,11 +81,17 @@ app-template:
                 port: http
       tls:
         - hosts: [*console-host]
+          secretName: minio-tls-certificate
     s3:
-      className: external
+      className: nginx
       annotations:
         hajimari.io/enable: "false"
-        external-dns.alpha.kubernetes.io/target: external.dex136.xyz
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+        nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          chunked_transfer_encoding off;
       hosts:
         - host: &api-host s3.dex136.xyz
           paths:
@@ -94,6 +101,7 @@ app-template:
                 port: api
       tls:
         - hosts: [*api-host]
+          secretName: s3-tls-certificate
   persistence:
     data:
       existingClaim: minio
