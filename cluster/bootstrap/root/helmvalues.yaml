@@ -29,4 +29,3 @@ namespaces:
       pod-security.kubernetes.io/enforce: privileged
   - name: database
   - name: external-secrets
-  - name: minio
