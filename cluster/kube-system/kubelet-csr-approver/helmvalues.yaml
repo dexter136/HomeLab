@@ -2,4 +2,5 @@ metrics:
   enable: true
   serviceMonitor:
     enabled: true
-providerRegex: ^k8s-\d$
+providerRegex: ^(control-\d|worker-\d)$
+bypassDnsResolution: true
