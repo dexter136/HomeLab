@@ -7,7 +7,5 @@ helmCharts:
   releaseName: hajimari
   valuesFile: helmvalues.yaml
   namespace: default
-generators:
-- ./secretgenerator.yaml
 resources:
 - pvc.yaml
