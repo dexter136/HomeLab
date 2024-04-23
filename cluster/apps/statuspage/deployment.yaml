@@ -38,12 +38,6 @@ spec:
           requests:
             cpu: 2m
             memory: 100Mi
-        volumeMounts:
-          - mountPath: /img
-            name: image-cache
-      volumes:
-        - name: image-cache
-          emptyDir:
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
