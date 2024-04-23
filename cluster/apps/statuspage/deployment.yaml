@@ -32,7 +32,8 @@ spec:
         ports:
           - containerPort: 80
         env:
-          TZ: America/New_York
+          - name: TZ
+            value: America/New_York
         envFrom:
           - secretRef:
               name: statuspage
