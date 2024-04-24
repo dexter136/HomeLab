@@ -34,7 +34,6 @@ templates:
     kind: RecurringJob
     metadata:
       name: {{ $pvc.name }}-snapshot
-      namespace: longhorn
     spec:
       concurrency: 1
       cron: 37 8 * * *
