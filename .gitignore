@@ -11,3 +11,4 @@ TALOS_CONFIG
 *.key
 .tool-versions
 charts/
+/tmp
