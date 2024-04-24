@@ -5,7 +5,7 @@ configs:
     server.insecure: true
     controller.diff.server.side: true
   cm:
-    kustomize.buildOptions: "--enable-helm --enable-alpha-plugins --enable-exec"
+    kustomize.buildOptions: "--enable-helm --enable-alpha-plugins --enable-exec --load-restrictor=LoadRestrictionsNone"
     statusbadge.enabled: 'true'
     resource.ignoreResourceUpdatesEnabled: true
     resource.customizations.ignoreResourceUpdates.all: |
