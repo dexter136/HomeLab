@@ -20,7 +20,7 @@ templates:
     metadata:
       name: {{ $pvc.volumeName }}
       labels:
-        recurring-job-group.longhorn.io/{{ $pvc.name }}-snapshot: enabled
+        recurring-job-group.longhorn.io/{{ $pvc.name }}: enabled
     spec:
       capacity:
         storage: {{ $pvc.storage }}
@@ -39,7 +39,7 @@ templates:
       concurrency: 1
       cron: 37 8 * * *
       groups:
-        - hajimari
+        - {{ $pvc.name }}
       labels: {}
       name: {{ $pvc.name }}-snapshot
       retain: 1
