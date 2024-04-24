@@ -13,7 +13,7 @@ ingress:
 metrics:
   serviceMonitor:
     enabled: true
-defaultsettings:
+defaultSettings:
   backupTarget: nfs://192.168.1.8:/volume1/GeneralStorage/Backup/longhorn
   orphanAutoDeletion: true
   backupstorePollInterval: 0
