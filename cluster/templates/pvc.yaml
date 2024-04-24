@@ -20,7 +20,7 @@ templates:
     metadata:
       name: {{ $pvc.volumeName }}
       labels:
-        recurring-job-group.longhorn.io/{{ $pvc.name }}: enabled
+        recurring-job-group.longhorn.io/{{ $pvc.name }}-snapshot: enabled
     spec:
       capacity:
         storage: {{ $pvc.storage }}
