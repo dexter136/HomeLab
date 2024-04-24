@@ -13,4 +13,21 @@ templates:
       resources:
         requests:
           storage: {{ $pvc.storage }}
+    {{- if $pvc.volumeName }}
+    ---
+    apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: {{ $pvc.volumeName }}
+      labels:
+        recurring-job-group.longhorn.io/{{ $pvc.name }}: enabled
+    spec:
+      capacity:
+        storage: {{ $pvc.storage }}
+      accessModes:
+        - {{ default "ReadWriteOnce" $pvc.accessMode }}
+      persistentVolumeReclaimPolicy: Delete
+      storageClassName: {{default "longhorn" $pvc.storageClassName }}
+      volumeMode: Filesystem
+    {{- end }}
     {{- end }}
