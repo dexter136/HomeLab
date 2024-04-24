@@ -1,0 +1,16 @@
+templates:
+  - |
+    {{- range $index, $pvc := .Values.pvcs }}
+    ---
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: {{ $pvc.name }}
+    spec:
+      accessModes:
+        - {{ default "ReadWriteOnce" $pvc.accessMode }}
+      storageClassName: {{default "longhorn" $pvc.storageClassName }}
+      resources:
+        requests:
+          storage: {{ $pvc.storage }}
+    {{- end }}
