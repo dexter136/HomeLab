@@ -24,7 +24,7 @@ hajimari:
           icon: "harddisk"
         - name: PiHole
           icon: "cancel"
-          url: http://pi.dex136.xyz/
+          url: http://192.168.1.8/admin
   globalBookmarks:
     - group: Documentation
       bookmarks:
