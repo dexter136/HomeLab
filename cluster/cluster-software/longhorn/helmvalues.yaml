@@ -1,7 +1,5 @@
 longhornUI:
   replicas: 1
-persistence:
-  defaultClassReplicaCount: 2
 ingress:
   enabled: true
   ingressClassName: internal
@@ -15,3 +13,12 @@ ingress:
 metrics:
   serviceMonitor:
     enabled: true
+defaultsettings:
+  backupTarget: nfs://192.168.1.8:/volume1/GeneralStorage/Backup/longhorn
+  orphanAutoDeletion: true
+  backupstorePollInterval: 0
+  restoreVolumeRecurringJobs: true
+  storageOverProvisioningPercentage: 100
+  storageMinimalAvailablePercentage: 10
+  concurrentAutomaticEngineUpgradePerNodeLimit: 1
+  nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
