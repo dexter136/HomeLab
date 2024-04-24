@@ -21,6 +21,7 @@ templates:
       name: {{ $pvc.volumeName }}
       labels:
         recurring-job-group.longhorn.io/{{ $pvc.name }}: enabled
+        recurring-job.longhorn.io/{{ $pvc.name }}-snapshot: enabled
     spec:
       capacity:
         storage: {{ $pvc.storage }}
@@ -38,8 +39,6 @@ templates:
     spec:
       concurrency: 1
       cron: 37 8 * * *
-      groups:
-        - {{ $pvc.name }}
       labels: {}
       retain: 1
       task: snapshot
