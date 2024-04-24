@@ -19,9 +19,6 @@ templates:
     kind: PersistentVolume
     metadata:
       name: {{ $pvc.volumeName }}
-      labels:
-        recurring-job-group.longhorn.io/{{ $pvc.name }}: enabled
-        recurring-job.longhorn.io/{{ $pvc.name }}-snapshot: enabled
     spec:
       capacity:
         storage: {{ $pvc.storage }}
@@ -30,17 +27,5 @@ templates:
       persistentVolumeReclaimPolicy: Delete
       storageClassName: {{default "longhorn" $pvc.storageClassName }}
       volumeMode: Filesystem
-    ---
-    apiVersion: longhorn.io/v1beta2
-    kind: RecurringJob
-    metadata:
-      name: {{ $pvc.name }}-snapshot
-      namespace: longhorn
-    spec:
-      concurrency: 1
-      cron: 37 8 * * *
-      labels: {}
-      retain: 1
-      task: snapshot
     {{- end }}
     {{- end }}
