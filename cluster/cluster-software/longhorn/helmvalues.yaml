@@ -14,7 +14,7 @@ metrics:
   serviceMonitor:
     enabled: true
 defaultSettings:
-  backupTarget: nfs://192.168.1.8:/volume1/GeneralStorage/Backup/longhorn
+  backupTarget: nfs://192.168.1.8:/volume1/cluster/longhorn
   orphanAutoDeletion: true
   backupstorePollInterval: 0
   restoreVolumeRecurringJobs: true
