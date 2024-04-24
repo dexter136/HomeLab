@@ -29,5 +29,20 @@ templates:
       persistentVolumeReclaimPolicy: Delete
       storageClassName: {{default "longhorn" $pvc.storageClassName }}
       volumeMode: Filesystem
+    ---
+    apiVersion: longhorn.io/v1beta2
+    kind: RecurringJob
+    metadata:
+      name: {{ $pvc.name }}-snapshot
+      namespace: longhorn
+    spec:
+      concurrency: 1
+      cron: 37 8 * * *
+      groups:
+        - hajimari
+      labels: {}
+      name: {{ $pvc.name }}-snapshot
+      retain: 1
+      task: snapshot
     {{- end }}
     {{- end }}
