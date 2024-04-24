@@ -22,5 +22,5 @@ talos_version      = "{{ (datasource "inventory").talos_version }}"
 {{ end -}}
 
 {{ defineDatasource "inventory" "configs/inventory.yaml" }}
-{{- $outPath := "configs/generated_configs/cluster-build.tfvars" }}
+{{- $outPath := "tmp/cluster-build.tfvars" }}
 {{- tmpl.Exec "talostfvars" | file.Write $outPath }}
