@@ -6,8 +6,8 @@ schematic=$(echo $resp | jq -r '.id')
 yq -i ".talos_factory_key = \"$schematic\"" configs/inventory.yaml
 
 #Build gomplate templates
-gomplate -f configs/templates/machineconfig.yaml.tmpl
-gomplate -f configs/templates/cluster-build.tfvars.tmpl
+gomplate -f configs/machineconfig.yaml.tmpl
+gomplate -f configs/cluster-build.tfvars.tmpl
 
 #Decrypt tfvars
-sops --decrypt configs/external.tfvars.json > configs/generated_configs/external.tfvars.json
+sops --decrypt configs/cloudflare.tfvars.json > tmp/cloudflare.tfvars.json
