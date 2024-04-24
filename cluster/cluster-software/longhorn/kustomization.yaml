@@ -9,3 +9,5 @@ helmCharts:
   namespace: longhorn
   apiVersions:
     - monitoring.coreos.com/v1
+resources:
+  - recurringjobs.yaml
