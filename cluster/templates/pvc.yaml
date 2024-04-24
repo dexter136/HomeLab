@@ -38,8 +38,9 @@ templates:
     spec:
       concurrency: 1
       cron: 37 8 * * *
+      groups:
+        - {{ $pvc.name }}
       labels: {}
-      name: {{ $pvc.name }}-snapshot
       retain: 1
       task: snapshot
     {{- end }}
