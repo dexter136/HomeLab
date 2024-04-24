@@ -7,6 +7,15 @@ helmCharts:
   releaseName: radarr
   valuesFile: helmvalues.yaml
   namespace: media
+- name: raw
+  repo: https://bedag.github.io/helm-charts/
+  version: 2.0.0
+  releaseName: pvc
+  valuesFile: ../../templates/pvc.yaml
+  namespace: default
+  valuesInline:
+    pvcs:
+      - name: radarr
+        storage: "1Gi"
 resources:
-- pvc.yaml
 - externalsecret.yaml
