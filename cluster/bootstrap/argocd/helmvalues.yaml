@@ -6,7 +6,7 @@ configs:
     controller.diff.server.side: true
   cm:
     kustomize.buildOptions: "--enable-helm --enable-alpha-plugins --enable-exec --load-restrictor=LoadRestrictionsNone"
-    statusbadge.enabled: 'true'
+    statusbadge.enabled: true
     resource.ignoreResourceUpdatesEnabled: true
     resource.customizations.ignoreResourceUpdates.all: |
       jsonPointers:
