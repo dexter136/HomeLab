@@ -57,6 +57,7 @@ templates:
       {{- if $pvc.storageClassName }}
       labels:
         recurring-job-group.longhorn.io/{{ $pvc.storageClassName }}: enabled
+        recurring-job.longhorn.io/source: enabled
       {{- end }}
     spec:
       accessModes:
