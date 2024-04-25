@@ -43,6 +43,7 @@ templates:
           name: '{{ `{{path.basename}}` }}'
           annotations:
             argocd.argoproj.io/compare-options: IncludeMutationWebhook=true
+            argocd.argoproj.io/manifest-generate-paths: '{{ `{{path}}` }}'
         spec:
           destination:
             name: in-cluster
