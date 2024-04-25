@@ -14,7 +14,9 @@ helmCharts:
   valuesFile: ../../templates/pvc.yaml
   namespace: default
   valuesInline:
+    storageClass:
+      - name: hajimari
     pvcs:
-     - name: hajimari-data
-       storage: "1Gi"
-       volumeName: pvc-58fc6bf6-1418-4c38-9976-9d8a9860922b
+      - name: hajimari-data
+        storage: 1Gi
+        storageClassName: hajimari
