@@ -15,16 +15,16 @@ hajimari:
     - group: Media
       apps:
         - name: Plex
-          url: http://plex.dex136.xyz
+          url: http://plex.aisling.dev
           icon: "television-play"
     - group: system
       apps:
         - name: NAS
-          url: http://nas.dex136.xyz
+          url: http://nas.aisling.dev
           icon: "harddisk"
         - name: PiHole
           icon: "cancel"
-          url: http://192.168.1.8/admin
+          url: http://192.168.1.8:8080/admin
   globalBookmarks:
     - group: Documentation
       bookmarks:
