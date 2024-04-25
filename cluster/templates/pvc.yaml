@@ -17,6 +17,36 @@ templates:
     reclaimPolicy: Delete
     allowVolumeExpansion: true
     volumeBindingMode: Immediate
+    ---
+    apiVersion: longhorn.io/v1beta2
+    kind: RecurringJob
+    metadata:
+      name: snapshot-{{ $sc.name }}
+      namespace: longhorn
+    spec:
+      concurrency: 1
+      cron: 5 */1 * * *
+      groups:
+        - {{ $sc.name }}
+      labels:
+        jobname: snapshot-{{ $sc.name }}
+      retain: 4
+      task: snapshot
+    ---
+    apiVersion: longhorn.io/v1beta2
+    kind: RecurringJob
+    metadata:
+      name: backup-{{ $sc.name }}
+      namespace: longhorn
+    spec:
+      concurrency: 1
+      cron: 15 8 * * *
+      groups:
+        - {{ $sc.name }}
+      labels:
+        jobname: backup-{{ $sc.name }}
+      retain: 2
+      task: backup
     {{- end }}
     {{- range $index, $pvc := .Values.pvcs }}
     ---
@@ -24,6 +54,10 @@ templates:
     kind: PersistentVolumeClaim
     metadata:
       name: {{ $pvc.name }}
+      {{- if $pvc.storageClassName }}
+      labels:
+        recurring-job-group.longhorn.io/{{ $pvc.storageClassName }}: enabled
+      {{- end }}
     spec:
       accessModes:
         - {{ default "ReadWriteOnce" $pvc.accessMode }}
