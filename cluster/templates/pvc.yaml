@@ -44,7 +44,7 @@ templates:
       groups:
         - {{ $sc.name }}
       labels:
-        jobname: backup-{{ $sc.name }}
+        jobname: "backup-{{ $sc.name }}"
       retain: 2
       task: backup
     {{- end }}
