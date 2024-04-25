@@ -1,5 +1,23 @@
 templates:
   - |
+    {{- range $index, $sc := .Values.storageClass }}
+    ---
+    apiVersion: storage.k8s.io/v1
+    kind: StorageClass
+    metadata:
+      name: {{ $sc.name }}
+    provisioner: driver.longhorn.io
+    parameters:
+      dataLocality: disabled
+      fromBackup: ''
+      fsType: ext4
+      numberOfReplicas: {{default 3 $sc.replicas | quote }}
+      staleReplicaTimeout: '30'
+      unmapMarkSnapChainRemoved: ignored
+    reclaimPolicy: Delete
+    allowVolumeExpansion: true
+    volumeBindingMode: Immediate
+    {{- end }}
     {{- range $index, $pvc := .Values.pvcs }}
     ---
     apiVersion: v1
@@ -13,19 +31,4 @@ templates:
       resources:
         requests:
           storage: {{ $pvc.storage }}
-    {{- if $pvc.volumeName }}
-    ---
-    apiVersion: v1
-    kind: PersistentVolume
-    metadata:
-      name: {{ $pvc.volumeName }}
-    spec:
-      capacity:
-        storage: {{ $pvc.storage }}
-      accessModes:
-        - {{ default "ReadWriteOnce" $pvc.accessMode }}
-      persistentVolumeReclaimPolicy: Delete
-      storageClassName: {{default "longhorn" $pvc.storageClassName }}
-      volumeMode: Filesystem
-    {{- end }}
     {{- end }}
