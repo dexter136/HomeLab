@@ -48,7 +48,7 @@ resource "cloudflare_api_token" "system_api_token" {
       data.cloudflare_api_token_permission_groups.all.zone["DNS Write"]
     ]
     resources = {
-      "com.cloudflare.api.account.zone.*" = "*"
+      "com.cloudflare.api.account.zone.${data.cloudflare_zone.dex136.id}" = "*"
     }
   }
 
