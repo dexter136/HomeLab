@@ -16,6 +16,8 @@ helmCharts:
   valuesInline:
     storageClass:
       - name: hajimari
+        snapshotCron: "20 */12 * * *"
+        backupCron: "23 9 * * 1"
     pvcs:
       - name: hajimari-data
         storage: 1Gi
