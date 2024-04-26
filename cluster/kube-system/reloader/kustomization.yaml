@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: reloader
   repo: https://stakater.github.io/stakater-charts
-  version: 1.0.84
+  version: 1.0.88
   releaseName: reloader
   valuesFile: helmvalues.yaml
   namespace: kube-system
