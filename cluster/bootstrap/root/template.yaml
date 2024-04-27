@@ -27,8 +27,6 @@ templates:
       name: {{ $appset.name }}
       namespace: {{ $.Release.Namespace }}
     spec:
-      syncPolicy:
-        preserveResourcesOnDeletion: true
       generators:
         - git:
             repoURL: {{ $.Values.git.repo }}
@@ -56,7 +54,7 @@ templates:
             path: '{{ `{{path}}` }}'
           syncPolicy:
             automated:
-              prune: false
+              prune: true
               selfHeal: true
             retry:
               limit: 10
