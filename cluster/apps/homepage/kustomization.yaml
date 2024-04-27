@@ -7,6 +7,8 @@ helmCharts:
   releaseName: homepage
   valuesFile: helmvalues.yaml
   namespace: default
+generators:
+- ./secretgenerator.yaml
 resources:
 - configmap.yaml
 - rbac.yaml

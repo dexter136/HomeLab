@@ -11,6 +11,9 @@ controllers:
           tag: v0.8.12
         env:
           TZ: America/NewYork
+        envFrom:
+          - secretRef:
+              name: homepage-secret
         resources:
           requests:
             cpu: 15m
