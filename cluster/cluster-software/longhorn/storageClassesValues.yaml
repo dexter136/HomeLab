@@ -31,7 +31,7 @@ templates:
       namespace: longhorn
     spec:
       concurrency: 1
-      cron: {{ default "5 */6 * * *" $sc.snapshotCron | quote}}
+      cron: {{ default "0 0 29 2 1" $sc.snapshotCron | quote}}
       groups:
         - {{ $sc.name }}
       labels:
@@ -46,7 +46,7 @@ templates:
       namespace: longhorn
     spec:
       concurrency: 1
-      cron: {{ default "15 8 */2 * *" $sc.backupCron | quote}}
+      cron: {{ default "0 0 29 2 1" $sc.backupCron | quote}}
       groups:
         - {{ $sc.name }}
       labels:
