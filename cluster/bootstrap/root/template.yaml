@@ -45,6 +45,8 @@ templates:
             argocd.argoproj.io/compare-options: IncludeMutationWebhook=true
             argocd.argoproj.io/manifest-generate-paths: '{{ `{{path}}` }}'
         spec:
+          syncPolicy:
+            preserveResourcesOnDeletion: true
           destination:
             name: in-cluster
             namespace: '{{ default `{{path.basename}}` $appset.namespace }}'
@@ -54,7 +56,7 @@ templates:
             path: '{{ `{{path}}` }}'
           syncPolicy:
             automated:
-              prune: true
+              prune: false
               selfHeal: true
             retry:
               limit: 10
