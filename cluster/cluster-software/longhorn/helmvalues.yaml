@@ -22,3 +22,7 @@ defaultSettings:
   storageMinimalAvailablePercentage: 10
   concurrentAutomaticEngineUpgradePerNodeLimit: 1
   nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+storageClass:
+- name: hajimari
+  snapshotCron: "20 */12 * * *"
+  backupCron: "23 9 * * 1"
