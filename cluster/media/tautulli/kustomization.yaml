@@ -7,13 +7,5 @@ helmCharts:
   releaseName: tautulli
   valuesFile: helmvalues.yaml
   namespace: media
-- name: raw
-  repo: https://bedag.github.io/helm-charts/
-  version: 2.0.0
-  releaseName: pvc
-  valuesFile: ../../templates/pvc.yaml
-  namespace: media
-  valuesInline:
-    pvcs:
-      - name: tautulli
-        storage: "1Gi"
+resources:
+- pvc.yaml
