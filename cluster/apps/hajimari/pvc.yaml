@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hajimari-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: hajimari
+  resources:
+    requests:
+      storage: 1Gi
