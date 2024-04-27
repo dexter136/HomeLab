@@ -14,6 +14,12 @@ templates:
       numberOfReplicas: {{default 3 $sc.replicas | quote }}
       staleReplicaTimeout: '30'
       unmapMarkSnapChainRemoved: ignored
+      recurringJobSelector: '[
+        {
+          "name":"{{ $sc.name }}",
+          "isGroup":true
+        }
+      ]'
     reclaimPolicy: Delete
     allowVolumeExpansion: true
     volumeBindingMode: Immediate
