@@ -7,14 +7,5 @@ helmCharts:
   releaseName: hajimari
   valuesFile: helmvalues.yaml
   namespace: default
-- name: raw
-  repo: https://bedag.github.io/helm-charts/
-  version: 2.0.0
-  releaseName: pvc
-  valuesFile: ../../templates/pvc.yaml
-  namespace: default
-  valuesInline:
-    pvcs:
-      - name: hajimari-data
-        storage: 1Gi
-        storageClassName: hajimari
+resources:
+  - pvc.yaml
