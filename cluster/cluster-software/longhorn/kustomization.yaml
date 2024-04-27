@@ -18,7 +18,8 @@ helmCharts:
   valuesInline:
     storageClasses:
     - name: hajimari
-      snapshotCron: "20 */12 * * *"
-      backupCron: "23 9 * * 1"
+    - name: media
+      snapshotCron: "1 */6 * * *"
+      backupCron: "05 9 * * *"
 resources:
   - recurringjobs.yaml
