@@ -51,7 +51,7 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    retention: 2d
+    retention: 4d
     retentionSize: 40GB
     resources:
       requests:
@@ -60,7 +60,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: longhorn
+          storageClassName: monitoring
           accessModes:
             - "ReadWriteOnce"
           resources:
