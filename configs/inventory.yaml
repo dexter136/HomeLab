@@ -1,4 +1,9 @@
 nodes:
+  - ip: 192.168.1.236
+    disk: /dev/sdb
+    interface: eno1
+    name: worker-2
+    type: worker
   - ip: 192.168.1.231
     disk: /dev/nvme0n1
     interface: eno1
