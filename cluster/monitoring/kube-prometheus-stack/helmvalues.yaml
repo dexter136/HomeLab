@@ -70,9 +70,11 @@ prometheus:
     enabled: true
     ingressClassName: internal
     annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/icon: text-box-search
-      hajimari.io/appName: "Prometheus"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: prometheus.svg
+      gethomepage.dev/name: "Prometheus"
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/pod-selector: ""
     hosts:
       - &host prometheus.dex136.xyz
     tls:
@@ -104,9 +106,11 @@ alertmanager:
     enabled: true
     ingressClassName: internal
     annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/icon: alert
-      hajimari.io/appName: "Alert Manager"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: alertmanager.svg
+      gethomepage.dev/name: "Alert Manager"
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/pod-selector: ""
     hosts:
       - &host alertmanager.dex136.xyz
     tls:

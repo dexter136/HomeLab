@@ -50,8 +50,6 @@ ingress:
   external:
     className: external
     annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "database-check-outline"
       external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
     hosts:
       - host: &host overseerr.dex136.xyz
@@ -65,8 +63,11 @@ ingress:
   app:
     className: internal
     annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "database-check"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/name: "Overseerr"
+      gethomepage.dev/icon: overseerr.svg
+      gethomepage.dev/group: Media
+      gethomepage.dev/pod-selector: ""
     hosts:
       - host: &host requests.dex136.xyz
         paths:
