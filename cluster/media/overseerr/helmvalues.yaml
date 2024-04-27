@@ -67,7 +67,10 @@ ingress:
       gethomepage.dev/name: "Overseerr"
       gethomepage.dev/icon: overseerr.svg
       gethomepage.dev/group: Media
-      gethomepage.dev/pod-selector: ""
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/instance in (
+            overseerr
+        )
     hosts:
       - host: &host requests.dex136.xyz
         paths:

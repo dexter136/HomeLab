@@ -74,7 +74,11 @@ prometheus:
       gethomepage.dev/icon: prometheus.svg
       gethomepage.dev/name: "Prometheus"
       gethomepage.dev/group: Monitoring
-      gethomepage.dev/pod-selector: ""
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/component in (
+            prometheus-operator,
+            metrics
+        )
     hosts:
       - &host prometheus.dex136.xyz
     tls:
@@ -110,7 +114,10 @@ alertmanager:
       gethomepage.dev/icon: alertmanager.svg
       gethomepage.dev/name: "Alert Manager"
       gethomepage.dev/group: Monitoring
-      gethomepage.dev/pod-selector: ""
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/name in (
+            alertmanager
+        )
     hosts:
       - &host alertmanager.dex136.xyz
     tls:

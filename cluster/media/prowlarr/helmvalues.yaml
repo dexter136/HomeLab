@@ -67,7 +67,6 @@ ingress:
       gethomepage.dev/name: "Prowlarr"
       gethomepage.dev/icon: prowlarr.svg
       gethomepage.dev/group: Media
-      gethomepage.dev/pod-selector: ""
     hosts:
       - host: &host "prowlarr.dex136.xyz"
         paths:
