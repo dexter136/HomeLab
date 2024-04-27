@@ -9,5 +9,16 @@ helmCharts:
   namespace: longhorn
   apiVersions:
     - monitoring.coreos.com/v1
+- name: raw
+  repo: https://bedag.github.io/helm-charts/
+  version: 2.0.0
+  releaseName: storageclasses
+  valuesFile: storageClassesValues.yaml
+  namespace: longhorn
+  valuesInline:
+    storageClasses:
+    - name: hajimari
+      snapshotCron: "20 */12 * * *"
+      backupCron: "23 9 * * 1"
 resources:
   - recurringjobs.yaml
