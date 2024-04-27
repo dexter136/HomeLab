@@ -57,7 +57,6 @@ ingress:
       gethomepage.dev/name: "Tautulli"
       gethomepage.dev/icon: tautulli.svg
       gethomepage.dev/group: Media
-      gethomepage.dev/pod-selector: ""
     hosts:
       - host: &host tautulli.dex136.xyz
         paths:

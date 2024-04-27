@@ -26,6 +26,10 @@ service:
 ingress:
   app:
     className: internal
+    annotations:
+      nginx.ingress.kubernetes.io/affinity: "cookie"
+      nginx.ingress.kubernetes.io/session-cookie-name: "homepagesession"
+      nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
     hosts:
       - host: &host home.dex136.xyz
         paths:

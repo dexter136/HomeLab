@@ -203,7 +203,6 @@ ingress:
       gethomepage.dev/icon: grafana.svg
       gethomepage.dev/name: "Grafana"
       gethomepage.dev/group: Monitoring
-      gethomepage.dev/pod-selector: ""
   hosts:
     - &host grafana.dex136.xyz
   tls:

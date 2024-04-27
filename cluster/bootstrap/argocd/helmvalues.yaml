@@ -41,7 +41,6 @@ server:
       gethomepage.dev/icon: argocd.svg
       gethomepage.dev/name: "ArgoCD"
       gethomepage.dev/group: "System"
-      gethomepage.dev/pod-selector: ""
     tls: true
   metrics: &metrics
     enabled: true

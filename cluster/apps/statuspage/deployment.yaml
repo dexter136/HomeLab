@@ -50,7 +50,10 @@ metadata:
     gethomepage.dev/icon: mdi-bottle-tonic-plus
     gethomepage.dev/group: Monitoring
     gethomepage.dev/name: "ArgoStatus"
-    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/pod-selector: >-
+        app in (
+          statuspage
+        )
     external-dns.alpha.kubernetes.io/target: external.dex136.xyz
   name: statuspage
 spec:

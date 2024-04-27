@@ -21,21 +21,21 @@ data:
       - Homelab:
         - href: 'https://github.com/dexter136/HomeLab'
           icon: github.svg
-    - Media:
-      - Plex:
-        - href: 'http://plex.aisling.dev'
-          icon: plex.svg
-    - System:
-      - NAS:
-        - href: 'https://nas.aisling.dev'
-          icon: synology.svg
-      - PiHole:
-        - href: 'http://192.168.1.8:8080/admin'
-          icon: pi-hole.svg
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
-  services.yaml: ""
+  services.yaml: |
+    - System:
+      - NAS:
+          href: 'https://nas.aisling.dev'
+          icon: synology.svg
+      - PiHole:
+          href: 'http://192.168.1.8:8080/admin'
+          icon: pi-hole.svg
+    - Media:
+      - Plex:
+          href: 'http://plex.aisling.dev'
+          icon: plex.svg
   settings.yaml: |
     title: Dashboard
     favicon: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
@@ -53,20 +53,16 @@ data:
       hideVisitURL: true
     layout:
       Media:
-        style: row
-        columns: 3
+        style: column
         icon: mdi-download-circle
       Monitoring:
-        style: row
-        columns: 5
+        style: column
         icon: mdi-chart-line
       System:
-        style: row
-        columns: 5
+        style: column
         icon: mdi-server
       Documentation:
-        style: row
-        columns: 3
+        style: column
         icon: mdi-download-circle
   widgets.yaml: |
     - search:
@@ -82,7 +78,7 @@ data:
         nodes:
           cpu: true
           memory: true
-          show: false
+          show: true
           showLabel: true
     - datetime:
         text_size: l

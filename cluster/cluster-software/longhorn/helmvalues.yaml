@@ -10,7 +10,10 @@ ingress:
     gethomepage.dev/icon: longhorn.svg
     gethomepage.dev/name: "Longhorn"
     gethomepage.dev/group: "System"
-    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/instance in (
+            longhorn
+        )
 metrics:
   serviceMonitor:
     enabled: true
