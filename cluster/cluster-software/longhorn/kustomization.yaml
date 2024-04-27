@@ -21,5 +21,12 @@ helmCharts:
     - name: media
       snapshotCron: "1 */6 * * *"
       backupCron: "05 9 * * *"
+    - name: monitoring
+      snapshotCron: "11 */12 * * *"
+      backupCron: "05 10 * * *"
+    - name: database
+      snapshotCron: "1 * * * *"
+      backupCron: "* */12 * * *"
+      numberOfReplicas: 1
 resources:
   - recurringjobs.yaml
