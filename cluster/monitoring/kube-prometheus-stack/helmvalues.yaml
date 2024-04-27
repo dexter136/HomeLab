@@ -89,27 +89,6 @@ alertmanager:
     replicas: 1
     useExistingSecret: true
     configSecret: alertmanager-secret
-  config:
-    receivers:
-    - name: 'discord_webhook'
-      discord_config:
-      - url: 'http://alertmanager-discord.monitoring:9094'
-    - name: 'null'
-    route:
-      group_by: ['alertname']
-      group_wait: 20s
-      group_interval: 5m
-      repeat_interval: 6h
-      receiver: discord_webhook
-      routes:
-        - receiver: "null"
-          match:
-            alertname: Watchdog
-        - receiver: "null"
-          match:
-            alertname: InfoInhibitor
-        - receiver: "discord_webhook"
-          continue: true
   ingress:
     enabled: true
     ingressClassName: internal
