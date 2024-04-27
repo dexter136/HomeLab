@@ -7,3 +7,5 @@ helmCharts:
   releaseName: kube-prometheus-stack
   valuesFile: helmvalues.yaml
   namespace: monitoring
+generators:
+- secretgenerator.yaml
