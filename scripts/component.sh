@@ -3,7 +3,7 @@
 diff=false
 namespace=''
 component=''
-while getopts "c:d:" arg; do
+while getopts "c:d" arg; do
   case $arg in
     c)  component=$OPTARG
         ;;
@@ -43,7 +43,6 @@ if $diff; then
 
     kubectl diff \
         -f ./tmp/${dir_array[3]}_kustomize.yaml \
-        -n $namespace \
         > ./tmp/${dir_array[3]}_diff.yaml
 
     echo "diff output written to ./tmp/${dir_array[3]}_diff.yaml"
