@@ -30,7 +30,6 @@ fi
 echo "Found application ${dir_array[3]}. Running kustomize build"
 
 kustomize build $dir \
-    --load-restrictor=LoadRestrictionsNone \
     --enable-helm \
     --enable-alpha-plugins \
     --enable-exec \
