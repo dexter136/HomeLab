@@ -7,3 +7,5 @@ helmCharts:
   releaseName: kromgo
   valuesFile: helmvalues.yaml
   namespace: monitoring
+resources:
+  - configmap.yaml
