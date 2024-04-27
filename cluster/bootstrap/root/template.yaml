@@ -27,6 +27,8 @@ templates:
       name: {{ $appset.name }}
       namespace: {{ $.Release.Namespace }}
     spec:
+      syncPolicy:
+        preserveResourcesOnDeletion: true
       generators:
         - git:
             repoURL: {{ $.Values.git.repo }}
@@ -45,8 +47,6 @@ templates:
             argocd.argoproj.io/compare-options: IncludeMutationWebhook=true
             argocd.argoproj.io/manifest-generate-paths: '{{ `{{path}}` }}'
         spec:
-          syncPolicy:
-            preserveResourcesOnDeletion: true
           destination:
             name: in-cluster
             namespace: '{{ default `{{path.basename}}` $appset.namespace }}'
