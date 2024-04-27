@@ -37,10 +37,11 @@ server:
     ingressClassName: internal
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "wrench"
-      hajimari.io/appName: "ArgoCD"
-      hajimari.io/group: "system"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: argocd.svg
+      gethomepage.dev/name: "ArgoCD"
+      gethomepage.dev/group: "System"
+      gethomepage.dev/pod-selector: ""
     tls: true
   metrics: &metrics
     enabled: true

@@ -199,9 +199,11 @@ ingress:
   enabled: true
   ingressClassName: internal
   annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/icon: chart-areaspline
-      hajimari.io/appName: "Grafana"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: grafana.svg
+      gethomepage.dev/name: "Grafana"
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/pod-selector: ""
   hosts:
     - &host grafana.dex136.xyz
   tls:

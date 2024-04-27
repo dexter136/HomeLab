@@ -63,8 +63,11 @@ ingress:
   app:
     className: internal
     annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "database-check"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/name: "Prowlarr"
+      gethomepage.dev/icon: prowlarr.svg
+      gethomepage.dev/group: Media
+      gethomepage.dev/pod-selector: ""
     hosts:
       - host: &host "prowlarr.dex136.xyz"
         paths:

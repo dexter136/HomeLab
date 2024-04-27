@@ -46,9 +46,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    hajimari.io/enable: "true"
-    hajimari.io/icon: bottle-tonic-plus
-    hajimari.io/group: "monitoring"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/icon: mdi-bottle-tonic-plus
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/name: "ArgoStatus"
+    gethomepage.dev/pod-selector: ""
     external-dns.alpha.kubernetes.io/target: external.dex136.xyz
   name: statuspage
 spec:

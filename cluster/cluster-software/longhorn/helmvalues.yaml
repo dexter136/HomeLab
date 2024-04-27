@@ -6,10 +6,11 @@ ingress:
   host: longhorn.dex136.xyz
   tls: true
   annotations:
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "bugle"
-    hajimari.io/appName: "Longhorn"
-    hajimari.io/group: "system"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/icon: longhorn.svg
+    gethomepage.dev/name: "Longhorn"
+    gethomepage.dev/group: "System"
+    gethomepage.dev/pod-selector: ""
 metrics:
   serviceMonitor:
     enabled: true
