@@ -65,6 +65,9 @@ data:
       Documentation:
         style: column
         icon: mdi-download-circle
+    providers:
+      longhorn:
+        url: http://longhorn-frontend.longhorn.svc.cluster.local
   widgets.yaml: |
     - search:
         provider: [google]
@@ -79,7 +82,7 @@ data:
         nodes:
           cpu: true
           memory: true
-          show: true
+          show: false
           showLabel: true
     - datetime:
         text_size: l
@@ -91,3 +94,12 @@ data:
         url: https://192.168.1.1:443
         username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
         password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
+    - longhorn:
+        expanded: true
+        total: true
+    - openmeteo:
+        latitude: 42.6220
+        longitude: -73.8326
+        timezone: America/New_York
+        units: imperial
+        cache: 15
