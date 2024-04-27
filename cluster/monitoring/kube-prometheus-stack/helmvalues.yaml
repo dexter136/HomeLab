@@ -85,10 +85,14 @@ prometheus:
       - hosts:
           - *host
 alertmanager:
+  alertmanagerSpec:
+    replicas: 1
+    useExistingSecret: true
+    configSecret: alertmanager-secret
   config:
     receivers:
     - name: 'discord_webhook'
-      webhook_configs:
+      discord_config:
       - url: 'http://alertmanager-discord.monitoring:9094'
     - name: 'null'
     route:
