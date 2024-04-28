@@ -20,6 +20,4 @@ done
 echo "All nodes completed. Ending cnpg maintenance."
 kubectl cnpg maintenance unset postgres --reusePVC -n database
 echo "Database maintenance ended. Cleaning up pods."
-kubectl delete pods --field-selector status.phase="Evicted" --all-namespaces --ignore-not-found=true
-kubectl delete pods --field-selector status.phase="Failed" --all-namespaces --ignore-not-found=true
-kubectl delete pods --field-selector status.phase="Succeded" --all-namespaces --ignore-not-found=true
+./scripts/pod_cleanup.sh
