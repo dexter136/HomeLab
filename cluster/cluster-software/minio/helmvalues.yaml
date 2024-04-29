@@ -92,6 +92,8 @@ ingress:
       - hosts: [*s3Host]
 persistence:
   data:
-    existingClaim: minio
+    type: nfs
+    server: 192.168.1.8
+    path: /volume1/cluster/minio
     globalMounts:
       - path: /data
