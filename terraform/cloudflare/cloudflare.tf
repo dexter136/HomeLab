@@ -33,9 +33,9 @@ resource "cloudflare_ruleset" "firewall" {
   }
   rules {
     action      = "block"
-    description = "Firewall rule to block all countries except US and CA"
+    description = "Firewall rule to allow only US, Canada, and European countries not under sanctions."
     enabled     = true
-    expression  = "(ip.geoip.country ne \"US\" and ip.geoip.country ne \"CA\")"
+    expression  = "(ip.geoip.country ne \"US\" and ip.geoip.country ne \"CA\" and ip.geoip.continent ne \"EU\") or (ip.geoip.country eq \"RU\") or (ip.geoip.country eq \"BY\")"
   }
 }
 
@@ -56,6 +56,16 @@ resource "cloudflare_api_token" "system_api_token" {
     request_ip {
       in = local.public_ips
     }
+  }
+}
+
+resource "cloudflare_page_rule" "plex" {
+  zone_id  = data.cloudflare_zone.dex136.id
+  target   = "plex.dex136.xyz/*"
+  priority = 1
+
+  actions {
+    cache_level = "bypass"
   }
 }
 
