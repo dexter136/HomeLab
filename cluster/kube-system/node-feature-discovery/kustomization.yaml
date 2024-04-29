@@ -8,3 +8,5 @@ helmCharts:
   valuesFile: helmvalues.yaml
   namespace: kube-system
   includeCRDs: true
+resources:
+- intelgpu.yaml
