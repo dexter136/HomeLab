@@ -28,5 +28,8 @@ helmCharts:
       snapshotCron: "1 * * * *"
       backupCron: "* */12 * * *"
       numberOfReplicas: 1
+    - name: minio
+      snapshotCron: "17 * * * *"
+      backupCron: "17 */12 * * *"
 resources:
   - recurringjobs.yaml
