@@ -92,6 +92,6 @@ ingress:
       - hosts: [*s3Host]
 persistence:
   data:
-    existingClaim: minio-data
+    existingClaim: minio
     globalMounts:
       - path: /data
