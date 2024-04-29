@@ -3,5 +3,7 @@ customization:
     - mitigations=off
   systemExtensions:
     officialExtensions:
+      - siderolabs/i915-ucode
+      - siderolabs/intel-ucode
       - siderolabs/iscsi-tools
       - siderolabs/util-linux-tools

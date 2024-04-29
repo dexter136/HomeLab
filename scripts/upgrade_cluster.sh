@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./scripts/generate_configs.sh
+./scripts/render_configs.sh
 
 
 readarray nodeIPs < <(yq '.nodes[].ip' -o=j -I=0 configs/inventory.yaml)

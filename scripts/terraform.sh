@@ -18,7 +18,7 @@ while getopts "agucem:" arg; do
 done
 
 if $generate; then
-    ./scripts/generate_configs.sh
+    ./scripts/render_configs.sh
 fi
 
 if $external; then
