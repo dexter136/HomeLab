@@ -68,7 +68,7 @@ ingress:
   app:
     className: internal
     hosts:
-      - host: &host "{{ .Release.Name }}.dex136.xyz"
+      - host: &host "minio.dex136.xyz"
         paths:
           - path: /
             service:
@@ -79,8 +79,6 @@ ingress:
   api:
     enabled: true
     className: internal
-    annotations:
-      external-dns.alpha.kubernetes.io/target: external.dex136.xyz
     hosts:
       - host: &s3Host s3.dex136.xyz
         paths:
