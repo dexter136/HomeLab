@@ -53,6 +53,8 @@ prometheus:
     probeSelectorNilUsesHelmValues: false
     retention: 4d
     retentionSize: 40GB
+    remoteWrite:
+    - url: http://vmsingle-vm.monitoring:8428/api/v1/write
     resources:
       requests:
         cpu: 275m
