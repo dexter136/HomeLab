@@ -1,0 +1,120 @@
+fullnameOverride: vm
+experimentalDashboardsEnabled: false
+grafana:
+  enabled: false
+alertmanager:
+  enabled: false
+vmsingle:
+  spec:
+    retentionPeriod: "30d"
+    storage:
+      storageClassName: monitoring
+      resources:
+        requests:
+          storage: 20Gi
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 1
+        memory: 960Mi
+  ingress:
+    enabled: true
+    hosts:
+    - vms.dex136.xyz
+vmalert:
+  ingress:
+    enabled: true
+    hosts:
+    - va.dex136.xyz
+vmagent:
+  spec:
+    scrapeInterval: 60s
+    resources:
+      limits:
+        cpu: 1
+        memory: 500Mi
+      requests:
+        cpu: 500m
+        memory: 100Mi
+  ingress:
+    enabled: true
+    hosts:
+    - vm.dex136.xyz
+kubelet:
+  spec:
+    interval: 60s
+    # drop high cardinality label and useless metrics for cadvisor and kubelet
+    metricRelabelConfigs:
+      - action: labeldrop
+        regex: (uid|pod_uid|id)
+      - action: labeldrop
+        regex: (name)
+      - action: drop
+        source_labels: [__name__]
+        regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    relabelConfigs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+      - targetLabel: "job"
+        replacement: "kubelet"
+kubeEtcd:
+  enabled: true
+  endpoints: &endpoints
+    - 192.168.1.231
+    - 192.168.1.232
+    - 192.168.1.233
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
+        scheme: http
+        tlsConfig:
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  service:
+    enabled: true
+    port: 2381
+    targetPort: 2381
+kubeControllerManager:
+  enabled: true
+  endpoints: *endpoints
+  service:
+    enabled: true
+    port: 10257
+    targetPort: 10257
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
+        scheme: https
+        tlsConfig:
+          insecureSkipVerify: true
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+kubeProxy:
+  enabled: false
+kubeScheduler:
+  enabled: true
+  endpoints: *endpoints
+  service:
+    enabled: true
+    port: 10259
+    targetPort: 10259
+  spec:
+    jobLabel: jobLabel
+    endpoints:
+      - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        port: http-metrics
+        scheme: https
+        tlsConfig:
+          insecureSkipVerify: true
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+kubeApiServer:
+  enabled: true
+prometheus-node-exporter:
+  enabled: false
+kube-state-metrics:
+  enabled: false
