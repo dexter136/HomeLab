@@ -204,9 +204,7 @@ ingress:
       gethomepage.dev/name: "Grafana"
       gethomepage.dev/group: Monitoring
   hosts:
-    - &host grafana.dex136.xyz
-  tls:
-    - hosts: [*host]
+    - grafana.dex136.xyz
 persistence:
   enabled: false
 testFramework:

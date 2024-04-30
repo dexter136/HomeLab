@@ -41,7 +41,6 @@ server:
       gethomepage.dev/icon: argocd.svg
       gethomepage.dev/name: "ArgoCD"
       gethomepage.dev/group: "System"
-    tls: true
   metrics: &metrics
     enabled: true
     serviceMonitor:
@@ -54,7 +53,6 @@ applicationSet:
     annotations:
       external-dns.alpha.kubernetes.io/target: external.dex136.xyz
     hostname: "argocd-wh.dex136.xyz"
-    tls: true
 dex:
   enabled: false
 controller:

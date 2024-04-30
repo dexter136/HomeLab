@@ -69,6 +69,3 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
-  tls:
-  - hosts:
-      - statuspage.dex136.xyz

@@ -70,14 +70,12 @@ ingress:
       gethomepage.dev/icon: sonarr.svg
       gethomepage.dev/group: Media
     hosts:
-      - host: &host "sonarr.dex136.xyz"
+      - host: "sonarr.dex136.xyz"
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
 persistence:
   config:
     existingClaim: sonarr

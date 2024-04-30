@@ -80,10 +80,7 @@ prometheus:
             metrics
         )
     hosts:
-      - &host prometheus.dex136.xyz
-    tls:
-      - hosts:
-          - *host
+      - prometheus.dex136.xyz
 alertmanager:
   alertmanagerSpec:
     replicas: 1
@@ -102,7 +99,4 @@ alertmanager:
             alertmanager
         )
     hosts:
-      - &host alertmanager.dex136.xyz
-    tls:
-      - hosts:
-          - *host
+      - alertmanager.dex136.xyz

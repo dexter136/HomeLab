@@ -100,9 +100,7 @@ hubble:
       enabled: true
       className: internal
       hosts:
-        - &host hubble.dex136.xyz
-      tls:
-        - hosts: [*host]
+        - hubble.dex136.xyz
       annotations:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/icon: cilium.svg

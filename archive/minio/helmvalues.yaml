@@ -68,14 +68,12 @@ ingress:
   app:
     className: internal
     hosts:
-      - host: &host "minio.dex136.xyz"
+      - host: "minio.dex136.xyz"
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
   api:
     enabled: true
     className: internal
@@ -86,8 +84,6 @@ ingress:
             service:
               identifier: app
               port: s3
-    tls:
-      - hosts: [*s3Host]
 persistence:
   data:
     type: nfs
