@@ -92,6 +92,11 @@ datasources:
       - name: Loki
         type: loki
         url: http://loki.monitoring:3100
+      - name: VictoriaMetrics
+        type: prometheus
+        uid: victoria
+        access: proxy
+        url: http://vmsingle-vm.monitoring.svc:8429/
 dashboards:
   default:
     argocd:

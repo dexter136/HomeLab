@@ -5,6 +5,11 @@ victoria-metrics-operator:
     disable_prometheus_converter: true
 grafana:
   enabled: false
+  sidecar:
+    dashboards:
+      label: grafana_dashboard
+      additionalDashboardAnnotations:
+        grafana_folder: VictoriaMetrics
 alertmanager:
   enabled: false
 vmsingle:
