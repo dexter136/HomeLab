@@ -1,10 +1,5 @@
 fullnameOverride: external-dns-pihole
 provider: pihole
-serviceAccount:
-  create: false
-  name: external-dns
-rbac:
-  create: false
 txtOwnerId: homelab
 env:
   - name: EXTERNAL_DNS_PIHOLE_PASSWORD
