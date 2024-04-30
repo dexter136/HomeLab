@@ -17,6 +17,6 @@ extraArgs:
   - '--pihole-tls-skip-verify'
 interval: 5m
 triggerLoopOnEvent: true
-sources: ["ingress"]
+sources: ["ingress", "service"]
 serviceMonitor:
   enabled: true
