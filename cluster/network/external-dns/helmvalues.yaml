@@ -17,3 +17,4 @@ sources: ["crd", "ingress"]
 triggerLoopOnEvent: true
 serviceMonitor:
   enabled: true
+policy: sync
