@@ -1,0 +1,97 @@
+controllers:
+  plex:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    containers:
+      app:
+        image:
+          repository: ghcr.io/onedr0p/plex
+          tag: 1.40.2.8395-c67dce28e@sha256:a2a3149c1326e7777bfe9def135c687d884652f78d34e92264b0dab765908215
+        env:
+          TZ: America/New_York
+          PLEX_ADVERTISE_URL: https://plex.dex136.xyz:443,http://192.168.1.244:32400
+          PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /identity
+                port: 32400
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+          startup:
+            enabled: true
+            spec:
+              failureThreshold: 30
+              periodSeconds: 10
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            gpu.intel.com/i915: 1
+            memory: 16Gi
+defaultPodOptions:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+    supplementalGroups: [44, 10000]
+    seccompProfile: { type: RuntimeDefault }
+  nodeSelector:
+    intel.feature.node.kubernetes.io/gpu: "true"
+service:
+  app:
+    controller: plex
+    type: LoadBalancer
+    annotations:
+      io.cilium/lb-ipam-ips: 192.168.1.244
+    ports:
+      http:
+        port: 32400
+ingress:
+  app:
+    className: internal
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    hosts:
+      - host: "plex.dex136.xyz"
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+persistence:
+  config:
+    existingClaim: plex
+    globalMounts:
+    - path: /config/Library/Application Support/Plex Media Server
+  cache:
+    existingClaim: plex-cache
+    globalMounts:
+      - path: /config/Library/Application Support/Plex Media Server/Cache
+  logs:
+    type: emptyDir
+    globalMounts:
+      - path: /config/Library/Application Support/Plex Media Server/Logs
+  tmp:
+    type: emptyDir
+  transcode:
+    type: emptyDir
+  media:
+    type: nfs
+    server: 192.168.1.8
+    path: /volume1/MediaLibrary/
+    globalMounts:
+      - path: /media
+        readOnly: true
