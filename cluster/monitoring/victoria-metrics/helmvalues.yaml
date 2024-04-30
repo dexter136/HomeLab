@@ -49,6 +49,8 @@ vmagent:
     enabled: true
     hosts:
     - vm.dex136.xyz
+coredns:
+  enabled: false
 kubelet:
   enabled: false
 kubeEtcd:
