@@ -78,14 +78,12 @@ ingress:
       gethomepage.dev/icon: qbittorrent.svg
       gethomepage.dev/group: Media
     hosts:
-      - host: &host qb.dex136.xyz
+      - host: qb.dex136.xyz
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
 persistence:
   config:
     existingClaim: qbittorrent

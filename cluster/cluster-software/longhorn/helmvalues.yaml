@@ -4,7 +4,6 @@ ingress:
   enabled: true
   ingressClassName: internal
   host: longhorn.dex136.xyz
-  tls: true
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/icon: longhorn.svg

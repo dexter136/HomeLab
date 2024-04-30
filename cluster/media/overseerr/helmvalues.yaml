@@ -52,14 +52,12 @@ ingress:
     annotations:
       external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
     hosts:
-      - host: &host overseerr.dex136.xyz
+      - host: overseerr.dex136.xyz
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
   app:
     className: internal
     annotations:
@@ -72,14 +70,12 @@ ingress:
             overseerr
         )
     hosts:
-      - host: &host requests.dex136.xyz
+      - host: requests.dex136.xyz
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
 persistence:
   config:
     existingClaim: overseerr

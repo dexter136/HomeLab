@@ -40,14 +40,12 @@ ingress:
           sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/uptime-kuma/dark.css"></head>';
           sub_filter_once on;
     hosts:
-      - host: &host kuma.dex136.xyz
+      - host: kuma.dex136.xyz
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
 persistence:
   config:
     existingClaim: pvc-uptime-kuma

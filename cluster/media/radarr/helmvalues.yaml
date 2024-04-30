@@ -70,14 +70,12 @@ ingress:
       gethomepage.dev/icon: radarr.svg
       gethomepage.dev/group: Media
     hosts:
-      - host: &host "radarr.dex136.xyz"
+      - host: "radarr.dex136.xyz"
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
 persistence:
   config:
     existingClaim: radarr

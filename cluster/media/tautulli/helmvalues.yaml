@@ -58,14 +58,12 @@ ingress:
       gethomepage.dev/icon: tautulli.svg
       gethomepage.dev/group: Media
     hosts:
-      - host: &host tautulli.dex136.xyz
+      - host: tautulli.dex136.xyz
         paths:
           - path: /
             service:
               identifier: app
               port: http
-    tls:
-      - hosts: [*host]
 persistence:
   config:
     existingClaim: tautulli
