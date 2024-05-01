@@ -69,6 +69,9 @@ ingress:
       gethomepage.dev/name: "Radarr"
       gethomepage.dev/icon: radarr.svg
       gethomepage.dev/group: Media
+      gethomepage.dev/widget.type: radarr
+      gethomepage.dev/widget.url: http://radarr.media
+      gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
     hosts:
       - host: "radarr.dex136.xyz"
         paths:
