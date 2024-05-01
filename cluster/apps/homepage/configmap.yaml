@@ -55,6 +55,7 @@ data:
       showSearchSuggestions: true
       hideVisitURL: true
     disableCollapse: true
+    groupsInitiallyCollapsed: false
     layout:
       Media:
         style: column
