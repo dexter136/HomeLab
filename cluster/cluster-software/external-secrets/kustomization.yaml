@@ -9,6 +9,12 @@ helmCharts:
   namespace: external-secrets
   apiVersions:
     - monitoring.coreos.com/v1
+- name: app-template
+  repo: https://bjw-s.github.io/helm-charts
+  version: 3.1.0
+  releaseName: onepassword-connect
+  valuesFile: onepasshelmvalues.yaml
+  namespace: external-secrets
 resources:
   - clustersecretstore.yaml
 generators:
