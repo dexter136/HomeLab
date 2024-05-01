@@ -69,6 +69,9 @@ ingress:
       gethomepage.dev/name: "Sonarr"
       gethomepage.dev/icon: sonarr.svg
       gethomepage.dev/group: Media
+      gethomepage.dev/widget.type: sonarr
+      gethomepage.dev/widget.url: http://sonarr.media
+      gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
     hosts:
       - host: "sonarr.dex136.xyz"
         paths:
