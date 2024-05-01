@@ -30,26 +30,14 @@ vmsingle:
     enabled: true
     hosts:
     - vms.dex136.xyz
+  serviceMonitor:
+    enabled: true
 vmalert:
   ingress:
     enabled: true
     hosts:
     - va.dex136.xyz
-vmagent:
-  spec:
-    scrapeInterval: 60s
-    resources:
-      limits:
-        cpu: 1
-        memory: 500Mi
-      requests:
-        cpu: 500m
-        memory: 100Mi
-  ingress:
-    enabled: true
-    hosts:
-    - vm.dex136.xyz
-coredns:
+coreDns:
   enabled: false
 kubelet:
   enabled: false

@@ -1,3 +1,8 @@
 loki:
   serviceMonitor:
     enabled: true
+promtail:
+  config:
+    clients:
+      - url: http://loki:3100/loki/api/v1/push
+      - url: http://vl:9428/insert/loki/api/v1/push?_stream_fields=instance,job,host,app
