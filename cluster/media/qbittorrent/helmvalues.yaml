@@ -77,6 +77,8 @@ ingress:
       gethomepage.dev/name: "Qbittorrent"
       gethomepage.dev/icon: qbittorrent.svg
       gethomepage.dev/group: Media
+      gethomepage.dev/widget.type: qbittorrent
+      gethomepage.dev/widget.url: http://qbittorrent.media
     hosts:
       - host: qb.dex136.xyz
         paths:
