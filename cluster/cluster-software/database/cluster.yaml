@@ -41,7 +41,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secrets
+    name: onepassword-connect
   target:
     name: cloudnative-pg-secret
     template:
@@ -49,11 +49,9 @@ spec:
       data:
         password: '{{ .PG_PASSWORD }}'
         username: "postgres"
-  data:
-    - secretKey: PG_PASSWORD
-      remoteRef:
-        key: pg
-        property: password
+  dataFrom:
+    - extract:
+        key: postgres
 ---
 apiVersion: v1
 kind: Service
