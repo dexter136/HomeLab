@@ -37,6 +37,8 @@ vmalert:
     enabled: true
     hosts:
     - va.dex136.xyz
+vmagent:
+  enabled: false
 coreDns:
   enabled: false
 kubelet:
