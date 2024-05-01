@@ -8,9 +8,13 @@ server:
     ingressClassName: internal
     annotations:
       gethomepage.dev/enabled: "true"
-      gethomepage.dev/icon: si-VictoriaMetrics-#621773
+      gethomepage.dev/icon: si-victoriametrics-#621773
       gethomepage.dev/group: Monitoring
       gethomepage.dev/name: "Victoria Logs"
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/instance in (
+            vl
+        )
     hosts:
       - name: vl.dex136x.xyz
         path: /
