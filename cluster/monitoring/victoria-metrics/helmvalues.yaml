@@ -37,6 +37,8 @@ vmalert:
     enabled: true
     hosts:
     - va.dex136.xyz
+defaultRules:
+  create: false
 vmagent:
   enabled: false
 coreDns:
