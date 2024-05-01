@@ -29,5 +29,5 @@ variable "talos_version" {
 
 variable "apply_mode" {
   type    = string
-  default = "staged"
+  default = "auto"
 }
