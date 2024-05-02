@@ -62,6 +62,10 @@ vmalert:
     enabled: true
     hosts:
     - va.dex136.xyz
+  spec:
+    extraArgs:
+      external.url: https://vm.dex136.xyz
+      external.alert.source: vmui/#/?g0.expr={{ "{{" }}.Expr|queryEscape{{ "}}" }}
 vmagent:
   spec:
     scrapeInterval: 60s
