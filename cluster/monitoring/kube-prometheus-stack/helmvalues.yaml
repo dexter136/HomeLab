@@ -34,6 +34,8 @@ nodeExporter:
   enabled: false
 kubeStateMetrics:
   enabled: false
+coreDns:
+  enabled: false
 kubelet:
   enabled: false
 kubeApiServer:
