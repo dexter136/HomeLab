@@ -87,6 +87,11 @@ datasources:
         type: prometheus
         uid: victoria
         access: proxy
+        url: http://vmsingle-vm.monitoring.svc:8429/
+      - name: Prometheus
+        type: prometheus
+        uid: prometheus
+        access: proxy
         isDefault: true
         url: http://vmsingle-vm.monitoring.svc:8429/
 dashboards:
