@@ -38,7 +38,7 @@ vmalert:
     enabled: true
     hosts:
     - va.dex136.xyz
-  server:
+  spec:
     notifier:
       alertmanagerSpec:
         url: http://alertmanager-operated.monitoring:9093
