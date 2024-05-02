@@ -1,5 +1,5 @@
 controllers:
-  pihole-monitor:
+  pihole-exporter:
     annotations:
       reloader.stakater.com/auto: "true"
     containers:
@@ -18,15 +18,15 @@ controllers:
           repository: ekofr/pihole-exporter
           tag: latest
 service:
-  pihole-monitor:
-    controller: pihole-monitor
+  pihole-exporter:
+    controller: pihole-exporter
     ports:
       http:
         port: 9517
 serviceMonitor:
   main:
     enabled: true
-    serviceName: pihole-monitor
+    serviceName: pihole-exporter
     endpoints:
       - port: "9517"
         scheme: http
