@@ -72,15 +72,6 @@ datasources:
       - { name: Loki, orgId: 1 }
       - { name: Prometheus, orgId: 1 }
     datasources:
-      - name: Prometheus
-        type: prometheus
-        uid: prometheus
-        access: proxy
-        url: http://kube-prometheus-stack-prometheus.monitoring:9090/
-        isDefault: true
-        jsonData:
-          httpMethod: POST
-          timeInterval: 1m
       - name: Alertmanager
         type: alertmanager
         uid: alertmanager
@@ -96,6 +87,7 @@ datasources:
         type: prometheus
         uid: victoria
         access: proxy
+        isDefault: true
         url: http://vmsingle-vm.monitoring.svc:8429/
 dashboards:
   default:
