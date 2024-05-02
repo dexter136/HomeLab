@@ -28,8 +28,8 @@ serviceMonitor:
     enabled: true
     serviceName: pihole-monitor
   endpoints:
-  - port: 9517
-    scheme: http
-    path: /
-    interval: 1m
-    scrapeTimeout: 10s
+    - port: 9517
+      scheme: http
+      path: /
+      interval: 1m
+      scrapeTimeout: 10s
