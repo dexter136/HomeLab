@@ -1,4 +1,8 @@
 cleanPrometheusOperatorObjectNames: true
+prometheusOperator:
+  admissionWebhooks:
+    patch:
+      ttlSecondsAfterFinished: 30
 grafana:
   enabled: false
   forceDeployDashboards: true
