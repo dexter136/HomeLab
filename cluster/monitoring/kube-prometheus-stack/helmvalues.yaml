@@ -30,6 +30,10 @@ grafana:
       annotations:
         grafana_folder: Kubernetes
 #Disable the rest of it
+nodeExporter:
+  enabled: false
+kubeStateMetrics:
+  enabled: false
 kubelet:
   enabled: false
 kubeApiServer:
