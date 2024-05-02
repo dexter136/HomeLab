@@ -13,7 +13,30 @@ grafana:
       additionalDashboardAnnotations:
         grafana_folder: VictoriaMetrics
 alertmanager:
-  enabled: false
+  spec:
+    configSecret: alertmanager-secret
+    externalURL: https://alertmanager.dex136.xyz
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: monitoring
+          resources:
+            requests:
+              storage: 5Gi
+  ingress:
+    enabled: true
+    ingressClassName: internal
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: alertmanager.svg
+      gethomepage.dev/name: "Alert Manager"
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/name in (
+            alertmanager
+        )
+    hosts:
+      - alertmanager.dex136.xyz
 vmsingle:
   spec:
     retentionPeriod: "30d"
@@ -39,9 +62,6 @@ vmalert:
     enabled: true
     hosts:
     - va.dex136.xyz
-  spec:
-    notifier:
-      url: http://alertmanager-operated.monitoring:9093
 vmagent:
   spec:
     scrapeInterval: 60s

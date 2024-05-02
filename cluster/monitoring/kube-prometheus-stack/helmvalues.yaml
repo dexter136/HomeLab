@@ -1,26 +1,6 @@
 #crds
 crds:
   enabled: true
-#Alertmanager
-alertmanager:
-  alertmanagerSpec:
-    replicas: 1
-    useExistingSecret: true
-    configSecret: alertmanager-secret
-  ingress:
-    enabled: true
-    ingressClassName: internal
-    annotations:
-      gethomepage.dev/enabled: "true"
-      gethomepage.dev/icon: alertmanager.svg
-      gethomepage.dev/name: "Alert Manager"
-      gethomepage.dev/group: Monitoring
-      gethomepage.dev/pod-selector: >-
-        app.kubernetes.io/name in (
-            alertmanager
-        )
-    hosts:
-      - alertmanager.dex136.xyz
 #Grafana - Dashboards Only
 grafana:
   enabled: false
@@ -30,6 +10,8 @@ grafana:
       annotations:
         grafana_folder: Kubernetes
 #Disable the rest of it
+alertmanager:
+  enabled: false
 nodeExporter:
   enabled: false
 kubeStateMetrics:

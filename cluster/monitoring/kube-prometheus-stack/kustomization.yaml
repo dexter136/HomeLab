@@ -8,5 +8,3 @@ helmCharts:
   valuesFile: helmvalues.yaml
   namespace: monitoring
   includeCRDs: true
-generators:
-- secretgenerator.yaml
