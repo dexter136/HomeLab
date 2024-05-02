@@ -9,5 +9,3 @@ helmCharts:
   namespace: monitoring
 generators:
 - ./secretgenerator.yaml
-resources:
-- scrapeconfig.yaml
