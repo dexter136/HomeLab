@@ -4,7 +4,7 @@ helmCharts:
 - name: app-template
   repo: https://bjw-s.github.io/helm-charts
   version: 3.1.0
-  releaseName: pihole-monitor
+  releaseName: pihole-exporter
   valuesFile: helmvalues.yaml
   namespace: monitoring
 generators:
