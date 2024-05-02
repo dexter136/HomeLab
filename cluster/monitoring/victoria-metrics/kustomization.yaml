@@ -17,3 +17,4 @@ helmCharts:
   includeCRDs: true
 resources:
 - pvc.yaml
+- externalsecret.yaml
