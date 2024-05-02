@@ -1,90 +1,7 @@
-cleanPrometheusOperatorObjectNames: true
-prometheusOperator:
-  admissionWebhooks:
-    patch:
-      ttlSecondsAfterFinished: 30
-grafana:
-  enabled: false
-  forceDeployDashboards: true
-  sidecar:
-    dashboards:
-      annotations:
-        grafana_folder: Kubernetes
-kubelet:
+#crds
+crds:
   enabled: true
-  serviceMonitor:
-    metricRelabelings:
-      # Drop high cardinality labels
-      - action: labeldrop
-        regex: (uid)
-      - action: labeldrop
-        regex: (id|name)
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
-kubeApiServer:
-  enabled: true
-  tlsConfig:
-    insecureSkipVerify: true
-  serviceMonitor:
-    metricRelabelings:
-      # Drop high cardinality labels
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: (apiserver|etcd|rest_client)_request(|_sli|_slo)_duration_seconds_bucket
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
-kubeEtcd:
-  enabled: true
-  endpoints: &endpoints
-    - 192.168.1.231
-    - 192.168.1.232
-    - 192.168.1.233
-kubeControllerManager:
-  enabled: true
-  endpoints: *endpoints
-kubeScheduler:
-  enabled: true
-  endpoints: *endpoints
-kubeProxy:
-  enabled: false
-prometheus:
-  prometheusSpec:
-    ruleSelectorNilUsesHelmValues: false
-    serviceMonitorSelectorNilUsesHelmValues: false
-    podMonitorSelectorNilUsesHelmValues: false
-    probeSelectorNilUsesHelmValues: false
-    retention: 4d
-    retentionSize: 40GB
-    resources:
-      requests:
-        cpu: 275m
-        memory: 4800Mi
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          storageClassName: monitoring
-          accessModes:
-            - "ReadWriteOnce"
-          resources:
-            requests:
-              storage: 80Gi
-  ingress:
-    enabled: true
-    ingressClassName: internal
-    annotations:
-      gethomepage.dev/enabled: "true"
-      gethomepage.dev/icon: prometheus.svg
-      gethomepage.dev/name: "Prometheus"
-      gethomepage.dev/group: Monitoring
-      gethomepage.dev/pod-selector: >-
-        app.kubernetes.io/component in (
-            prometheus-operator,
-            metrics
-        )
-    hosts:
-      - prometheus.dex136.xyz
+#Alertmanager
 alertmanager:
   alertmanagerSpec:
     replicas: 1
@@ -104,3 +21,31 @@ alertmanager:
         )
     hosts:
       - alertmanager.dex136.xyz
+#Grafana - Dashboards Only
+grafana:
+  enabled: false
+  forceDeployDashboards: true
+  sidecar:
+    dashboards:
+      annotations:
+        grafana_folder: Kubernetes
+#Disable the rest of it
+kubelet:
+  enabled: false
+kubeApiServer:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+prometheus:
+  enabled: false
+defaultRules:
+  create: false
+cleanPrometheusOperatorObjectNames: true
+prometheusOperator:
+  enabled: false
