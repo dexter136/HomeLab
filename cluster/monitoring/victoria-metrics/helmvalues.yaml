@@ -4,6 +4,7 @@ victoria-metrics-operator:
   operator:
     disable_prometheus_converter: false
     prometheus_converter_add_argocd_ignore_annotations: true
+    enable_converter_ownership: true
 grafana:
   enabled: false
   sidecar:
