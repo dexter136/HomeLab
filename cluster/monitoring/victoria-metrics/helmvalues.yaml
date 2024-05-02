@@ -40,8 +40,7 @@ vmalert:
     - va.dex136.xyz
   spec:
     notifier:
-      alertmanagerSpec:
-        url: http://alertmanager-operated.monitoring:9093
+      url: http://alertmanager-operated.monitoring:9093
 vmagent:
   spec:
     scrapeInterval: 60s
