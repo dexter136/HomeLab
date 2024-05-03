@@ -1,5 +1,6 @@
 fullnameOverride: vm
 experimentalDashboardsEnabled: false
+defaultDashboardsEnabled: false
 victoria-metrics-operator:
   operator:
     disable_prometheus_converter: false
@@ -7,11 +8,6 @@ victoria-metrics-operator:
     enable_converter_ownership: true
 grafana:
   enabled: false
-  sidecar:
-    dashboards:
-      label: grafana_dashboard
-      additionalDashboardAnnotations:
-        grafana_folder: VictoriaMetrics
 alertmanager:
   spec:
     configSecret: alertmanager-secret
