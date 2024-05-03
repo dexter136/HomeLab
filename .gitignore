@@ -12,3 +12,4 @@ TALOS_CONFIG
 .tool-versions
 charts/
 /tmp
+kubeconfig
