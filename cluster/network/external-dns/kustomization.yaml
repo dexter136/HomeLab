@@ -15,5 +15,5 @@ helmCharts:
   releaseName: external-dns-pihole
   valuesFile: helmvalues-pi.yaml
   namespace: network
-generators:
-- ./secretgenerator.yaml
+resources:
+- externalsecret.yaml
