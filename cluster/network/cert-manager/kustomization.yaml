@@ -7,6 +7,7 @@ helmCharts:
   releaseName: cert-manager
   valuesFile: helmvalues.yaml
   namespace: network
+  includeCRDs: true
 resources:
   - clusterissuer.yaml
   - certificates.yaml
