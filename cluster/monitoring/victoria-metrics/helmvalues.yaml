@@ -29,7 +29,7 @@ alertmanager:
       gethomepage.dev/group: Monitoring
       gethomepage.dev/pod-selector: >-
         app.kubernetes.io/name in (
-            alertmanager
+            vmalertmanager
         )
     hosts:
       - alertmanager.dex136.xyz
@@ -51,6 +51,15 @@ vmsingle:
     enabled: true
     hosts:
     - vm.dex136.xyz
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: si-victoriametrics-#621773
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/name: "Victoria Metrics"
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/name in (
+            vmsingle
+        )
   serviceMonitor:
     enabled: true
 vmalert:
@@ -58,6 +67,15 @@ vmalert:
     enabled: true
     hosts:
     - va.dex136.xyz
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: si-victoriametrics-#621773
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/name: "Victoria Metrics Alert"
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/name in (
+            vmalert
+        )
   spec:
     extraArgs:
       external.url: https://vm.dex136.xyz
@@ -74,6 +92,15 @@ vmagent:
         memory: 100Mi
   ingress:
     enabled: true
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: si-victoriametrics-#621773
+      gethomepage.dev/group: Monitoring
+      gethomepage.dev/name: "Victoria Metrics Agent"
+      gethomepage.dev/pod-selector: >-
+        app.kubernetes.io/name in (
+            vmagent
+        )
     hosts:
     - vma.dex136.xyz
 kubelet:
