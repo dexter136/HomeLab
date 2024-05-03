@@ -7,7 +7,6 @@ helmCharts:
   releaseName: cloudflared
   valuesFile: helmvalues.yaml
   namespace: network
-generators:
-  - ./secretgenerator.yaml
 resources:
   - resources.yaml
+  - externalsecret.yaml
