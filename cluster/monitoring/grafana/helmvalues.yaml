@@ -170,35 +170,35 @@ dashboards:
       gnetId: 11454
       revision: 14
       datasource: Prometheus
-    victoriametrics:
-      vm-cluster:
-        # renovate: depName="VictoriaMetrics - cluster"
-        gnetId: 11176
-        revision: 36
-        datasource:
-          - name: "DS_PROMETHEUS"
-            value: Prometheus
-      vm-operator:
-        # renovate: depName="VictoriaMetrics - operator"
-        gnetId: 17869
-        revision: 2
-        datasource:
-          - name: "DS_PROMETHEUS"
-            value: Prometheus
-      vm-vmalert:
-        # renovate: depName="VictoriaMetrics - vmalert"
-        gnetId: 14950
-        revision: 10
-        datasource:
-          - name: "DS_PROMETHEUS"
-            value: Prometheus
-      vm-vmagent:
-        # renovate: depName="VictoriaMetrics - vmagent"
-        gnetId: 12683
-        revision: 17
-        datasource:
-          - name: "DS_PROMETHEUS"
-            value: Prometheus
+  victoriametrics:
+    vm-cluster:
+      # renovate: depName="VictoriaMetrics - cluster"
+      gnetId: 11176
+      revision: 36
+      datasource:
+        - name: "DS_PROMETHEUS"
+          value: Prometheus
+    vm-operator:
+      # renovate: depName="VictoriaMetrics - operator"
+      gnetId: 17869
+      revision: 2
+      datasource:
+        - name: "DS_PROMETHEUS"
+          value: Prometheus
+    vm-vmalert:
+      # renovate: depName="VictoriaMetrics - vmalert"
+      gnetId: 14950
+      revision: 10
+      datasource:
+        - name: "DS_PROMETHEUS"
+          value: Prometheus
+    vm-vmagent:
+      # renovate: depName="VictoriaMetrics - vmagent"
+      gnetId: 12683
+      revision: 17
+      datasource:
+        - name: "DS_PROMETHEUS"
+          value: Prometheus
   nginx:
     nginx:
       url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
