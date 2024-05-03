@@ -75,7 +75,7 @@ datasources:
       - name: Alertmanager
         type: alertmanager
         uid: alertmanager
-        url: http://kube-prometheus-stack-alertmanager.monitoring:9093/
+        url: http://vmalertmanager-vm.monitoring:9093/
         access: proxy
         jsonData:
           handleGrafanaManagedAlerts: false
