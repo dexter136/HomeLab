@@ -160,7 +160,7 @@ dashboards:
     kubernetes-pods:
       # renovate: depName="Kubernetes / Views / Pods"
       gNetId: 15760
-      revision: 21
+      revision: 28
       datasource: Prometheus
     kubernetes-volumes:
       # renovate: depName="K8s / Storage / Volumes / Cluster"
@@ -201,7 +201,6 @@ sidecar:
   dashboards:
     enabled: true
     searchNamespace: ALL
-    labelValue: ""
     label: grafana_dashboard
     folderAnnotation: grafana_folder
     provider:
