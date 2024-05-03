@@ -16,7 +16,7 @@ server:
             vl
         )
     hosts:
-      - name: vl.dex136x.xyz
+      - name: vl.dex136.xyz
         path: /
         port: 9428
   serviceMonitor:
