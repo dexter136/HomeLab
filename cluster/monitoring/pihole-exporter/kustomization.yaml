@@ -7,5 +7,5 @@ helmCharts:
   releaseName: pihole-exporter
   valuesFile: helmvalues.yaml
   namespace: monitoring
-generators:
-- ./secretgenerator.yaml
+resources:
+- externalsecret.yaml
