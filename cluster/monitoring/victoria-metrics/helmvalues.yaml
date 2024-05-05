@@ -40,7 +40,7 @@ vmsingle:
       storageClassName: monitoring
       resources:
         requests:
-          storage: 20Gi
+          storage: 50Gi
     resources:
       limits:
         memory: 2Gi
