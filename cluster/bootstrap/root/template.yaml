@@ -65,6 +65,8 @@ templates:
             syncOptions:
               - CreateNamespace=false
               - ServerSideApply=true
+              - ApplyOutOfSyncOnly=true
+          revisionHistoryLimit: 2
     {{- if and $appset.namespace (not $appset.noCreateNamespace)}}
     ---
     apiVersion: v1
