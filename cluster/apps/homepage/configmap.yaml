@@ -33,7 +33,7 @@ data:
           href: 'http://192.168.1.8:8080/admin'
           icon: pi-hole.svg
       - Unifi:
-          href: '192.168.1.1'
+          href: 'https://192.168.1.1'
           icon: unifi.svg
     - Media:
       - Plex:
