@@ -1,3 +1,7 @@
+global:
+  victoriaLogs:
+    server:
+      fullnameOverride: vl
 server:
   fullnameOverride: vl
   persistentVolume:
