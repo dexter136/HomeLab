@@ -143,7 +143,7 @@ dashboards:
     k8s-system-api-server:
       # renovate: depName="Kubernetes / System / API Server"
       gnetId: 15761
-      revision: 16
+      revision: 17
       datasource: Prometheus
     k8s-views-global:
       # renovate: depName="Kubernetes / Views / Global"
