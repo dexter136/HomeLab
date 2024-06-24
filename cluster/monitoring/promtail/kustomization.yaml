@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: promtail
   repo: https://grafana.github.io/helm-charts
-  version: 6.16.0
+  version: 6.16.1
   releaseName: promtail
   valuesFile: helmvalues.yaml
   namespace: monitoring
