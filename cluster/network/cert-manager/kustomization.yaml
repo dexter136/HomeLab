@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: cert-manager
   repo: https://charts.jetstack.io
-  version: v1.15.0
+  version: v1.15.1
   releaseName: cert-manager
   valuesFile: helmvalues.yaml
   namespace: network
