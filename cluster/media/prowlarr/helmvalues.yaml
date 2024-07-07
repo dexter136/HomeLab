@@ -69,7 +69,7 @@ ingress:
       gethomepage.dev/group: Media
       gethomepage.dev/widget.type: prowlarr
       gethomepage.dev/widget.url: http://prowlarr.media
-      gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PROWLARR_TOKEN}}"
+      gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_PROWLARR_TOKEN}}" }}'
     hosts:
       - host: "prowlarr.dex136.xyz"
         paths:
