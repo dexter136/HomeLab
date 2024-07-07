@@ -71,7 +71,7 @@ ingress:
       gethomepage.dev/group: Media
       gethomepage.dev/widget.type: radarr
       gethomepage.dev/widget.url: http://radarr.media
-      gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
+      gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_RADARR_TOKEN}}" }}'
     hosts:
       - host: "radarr.dex136.xyz"
         paths:
