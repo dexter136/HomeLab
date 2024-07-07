@@ -82,6 +82,8 @@ vmalert:
       external.alert.source: vmui/#/?g0.expr={{ "{{" }}.Expr|queryEscape{{ "}}" }}
 vmagent:
   spec:
+    externalLabels:
+      cluster: homelab
     scrapeInterval: 60s
     resources:
       limits:
