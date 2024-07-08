@@ -1,6 +1,9 @@
 fullnameOverride: vm
 experimentalDashboardsEnabled: false
 defaultDashboardsEnabled: false
+defaultRules:
+  rules:
+    vmcluster: false
 victoria-metrics-operator:
   operator:
     disable_prometheus_converter: false
