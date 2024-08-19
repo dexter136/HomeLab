@@ -11,20 +11,31 @@ controllers:
           tag: v0.4.1@sha256:237e6ac3f3bc791343e1ee84122ce9b97abf7eed86cd522d8bf4cba10a041e9f
         env:
           PROMETHEUS_URL: http://vmsingle-vm.monitoring:8429/
-          PORT: &port 80
+          SERVER_HOST: 0.0.0.0
+          HEALTH_HOST: 0.0.0.0
         probes:
-          liveness: &probes
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /-/health
+                port: 8888
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness:
             enabled: true
             custom: true
             spec:
               httpGet:
                 path: /-/ready
-                port: *port
+                port: 8888
               initialDelaySeconds: 0
               periodSeconds: 10
               timeoutSeconds: 1
               failureThreshold: 3
-          readiness: *probes
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
@@ -52,7 +63,7 @@ service:
     controller: kromgo
     ports:
       http:
-        port: *port
+        port: 80
 ingress:
   app:
     className: external
