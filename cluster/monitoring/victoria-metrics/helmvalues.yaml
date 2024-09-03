@@ -142,7 +142,7 @@ kubeEtcd:
         port: http-metrics
         scheme: http
         tlsConfig:
-          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecureSkipVerify: true
   service:
     enabled: true
     port: 2381
@@ -162,7 +162,6 @@ kubeControllerManager:
         scheme: https
         tlsConfig:
           insecureSkipVerify: true
-          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 kubeProxy:
   enabled: false
 kubeScheduler:
@@ -180,7 +179,6 @@ kubeScheduler:
         scheme: https
         tlsConfig:
           insecureSkipVerify: true
-          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 kubeApiServer:
   enabled: true
 prometheus-node-exporter:
