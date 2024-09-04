@@ -16,11 +16,13 @@ controllers:
           repository: ghcr.io/onedr0p/prowlarr
           tag: 1.17.2
         env:
-          PROWLARR__INSTANCE_NAME: Prowlarr
-          PROWLARR__PORT: &port 80
+          PROWLARR__APP__INSTANCENAME: Prowlarr
+          PROWLARR__SERVER__PORT: &port 80
+          PROWLARR__LOG__DBENABLED: "false"
           PROWLARR__LOG_LEVEL: info
-          PROWLARR__AUTHENTICATION_METHOD: External
-          PROWLARR__THEME: dark
+          PROWLARR__AUTH__METHOD: External
+          PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          PROWLARR__APP__THEME: dark
           TZ: America/New_York
         envFrom: *envFrom
         probes:
