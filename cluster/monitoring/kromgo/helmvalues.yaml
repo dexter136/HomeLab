@@ -13,6 +13,7 @@ controllers:
           PROMETHEUS_URL: http://vmsingle-vm.monitoring:8429/
           SERVER_HOST: 0.0.0.0
           HEALTH_HOST: 0.0.0.0
+          SERVER_PORT: 80
         probes:
           liveness:
             enabled: true
