@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: longhorn
   repo: https://charts.longhorn.io
-  version: 1.7.0
+  version: 1.7.1
   releaseName: longhorn
   valuesFile: helmvalues.yaml
   namespace: longhorn
