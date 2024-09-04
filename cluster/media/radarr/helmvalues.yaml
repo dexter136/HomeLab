@@ -16,13 +16,13 @@ controllers:
           repository: ghcr.io/onedr0p/radarr
           tag: 5.6
         env:
-          PUSHOVER_DEBUG: "false"
-          RADARR__AUTHENTICATION_METHOD: External
-          RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-          RADARR__INSTANCE_NAME: radarr
-          RADARR__PORT: &port 80
-          RADARR__LOG_LEVEL: info
-          RADARR__THEME: dark
+          RADARR__AUTH__METHOD: External
+          RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          RADARR__APP__INSTANCENAME: radarr
+          RADARR__SERVER__PORT: &port 80
+          RADARR__LOG__DBENABLED: "False"
+          RADARR__LOG__LEVEL: info
+          RADARR__APP__THEME: dark
           TZ: America/New_York
         envFrom: *envFrom
         probes:
