@@ -24,7 +24,7 @@ data:
         - { color: "green", min: 0, max: 9999 }
 
     - name: cluster_cpu_usage
-      query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
+      query: round(avg(instance:node_cpu:ratio) * 100, 0.1)
       suffix: "%"
       colors:
         - { color: "green", min: 0, max: 35 }
