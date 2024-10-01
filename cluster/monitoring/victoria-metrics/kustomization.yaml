@@ -3,14 +3,14 @@ kind: Kustomization
 helmCharts:
 - name: victoria-metrics-k8s-stack
   repo: https://victoriametrics.github.io/helm-charts/
-  version: 0.25.16
+  version: 0.26.0
   releaseName: vm
   valuesFile: helmvalues.yaml
   namespace: monitoring
   includeCRDs: true
 - name: victoria-logs-single
   repo: https://victoriametrics.github.io/helm-charts/
-  version: 0.6.2
+  version: 0.6.4
   releaseName: vl
   valuesFile: vl-helmvalues.yaml
   namespace: monitoring
