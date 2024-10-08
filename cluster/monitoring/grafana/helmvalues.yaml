@@ -174,7 +174,7 @@ dashboards:
     vm-cluster:
       # renovate: depName="VictoriaMetrics - cluster"
       gnetId: 11176
-      revision: 37
+      revision: 38
       datasource:
         - name: "DS_PROMETHEUS"
           value: Prometheus
