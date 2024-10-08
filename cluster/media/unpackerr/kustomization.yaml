@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: app-template
   repo: https://bjw-s.github.io/helm-charts
-  version: 3.4.0
+  version: 3.5.1
   releaseName: unpackerr
   valuesFile: helmvalues.yaml
   namespace: media
