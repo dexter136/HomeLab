@@ -9,24 +9,8 @@ controllers:
           tag: 5.0.0@sha256:ea73fffed4c37dbfef9a0eacf406bdb3b00c8bd9840cca0e6dd6f80bc9ee6209
         env:
           TZ: America/New_York
-          QBITTORRENT__PORT: &port 80
-          QBITTORRENT__BT_PORT: &bittorrentPort 50413
-          QBT_Application__MemoryWorkingSetLimit: 10000
-          QBT_Preferences__WebUI__AlternativeUIEnabled: false
-          QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-          QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-            10.42.0.0/16, 192.168.1.0/24, 10.244.0.0/16
-          QBT_Preferences__WebUI__LocalHostAuth: false
-          QBT_BitTorrent__Session__Interface: eth0
-          QBT_BitTorrent__Session__InterfaceAddress:
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
-          QBT_BitTorrent__Session__InterfaceName: eth0
-          QBT_BitTorrent__Session__DefaultSavePath: "/torrents/Completed"
-          QBT_BitTorrent__Session__TorrentExportDirectory: "/torrents/Files"
-          QBT_BitTorrent__Session__TempPath: "/torrents/downloading"
-          QBT_BitTorrent__Session__TempPathEnabled: true
+          QBT_WEBUI_PORT: &port 80
+          QBT_TORRENTING_PORT: &bittorrentPort 50413
         probes:
           liveness: &probes
             enabled: true
