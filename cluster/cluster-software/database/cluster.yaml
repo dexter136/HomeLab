@@ -8,7 +8,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   instances: 5
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.4-35
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4-36
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
