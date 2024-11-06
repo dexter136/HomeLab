@@ -195,7 +195,7 @@ dashboards:
     vm-vmagent:
       # renovate: depName="VictoriaMetrics - vmagent"
       gnetId: 12683
-      revision: 20
+      revision: 21
       datasource:
         - name: "DS_PROMETHEUS"
           value: Prometheus
