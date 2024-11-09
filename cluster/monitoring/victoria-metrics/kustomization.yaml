@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: victoria-metrics-k8s-stack
   repo: https://victoriametrics.github.io/helm-charts/
-  version: 0.27.6
+  version: 0.28.3
   releaseName: vm
   valuesFile: helmvalues.yaml
   namespace: monitoring
