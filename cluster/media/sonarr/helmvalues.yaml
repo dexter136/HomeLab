@@ -14,7 +14,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/sonarr
-          tag: 4.0.10
+          tag: 4.0.11
         env:
           SONARR__AUTH__METHOD: External
           SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
