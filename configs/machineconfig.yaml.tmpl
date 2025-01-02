@@ -5,6 +5,7 @@ machine:
     image: factory.talos.dev/installer/{{ (datasource "inventory").talos_factory_key }}:{{ (datasource "inventory").talos_version }}
     extraKernelArgs:
       - mitigations=off
+      - pcie_aspm=off
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ (ds "inventory").kubernetes_version }}
     extraMounts:
@@ -34,6 +35,8 @@ machine:
         {{- end }}
     hostname: {{ .node.name }}
   features:
+    hostDNS:
+      forwardKubeDNSToHost: false
     rbac: true
     stableHostname: true
     {{- if eq .node.type "controlplane" }}
