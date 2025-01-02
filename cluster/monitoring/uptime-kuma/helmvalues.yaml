@@ -35,10 +35,6 @@ ingress:
       gethomepage.dev/name: "Uptime Kuma"
       gethomepage.dev/group: Monitoring
       external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
-      nginx.ingress.kubernetes.io/configuration-snippet: |
-          proxy_set_header Accept-Encoding "";
-          sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/uptime-kuma/dark.css"></head>';
-          sub_filter_once on;
     hosts:
       - host: kuma.dex136.xyz
         paths:
