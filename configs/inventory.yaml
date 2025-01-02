@@ -33,7 +33,7 @@ nodes:
 kubernetes_version: v1.32.0
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talos_version: v1.9.1
-talos_factory_key: 5f853bf491cd50c9b8fd557489816cc26dcb7ad63f88cb47b3e6a4685110f1b2
+talos_factory_key: 2cf8334a379f9cd2c0820e1b72b4bc4dfd3763200f14631365eecff242be9463
 cluster_name: aisling-homelab
 controlplane_proxy_hostname: kube.dex136.xyz
 controlplane_proxy_ip: 192.168.1.230
