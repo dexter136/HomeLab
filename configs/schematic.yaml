@@ -1,6 +1,7 @@
 customization:
   extraKernelArgs:
     - mitigations=off
+    - pcie_aspm=off
   systemExtensions:
     officialExtensions:
       - siderolabs/i915-ucode
