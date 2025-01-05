@@ -14,7 +14,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/onedr0p/radarr
-          tag: 5.16
+          tag: 5.17
         env:
           RADARR__AUTH__METHOD: External
           RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
