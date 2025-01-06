@@ -10,7 +10,7 @@ helmCharts:
   includeCRDs: true
 - name: victoria-logs-single
   repo: https://victoriametrics.github.io/helm-charts/
-  version: 0.8.11
+  version: 0.8.12
   releaseName: vl
   valuesFile: vl-helmvalues.yaml
   namespace: monitoring
