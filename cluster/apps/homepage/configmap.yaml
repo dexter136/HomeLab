@@ -35,10 +35,6 @@ data:
       - Unifi:
           href: 'https://192.168.1.1'
           icon: unifi.svg
-    - Media:
-      - Plex:
-          href: 'http://plex.aisling.dev'
-          icon: plex.svg
   settings.yaml: |
     title: Dashboard
     favicon: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
