@@ -38,7 +38,7 @@ server:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       gethomepage.dev/enabled: "true"
-      gethomepage.dev/icon: argocd.svg
+      gethomepage.dev/icon: argo-cd.svg
       gethomepage.dev/name: "ArgoCD"
       gethomepage.dev/group: "System"
   metrics: &metrics
