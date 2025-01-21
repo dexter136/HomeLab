@@ -15,7 +15,7 @@ provider:
         valueFrom:
           secretKeyRef:
             name: unifi-api-key
-            key: api-key
+            key: api-token
       - name: LOG_LEVEL
         value: *logLevel
     livenessProbe:
