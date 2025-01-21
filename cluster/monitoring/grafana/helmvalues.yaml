@@ -139,6 +139,12 @@ dashboards:
     external-secrets:
       url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
       datasource: Prometheus
+    smartctl-exporter:
+      # renovate: depName="SMARTctl Exporter Dashboard"
+      gnetId: 22604
+      revision: 1
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
   kubernetes:
     k8s-system-api-server:
       # renovate: depName="Kubernetes / System / API Server"
