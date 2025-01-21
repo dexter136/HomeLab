@@ -1,0 +1,5 @@
+fullnameOverride: smartctl-exporter
+serviceMonitor:
+  enabled: true
+prometheusRules:
+  enabled: false
