@@ -15,5 +15,12 @@ helmCharts:
   releaseName: external-dns-pihole
   valuesFile: helmvalues-pi.yaml
   namespace: network
+- name: external-dns
+  includeCRDs: false
+  repo: https://kubernetes-sigs.github.io/external-dns
+  version: 1.15.0
+  releaseName: external-dns-unifi
+  valuesFile: helmvalues-unifi.yaml
+  namespace: network
 resources:
 - externalsecret.yaml
