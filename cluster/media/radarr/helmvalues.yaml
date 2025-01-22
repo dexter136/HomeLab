@@ -96,3 +96,9 @@ persistence:
     server: 192.168.1.8
     globalMounts:
       - path: /torrents
+  nas:
+    type: nfs
+    path: /volume1
+    server: 192.168.1.8
+    globalMounts:
+      - path: /nas
