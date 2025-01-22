@@ -14,7 +14,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/paperless-ngx/paperless-ngx
-          tag: 2.14.4
+          tag: 2.14.5
         env:
           # Configure application
           PAPERLESS_REDIS_PREFIX: pngx
