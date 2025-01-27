@@ -6,7 +6,7 @@ controllers:
       app:
         env:
           TZ: America/New_York
-          PIHOLE_HOSTNAME: 192.168.1.8
+          PIHOLE_HOSTNAME: 192.168.3.40
           PORT: &port 9517
           PIHOLE_PORT: 8080
           PIHOLE_PASSWORD:

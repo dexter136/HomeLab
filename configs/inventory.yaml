@@ -1,30 +1,30 @@
 nodes:
-  - ip: 192.168.1.236
+  - ip: 192.168.3.22
     disk: /dev/sda
     interface: eno1
     name: worker-2
     type: worker
-  - ip: 192.168.1.231
+  - ip: 192.168.3.10
     disk: /dev/nvme0n1
     interface: eno1
     name: control-0
     type: controlplane
-  - ip: 192.168.1.232
+  - ip: 192.168.3.11
     disk: /dev/sda
     interface: eno1
     name: control-1
     type: controlplane
-  - ip: 192.168.1.233
+  - ip: 192.168.3.12
     disk: /dev/nvme0n1
     interface: eno1
     name: control-2
     type: controlplane
-  - ip: 192.168.1.234
+  - ip: 192.168.3.20
     disk: /dev/nvme0n1
     interface: eno1
     name: worker-0
     type: worker
-  - ip: 192.168.1.235
+  - ip: 192.168.3.21
     disk: /dev/nvme0n1
     interface: enp2s0
     name: worker-1
@@ -36,5 +36,5 @@ talos_version: v1.9.2
 talos_factory_key: 2cf8334a379f9cd2c0820e1b72b4bc4dfd3763200f14631365eecff242be9463
 cluster_name: aisling-homelab
 controlplane_proxy_hostname: kube.dex136.xyz
-controlplane_proxy_ip: 192.168.1.230
-cluster_virtual_ip: 192.168.1.239
+controlplane_proxy_ip: 192.168.3.8
+cluster_virtual_ip: 192.168.3.9

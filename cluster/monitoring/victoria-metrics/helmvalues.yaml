@@ -132,9 +132,9 @@ kubelet:
 kubeEtcd:
   enabled: true
   endpoints: &endpoints
-    - 192.168.1.231
-    - 192.168.1.232
-    - 192.168.1.233
+    - 192.168.3.10
+    - 192.168.3.11
+    - 192.168.3.12
   vmScrape:
     spec:
       jobLabel: jobLabel
