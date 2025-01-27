@@ -30,7 +30,7 @@ data:
           href: 'https://nas.aisling.dev'
           icon: synology.svg
       - PiHole:
-          href: 'http://192.168.1.8:8080/admin'
+          href: 'http://192.168.3.40:8080/admin'
           icon: pi-hole.svg
       - Unifi:
           href: 'https://192.168.1.1'

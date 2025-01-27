@@ -45,7 +45,7 @@ service:
     controller: qbittorrent
     type: LoadBalancer
     annotations:
-      io.cilium/lb-ipam-ips: 192.168.1.242
+      io.cilium/lb-ipam-ips: 192.168.3.242
     ports:
       http:
         port: *port
@@ -75,7 +75,7 @@ persistence:
     existingClaim: qbittorrent
   media:
     type: nfs
-    server: 192.168.1.8
+    server: 192.168.3.40
     path: /volume1/Torrents/
     globalMounts:
       - path: /torrents

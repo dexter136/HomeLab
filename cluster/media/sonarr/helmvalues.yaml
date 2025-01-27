@@ -85,13 +85,13 @@ persistence:
     type: emptyDir
   media:
     type: nfs
-    server: 192.168.1.8
+    server: 192.168.3.40
     path: /volume1/MediaLibrary/
     globalMounts:
       - path: /media
   complete:
     type: nfs
     path: /volume1/Torrents
-    server: 192.168.1.8
+    server: 192.168.3.40
     globalMounts:
       - path: /torrents

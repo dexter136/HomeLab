@@ -8,7 +8,7 @@ env:
         name: pihole-password
         key: pihole-pass
 extraArgs:
-  - '--pihole-server=http://192.168.1.8:8080'
+  - '--pihole-server=http://192.168.3.40:8080'
   - '--pihole-tls-skip-verify'
 interval: 5m
 triggerLoopOnEvent: true

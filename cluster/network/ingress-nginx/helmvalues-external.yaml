@@ -4,7 +4,7 @@ controller:
   service:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: external.dex136.xyz
-      io.cilium/lb-ipam-ips: 192.168.1.243
+      io.cilium/lb-ipam-ips: 192.168.3.243
   ingressClassResource:
     name: external
     default: false

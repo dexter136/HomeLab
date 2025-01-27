@@ -18,13 +18,13 @@ machine:
         - rw
     nodeIP:
       validSubnets:
-        - 192.168.1.0/24
+        - 192.168.3.0/24
     extraArgs:
       rotate-server-certificates: true
     defaultRuntimeSeccompProfileEnabled: true
   network:
     nameservers:
-      - 192.168.1.8
+      - 192.168.3.40
       - 1.1.1.1
     interfaces:
       - interface: {{ .node.interface }}
@@ -89,8 +89,8 @@ cluster:
   network:
     cni:
       name: "none"
-    #podSubnets:
-    #  - 10.42.0.0/16
+    podSubnets:
+      - 10.42.0.0/16
     serviceSubnets:
       - 10.96.0.0/12
   discovery:

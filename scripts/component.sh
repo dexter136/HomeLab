@@ -13,7 +13,7 @@ while getopts "c:d" arg; do
   esac
 done
 
-dir=$(find -maxdepth 3 -type d -name $component)
+dir=$(find . -maxdepth 3 -type d -name $component)
 echo $dir
 if [ -z $dir ]; then
     echo "Could not find app directory. Find had no result."
