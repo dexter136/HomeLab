@@ -5,8 +5,8 @@ controllers:
     containers:
       app:
         image:
-          repository: ghcr.io/onedr0p/qbittorrent-beta
-          tag: 5.0.3@sha256:4b9de3356475bd97fda3fb4d98f213e8d139aef15e7bd20dab72973e661901dd
+          repository: ghcr.io/onedr0p/qbittorrent
+          tag: 5.0.3@sha256:19597e4a5c5e52702ff6b4ea5c4b5f9f42433d6c2f1ef1d2db5964938bf44557
         env:
           TZ: America/New_York
           QBT_WEBUI_PORT: &port 80
