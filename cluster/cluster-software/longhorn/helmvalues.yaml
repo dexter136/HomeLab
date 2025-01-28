@@ -17,11 +17,13 @@ metrics:
   serviceMonitor:
     enabled: true
 defaultSettings:
-  backupTarget: nfs://192.168.3.40:/volume1/cluster/longhorn
   orphanAutoDeletion: true
-  backupstorePollInterval: 0
   restoreVolumeRecurringJobs: true
   storageOverProvisioningPercentage: 100
   storageMinimalAvailablePercentage: 10
   concurrentAutomaticEngineUpgradePerNodeLimit: 1
   nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+
+defaultBackupStore:
+  backupTarget: nfs://192.168.3.40:/volume1/cluster/longhorn
+  pollInterval: 0
