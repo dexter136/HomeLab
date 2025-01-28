@@ -20,8 +20,7 @@ if [ -z $dir ]; then
     exit 1
 fi
 
-IFS='/' read -a dir_array <<< $dir
-
+IFS='/' read -a dir_array <<< "$dir"
 if [ ${#dir_array[@]} -ne 4 ]; then
     echo "Could not find app directory. Find returned $dir."
     exit 1
