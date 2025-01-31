@@ -3,7 +3,7 @@ global:
 configs:
   params:
     server.insecure: true
-    controller.diff.server.side: false
+    controller.diff.server.side: true
   cm:
     kustomize.buildOptions: "--enable-helm --enable-alpha-plugins --enable-exec"
     statusbadge.enabled: true
