@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: intel-device-plugins-operator
   repo: https://intel.github.io/helm-charts
-  version: 0.31.1
+  version: 0.32.0
   releaseName: intel-device-plugins-operator
   namespace: kube-system
   includeCRDs: true
