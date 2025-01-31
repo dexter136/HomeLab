@@ -68,7 +68,6 @@ ingress:
       gethomepage.dev/name: "Plex"
       gethomepage.dev/icon: plex.svg
       gethomepage.dev/group: Media
-      external-dns.alpha.kubernetes.io/target: external.dex136.xyz
     hosts:
       - host: "plex.dex136.xyz"
         paths:
