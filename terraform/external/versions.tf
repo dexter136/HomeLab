@@ -6,14 +6,14 @@ terraform {
     organization = "dexterslab"
 
     workspaces {
-      name = "homelab-external-dep"
+      name = "homelab-external"
     }
   }
 
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 4.51.0"
+      version = "~> 5.0.0"
     }
 
     http = {
@@ -25,6 +25,11 @@ terraform {
       source  = "hashicorp/random"
       version = "3.6.3"
     }
+
+    onepassword = {
+      source = "1Password/onepassword"
+      version = "~> 2.0.0"
+    }
   }
 }
 
@@ -34,4 +39,8 @@ provider "cloudflare" {
 }
 
 provider "random" {
+}
+
+provider "onepassword" {
+  service_account_token = var.onepass_service_account_token
 }

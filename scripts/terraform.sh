@@ -23,14 +23,14 @@ fi
 
 if $external; then
     if $upgrade; then
-        tofu -chdir="./terraform/cloudflare" init -upgrade
+        tofu -chdir="./terraform/external" init -upgrade
     else
-        tofu -chdir="./terraform/cloudflare" init
+        tofu -chdir="./terraform/external" init
     fi
     if $apply; then
-        tofu -chdir="./terraform/cloudflare" apply -var-file=../../tmp/cloudflare.tfvars.json -auto-approve
+        tofu -chdir="./terraform/external" apply -var-file=../../tmp/external.tfvars.json -auto-approve
     else
-        tofu -chdir="./terraform/cloudflare" plan -var-file=../../tmp/cloudflare.tfvars.json -no-color
+        tofu -chdir="./terraform/external" plan -var-file=../../tmp/external.tfvars.json -no-color
     fi
 fi
 if $cluster; then

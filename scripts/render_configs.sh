@@ -10,4 +10,4 @@ gomplate -f configs/machineconfig.yaml.tmpl
 gomplate -f configs/cluster-build.tfvars.tmpl
 
 #Decrypt tfvars
-sops --decrypt configs/cloudflare.tfvars.json > tmp/cloudflare.tfvars.json
+sops --decrypt configs/external.tfvars.json > tmp/external.tfvars.json
