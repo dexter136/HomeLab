@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
 - name: dragonfly
   repo: oci://ghcr.io/dragonflydb/dragonfly/helm
-  version: v1.26.1
+  version: v1.26.2
   releaseName: dragonfly
   valuesFile: helmvalues.yaml
   namespace: database
