@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: glance-config
+  labels:
+    app.kubernetes.io/name: glance
+data:
+  glance.yaml: |
+    branding:
+      logo-url: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
+      favicon-url: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
+      custom-footer: |
+        <p></p>
+    theme:
+      background-color: 50 1 6
+      primary-color: 24 97 58
+      negative-color: 209 88 54
+    pages:
+      - name: Home
+        columns:
+          - size: small
+            widgets:
+              - type: clock
+                hour-format: 24h
+                timezones:
+                  - timezone: America/New_York
+                    label: "New York"
+              - type: weather
+                location: Delmar, New York, United States
+                hour-format: 24h
+              - type: repository
+                repository: dexter136/homelab
+                pull-requests-limit: 5
+                issues-limit: -1
+                commits-limit: -1
+              - type: repository
+                repository: dexter136/argocd-sops
+                pull-requests-limit: 5
+                issues-limit: -1
+                commits-limit: -1
+              - type: twitch-channels
+                channels:
+                  - hasanabi
+                  - florryworry
+                  - Zizaran
+                  - fubgun
+          - size: full
+            widgets:
+              - type: videos
+                collapse-after-rows: 3
+                style: grid-cards
+                channels:
+                  - UCXuqSBlHAE6Xw-yeJA0Tunw
+                  - UCR-DXc1voovS8nhAvccRZhg
+                  - UCNvsIonJdJ5E4EXMa65VYpA
+                  - UCdBK94H6oZT2Q7l0-b0xmMg
+                  - UCFyP17HoU-vpxhIpGXnXx2g
+              - type: group
+                widgets:
+                  - type: reddit
+                    subreddit: homelab
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - type: reddit
+                    subreddit: homeserver
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - type: reddit
+                    subreddit: selfhosted
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - type: reddit
+                    subreddit: games
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - type: reddit
+                    subreddit: buildapc
+                    show-thumbnails: true
+                    collapse-after: 6
+      - name: dashboard
+        columns:
+          - size: full
+            widgets:
+              - type: iframe
+                source: https://homepage.dex136.xyz
+                height: 1000
