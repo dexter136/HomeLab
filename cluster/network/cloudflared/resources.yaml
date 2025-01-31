@@ -18,7 +18,7 @@ data:
     originRequest:
       originServerName: external.dex136.xyz
     ingress:
-    - hostname: dex136.xyz'
+    - hostname: 'dex136.xyz'
       service: https://nginx-external-controller.network
     - hostname: '*.dex136.xyz'
       service: https://nginx-external-controller.network

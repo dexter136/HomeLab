@@ -10,3 +10,12 @@ variable "cloudflare_api_key" {
 variable "cloudflare_account_id" {
   type = string
 }
+
+variable "cloudflare_homelab_zone" {
+  type = string
+}
+
+variable "onepass_service_account_token" {
+  type = string
+  sensitive = true
+}
