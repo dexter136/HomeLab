@@ -1,0 +1,105 @@
+app-template:
+  controllers:
+    radarr:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      initContainers:
+        init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 16
+          envFrom: &envFrom
+            - secretRef:
+                name: radarr-secret
+      containers:
+        app:
+          image:
+            repository: ghcr.io/onedr0p/radarr
+            tag: 5.17
+          env:
+            RADARR__AUTH__METHOD: External
+            RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            RADARR__APP__INSTANCENAME: radarr
+            RADARR__SERVER__PORT: &port 80
+            RADARR__LOG__DBENABLED: "False"
+            RADARR__LOG__LEVEL: info
+            RADARR__APP__THEME: dark
+            TZ: America/New_York
+          envFrom: *envFrom
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 10
+                periodSeconds: 60
+                timeoutSeconds: 5
+                failureThreshold: 3
+            readiness: *probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 2Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          runAsNonRoot: true
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+          supplementalGroups: [10000]
+  service:
+    app:
+      controller: radarr
+      ports:
+        http:
+          port: *port
+  ingress:
+    app:
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "Radarr"
+        gethomepage.dev/icon: radarr.svg
+        gethomepage.dev/group: Media
+        gethomepage.dev/widget.type: radarr
+        gethomepage.dev/widget.url: http://radarr.media
+        gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_RADARR_TOKEN}}" }}'
+      hosts:
+        - host: "radarr.dex136.xyz"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+  persistence:
+    config:
+      existingClaim: radarr
+    tmp:
+      type: emptyDir
+    media:
+      type: nfs
+      server: 192.168.3.40
+      path: /volume1/MediaLibrary/
+      globalMounts:
+        - path: /media
+    complete:
+      type: nfs
+      path: /volume1/Torrents
+      server: 192.168.3.40
+      globalMounts:
+        - path: /torrents
+    nas:
+      type: nfs
+      path: /volume1
+      server: 192.168.3.40
+      globalMounts:
+        - path: /nas

@@ -2,9 +2,6 @@
 
 readarray nodeIPs < <(yq '.nodes[].ip' -o=j -I=0 configs/inventory.yaml)
 
-echo "Starting cnpg maintenance"
-kubectl cnpg maintenance set postgres --reusePVC -n database
-
 for node in "${nodeIPs[@]}"; do
     echo "Restarting node '${node}'"
     talosctl --nodes $node reboot \
@@ -17,7 +14,5 @@ for node in "${nodeIPs[@]}"; do
     echo "Node ${node} has completed"
 done
 
-echo "All nodes completed. Ending cnpg maintenance."
-kubectl cnpg maintenance unset postgres --reusePVC -n database
-echo "Database maintenance ended. Cleaning up pods."
+echo "All nodes completed."
 ./scripts/pod_cleanup.sh

@@ -11,3 +11,4 @@ gomplate -f configs/cluster-build.tfvars.tmpl
 
 #Decrypt tfvars
 sops --decrypt configs/external.tfvars.json > tmp/external.tfvars.json
+sops --decrypt configs/connect_secret.sops.yaml > tmp/connect_secret.yaml

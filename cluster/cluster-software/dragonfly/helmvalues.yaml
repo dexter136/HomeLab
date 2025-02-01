@@ -1,7 +1,0 @@
-serviceMonitor:
-  enabled: true
-passwordFromSecret:
-  enabled: true
-  existingSecret:
-    name: dragonfly-password
-    key: password

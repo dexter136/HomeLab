@@ -1,0 +1,58 @@
+argo-cd:
+  global:
+    domain: argocd.dex136.xyz
+  configs:
+    params:
+      server.insecure: true
+      controller.diff.server.side: true
+    cm:
+      statusbadge.enabled: true
+      resource.ignoreResourceUpdatesEnabled: true
+      resource.customizations.ignoreResourceUpdates.all: |
+        jsonPointers:
+          - /status
+      resource.customizations.health.postgresql.cnpg.io_Cluster: |
+        hs = {}
+        if obj.status ~= nil then
+          hs.message = obj.status.phase
+          if obj.status.instances > obj.status.readyInstances then
+            hs.status = "Progressing"
+          end
+          if obj.status.instances == obj.status.readyInstances then
+            hs.status = "Healthy"
+          end
+          return hs
+        end
+        hs.status = "Progressing"
+        hs.message = "Waiting for healthy state"
+        return hs
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/icon: argo-cd.svg
+        gethomepage.dev/name: "ArgoCD"
+        gethomepage.dev/group: "System"
+    metrics: &metrics
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  applicationSet:
+    metrics: *metrics
+    ingress:
+      enabled: true
+      ingressClassName: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: external.dex136.xyz
+      hostname: "argocd-wh.dex136.xyz"
+  dex:
+    enabled: false
+  controller:
+    metrics: *metrics
+  repoServer:
+    metrics: *metrics
+  redis:
+    metrics: *metrics

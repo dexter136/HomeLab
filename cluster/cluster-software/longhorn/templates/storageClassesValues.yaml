@@ -1,0 +1,54 @@
+{{- range $index, $sc := .Values.storageClasses }}
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ $sc.name }}
+provisioner: driver.longhorn.io
+parameters:
+  dataLocality: disabled
+  fromBackup: ''
+  fsType: ext4
+  numberOfReplicas: {{default 3 $sc.replicas | quote }}
+  staleReplicaTimeout: '30'
+  unmapMarkSnapChainRemoved: ignored
+  recurringJobSelector: '[
+    {
+      "name":"{{ $sc.name }}",
+      "isGroup":true
+    }
+  ]'
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+---
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: snapshot-{{ $sc.name }}
+  namespace: longhorn
+spec:
+  concurrency: 1
+  cron: {{ default "0 0 29 2 1" $sc.snapshotCron | quote}}
+  groups:
+    - {{ $sc.name }}
+  labels:
+    jobname: snapshot-{{ $sc.name }}
+  retain: 4
+  task: snapshot
+---
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: backup-{{ $sc.name }}
+  namespace: longhorn
+spec:
+  concurrency: 1
+  cron: {{ default "0 0 29 2 1" $sc.backupCron | quote}}
+  groups:
+    - {{ $sc.name }}
+  labels:
+    jobname: "backup-{{ $sc.name }}"
+  retain: 2
+  task: backup
+{{- end }}

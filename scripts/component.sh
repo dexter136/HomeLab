@@ -1,14 +1,17 @@
 #!/bin/bash
 
+kustomizeApps=("statuspage" "onepassword-connect" "poddownloader")
+
 diff=false
 namespace=''
 component=''
-while getopts "c:d" arg; do
+while getopts "c:n:d" arg; do
   case $arg in
     c)  component=$OPTARG
         ;;
+    n)  namespace=$OPTARG
+        ;;
     d)  diff=true
-        namespace=$OPTARG
         ;;
   esac
 done
@@ -26,21 +29,34 @@ if [ ${#dir_array[@]} -ne 4 ]; then
     exit 1
 fi
 
-echo "Found application ${dir_array[3]}. Running kustomize build"
+echo "Found application ${dir_array[3]}. Running build."
 
-kustomize build $dir \
-    --enable-helm \
-    --enable-alpha-plugins \
-    --enable-exec \
-    > ./tmp/${dir_array[3]}_kustomize.yaml
-
-echo "Wrote kustomize output to ./tmp/${dir_array[3]}_kustomize.yaml"
+if [[ " ${kustomizeApps[@]} " =~ " $component " ]]; then
+    kustomize build $dir \
+        --enable-helm \
+        --enable-alpha-plugins \
+        --enable-exec \
+        > ./tmp/${dir_array[3]}_render.yaml
+    echo "Wrote kustomize output to ./tmp/${dir_array[3]}_render.yaml"
+else
+    echo $namespace
+    helm template \
+        $component \
+        $dir \
+        --dependency-update \
+        --include-crds \
+        --namespace $namespace \
+        --values "$dir/values.yaml" \
+        > ./tmp/${dir_array[3]}_render.yaml
+    echo "Wrote helm output to ./tmp/${dir_array[3]}_render.yaml"
+fi
 
 if $diff; then
-    echo "Running diff against namespace $namespace"
+    echo "Running diff..."
 
     kubectl diff \
-        -f ./tmp/${dir_array[3]}_kustomize.yaml \
+        -f ./tmp/${dir_array[3]}_render.yaml \
+        -n "$namspace" \
         > ./tmp/${dir_array[3]}_diff.yaml
 
     echo "diff output written to ./tmp/${dir_array[3]}_diff.yaml"

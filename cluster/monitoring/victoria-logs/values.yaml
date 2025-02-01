@@ -1,0 +1,30 @@
+victoria-logs-single:
+  global:
+    victoriaLogs:
+      server:
+        fullnameOverride: vl
+  server:
+    fullnameOverride: vl
+    persistentVolume:
+      enabled: true
+      existingClaim: vl-data
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/icon: si-victoriametrics-#621773
+        gethomepage.dev/group: Monitoring
+        gethomepage.dev/name: "Victoria Logs"
+        gethomepage.dev/pod-selector: >-
+          app.kubernetes.io/instance in (
+              vl
+          )
+      hosts:
+        - name: vl.dex136.xyz
+          path: /
+          port: 9428
+    serviceMonitor:
+      enabled: true
+  fluent-bit:
+    enabled: false
