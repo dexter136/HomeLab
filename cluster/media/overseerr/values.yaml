@@ -1,0 +1,94 @@
+app-template:
+  controllers:
+    overseerr:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        app:
+          image:
+            repository: ghcr.io/sct/overseerr
+            tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
+          env:
+            TZ: America/New_York
+            LOG_LEVEL: "info"
+            PORT: &port 80
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /api/v1/status
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 1Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          runAsNonRoot: true
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+  service:
+    app:
+      controller: overseerr
+      ports:
+        http:
+          port: *port
+  ingress:
+    external:
+      className: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
+      hosts:
+        - host: overseerr.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+    app:
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "Overseerr"
+        gethomepage.dev/icon: overseerr.svg
+        gethomepage.dev/group: Media
+        gethomepage.dev/pod-selector: >-
+          app.kubernetes.io/instance in (
+              overseerr
+          )
+      hosts:
+        - host: requests.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+  persistence:
+    config:
+      existingClaim: overseerr
+      globalMounts:
+        - path: /app/config
+    cache:
+      existingClaim: overseerr-cache
+      globalMounts:
+        - path: /app/config/cache
+    logs:
+      type: emptyDir
+      globalMounts:
+        - path: /app/config/logs
+    tmp:
+      type: emptyDir

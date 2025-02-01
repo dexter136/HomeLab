@@ -1,0 +1,98 @@
+app-template:
+  controllers:
+    sonarr:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      initContainers:
+        init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 16
+          envFrom: &envFrom
+            - secretRef:
+                name: sonarr-secret
+      containers:
+        app:
+          image:
+            repository: ghcr.io/onedr0p/sonarr
+            tag: 4.0.12
+          env:
+            SONARR__AUTH__METHOD: External
+            SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+            SONARR__APP__INSTANCENAME: Sonarr
+            SONARR__SERVER__PORT: &port 80
+            SONARR__LOG__LEVEL: info
+            SONARR__APP__THEME: dark
+            TZ: America/New_York
+          envFrom: *envFrom
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /ping
+                  port: *port
+                initialDelaySeconds: 10
+                periodSeconds: 60
+                timeoutSeconds: 5
+                failureThreshold: 3
+            readiness: *probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 2Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          runAsNonRoot: true
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+          supplementalGroups: [10000]
+  service:
+    app:
+      controller: sonarr
+      ports:
+        http:
+          port: *port
+  ingress:
+    app:
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "Sonarr"
+        gethomepage.dev/icon: sonarr.svg
+        gethomepage.dev/group: Media
+        gethomepage.dev/widget.type: sonarr
+        gethomepage.dev/widget.url: http://sonarr.media
+        gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_SONARR_TOKEN}}" }}'
+      hosts:
+        - host: "sonarr.dex136.xyz"
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+  persistence:
+    config:
+      existingClaim: sonarr
+    tmp:
+      type: emptyDir
+    media:
+      type: nfs
+      server: 192.168.3.40
+      path: /volume1/MediaLibrary/
+      globalMounts:
+        - path: /media
+    complete:
+      type: nfs
+      path: /volume1/Torrents
+      server: 192.168.3.40
+      globalMounts:
+        - path: /torrents

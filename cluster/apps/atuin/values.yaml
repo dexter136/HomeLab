@@ -1,0 +1,96 @@
+app-template:
+  controllers:
+    atuin:
+      replicas: 2
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+      initContainers:
+        init-db:
+          image:
+            repository: ghcr.io/onedr0p/postgres-init
+            tag: 16
+          envFrom: &envFrom
+            - secretRef:
+                name: atuin-secret
+      containers:
+        app:
+          image:
+            repository: ghcr.io/atuinsh/atuin
+            tag: 18.4.0@sha256:8c6fa0aea944bf2a39665c9c69df1c2c0f9c05207bda5b942d450142285e3ee1
+          env:
+            ATUIN_HOST: 0.0.0.0
+            ATUIN_PORT: &port 80
+            ATUIN_OPEN_REGISTRATION: "true"
+            ATUIN_METRICS__ENABLE: "true"
+            ATUIN_METRICS__HOST: 0.0.0.0
+            ATUIN_METRICS__PORT: &metricsPort 8080
+            ATUIN_TLS__ENABLE: "false"
+          envFrom: *envFrom
+          args: ["server", "start"]
+          probes:
+            liveness: &probes
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /
+                  port: *port
+                initialDelaySeconds: 0
+                periodSeconds: 10
+                timeoutSeconds: 1
+                failureThreshold: 3
+            readiness: *probes
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 256Mi
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
+      seccompProfile: { type: RuntimeDefault }
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: &app atuin
+  service:
+    app:
+      controller: atuin
+      ports:
+        http:
+          primary: true
+          port: *port
+        metrics:
+          port: *metricsPort
+  serviceMonitor:
+    app:
+      serviceName: atuin
+      endpoints:
+        - port: metrics
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
+  ingress:
+    app:
+      className: internal
+      hosts:
+        - host: sh.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
+  persistence:
+    config:
+      type: emptyDir

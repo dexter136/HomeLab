@@ -1,0 +1,15 @@
+promtail:
+  config:
+    logLevel: info
+    serverPort: 3101
+    clients:
+      - url: http://vl:9428/insert/loki/api/v1/push?_stream_fields=instance,job,host,app
+  serviceMonitor:
+    enabled: true
+  service:
+    labels:
+      fix: fix
+    annotations:
+      fix: fix
+  prometheusRule:
+    enabled: true
