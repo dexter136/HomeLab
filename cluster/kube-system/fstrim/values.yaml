@@ -4,7 +4,7 @@ app-template:
       type: cronjob
       cronjob:
         schedule: "@weekly"
-        parallelism: 5 # Set to my total number of nodes
+        parallelism: 6
         successfulJobsHistory: 1
         failedJobsHistory: 1
       containers:
