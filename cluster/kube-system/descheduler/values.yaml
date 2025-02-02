@@ -23,10 +23,21 @@ descheduler:
               constraints:
                 - DoNotSchedule
                 - ScheduleAnyway
+          - name: LowNodeUtilization
+            args:
+              thresholds:
+                "cpu": 10
+                "memory": 20
+              targetThresholds:
+                "cpu": 40
+                "memory": 50
+              metricsUtilization:
+                metricsServer: true
         plugins:
           balance:
             enabled:
               - RemovePodsViolatingTopologySpreadConstraint
+              - LowNodeUtilization
           deschedule:
             enabled:
               - RemovePodsViolatingInterPodAntiAffinity
