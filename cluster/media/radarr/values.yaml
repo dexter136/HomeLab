@@ -3,14 +3,6 @@ app-template:
     radarr:
       annotations:
         reloader.stakater.com/auto: "true"
-      initContainers:
-        init-db:
-          image:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 16
-          envFrom: &envFrom
-            - secretRef:
-                name: radarr-secret
       containers:
         app:
           image:
@@ -25,7 +17,9 @@ app-template:
             RADARR__LOG__LEVEL: info
             RADARR__APP__THEME: dark
             TZ: America/New_York
-          envFrom: *envFrom
+          envFrom:
+            - secretRef:
+                name: radarr-secret
           probes:
             liveness: &probes
               enabled: true
@@ -83,6 +77,10 @@ app-template:
   persistence:
     config:
       existingClaim: radarr
+    config-cache:
+      existingClaim: radarr-cache
+      globalMounts:
+        - path: config/MediaCover
     tmp:
       type: emptyDir
     media:
@@ -97,9 +95,3 @@ app-template:
       server: 192.168.3.40
       globalMounts:
         - path: /torrents
-    nas:
-      type: nfs
-      path: /volume1
-      server: 192.168.3.40
-      globalMounts:
-        - path: /nas
