@@ -23,19 +23,11 @@ data:
             widgets:
               - type: clock
                 hour-format: 24h
-                timezones:
-                  - timezone: America/New_York
-                    label: "New York"
               - type: weather
                 location: Delmar, New York, United States
                 hour-format: 24h
               - type: repository
                 repository: dexter136/homelab
-                pull-requests-limit: 5
-                issues-limit: -1
-                commits-limit: -1
-              - type: repository
-                repository: dexter136/argocd-sops
                 pull-requests-limit: 5
                 issues-limit: -1
                 commits-limit: -1
@@ -56,6 +48,8 @@ data:
                   - UCNvsIonJdJ5E4EXMa65VYpA
                   - UCdBK94H6oZT2Q7l0-b0xmMg
                   - UCFyP17HoU-vpxhIpGXnXx2g
+                  - UCeeFfhMcJa1kjtfZAGskOCA
+                  - UCokqzNPBJ65raczldVuHAww
               - type: group
                 widgets:
                   - type: reddit
