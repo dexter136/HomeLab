@@ -18,7 +18,7 @@ victoria-logs-single:
         gethomepage.dev/name: "Victoria Logs"
         gethomepage.dev/pod-selector: >-
           app.kubernetes.io/instance in (
-              vl
+              victoria-logs
           )
       hosts:
         - name: vl.dex136.xyz
