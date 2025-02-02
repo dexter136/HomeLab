@@ -19,7 +19,8 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
   upgrade:
-    image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
+    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+    image: ghcr.io/siderolabs/talosctl:v1.9.2
     envs:
       - name: NODE
         valueFrom:
