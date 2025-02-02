@@ -3,14 +3,6 @@ app-template:
     sonarr:
       annotations:
         reloader.stakater.com/auto: "true"
-      initContainers:
-        init-db:
-          image:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 16
-          envFrom: &envFrom
-            - secretRef:
-                name: sonarr-secret
       containers:
         app:
           image:
@@ -24,7 +16,9 @@ app-template:
             SONARR__LOG__LEVEL: info
             SONARR__APP__THEME: dark
             TZ: America/New_York
-          envFrom: *envFrom
+          envFrom: &envFrom
+            - secretRef:
+                name: sonarr-secret
           probes:
             liveness: &probes
               enabled: true
@@ -82,6 +76,10 @@ app-template:
   persistence:
     config:
       existingClaim: sonarr
+    config-cache:
+      existingClaim: sonarr-cache
+      globalMounts:
+        - path: config/MediaCover
     tmp:
       type: emptyDir
     media:

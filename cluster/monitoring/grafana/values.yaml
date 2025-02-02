@@ -1,13 +1,5 @@
 grafana:
-  extraInitContainers:
-    - name: 01-init-db
-      image: ghcr.io/onedr0p/postgres-init:16
-      envFrom:
-        - secretRef:
-            name: &secret grafana-secret
   replicas: 1
-  envFromSecrets:
-    - name: *secret
   grafana.ini:
     analytics:
       check_for_updates: false
