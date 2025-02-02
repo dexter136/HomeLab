@@ -71,10 +71,6 @@ cilium:
         - SYS_RESOURCE
   hubble:
     enabled: true
-    listenAddress: ":4244"
-    tls:
-      auto:
-        method: cert-manager
     metrics:
       enabled:
         - dns:query
