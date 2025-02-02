@@ -19,5 +19,3 @@ metadata:
 spec:
   roles:
     - os:admin
-secrets:
-  - name: system-upgrade
