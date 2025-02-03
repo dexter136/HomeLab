@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kustomizeApps=("statuspage" "onepassword-connect" "poddownloader")
+kustomizeApps=("statuspage" "onepassword-connect" "poddownloader" "pg-atuin")
 
 diff=false
 namespace=''
