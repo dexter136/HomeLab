@@ -147,8 +147,10 @@ grafana:
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
       cert-manager:
-        url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
-        datasource: Prometheus
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
+          revision: 3
+          datasource: Prometheus
       external-secrets:
         url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
         datasource: Prometheus
