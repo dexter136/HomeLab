@@ -10,6 +10,9 @@ applications:
     projectName: argocd
   - name: cluster-software
     projectName: system
+  - name: database
+    projectName: database
+    namespace: database
   - name: media
     namespace: media
   - name: monitoring
@@ -27,7 +30,5 @@ namespaces:
   - name: longhorn
     labels:
       pod-security.kubernetes.io/enforce: privileged
-  - name: database
   - name: external-secrets
-  - name: dragonfly
   - name: onepassword-connect
