@@ -79,6 +79,9 @@ machine:
   nodeLabels:
     topology.kubernetes.io/region: main
     topology.kubernetes.io/zone: {{ .node.type }}
+    {{- range $key, $value := .node.extraLabels }}
+    {{ $key }} : {{ $value }}
+    {{- end }}
 cluster:
   network:
     cni:
