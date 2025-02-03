@@ -50,7 +50,7 @@ app-template:
       supplementalGroups: [44]
       seccompProfile: { type: RuntimeDefault }
     nodeSelector:
-      intel.feature.node.kubernetes.io/gpu: "true"
+      transcode: "true"
   service:
     app:
       controller: plex
