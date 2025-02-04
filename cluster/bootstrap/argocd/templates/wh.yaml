@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: external.dex136.xyz
+  name: argocd-server-wh
+  namespace: argocd
+spec:
+  ingressClassName: external
+  rules:
+  - host: awh.dex136.xyz
+    http:
+      paths:
+      - backend:
+          service:
+            name: argocd-server
+            port:
+              number: 80
+        path: /api/webhook
+        pathType: Prefix
