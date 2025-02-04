@@ -42,6 +42,12 @@ argo-cd:
         enabled: true
   applicationSet:
     metrics: *metrics
+    ingress:
+      enabled: true
+      ingressClassName: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
+      hostname: "awh.dex136.xyz"
   dex:
     enabled: false
   controller:
