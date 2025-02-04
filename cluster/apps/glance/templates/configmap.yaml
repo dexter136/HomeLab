@@ -65,10 +65,6 @@ data:
                     show-thumbnails: true
                     collapse-after: 6
                   - type: reddit
-                    subreddit: games
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - type: reddit
                     subreddit: buildapc
                     show-thumbnails: true
                     collapse-after: 6
