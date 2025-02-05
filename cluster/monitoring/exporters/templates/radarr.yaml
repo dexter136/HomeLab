@@ -70,6 +70,8 @@ spec:
               value: "9707"
             - name: URL
               value: "http://radarr.media.svc.cluster.local:80"
+            - name: ENABLE_ADDITIONAL_METRICS
+              value: "true"
             - name: APIKEY
               valueFrom:
                 secretKeyRef:
