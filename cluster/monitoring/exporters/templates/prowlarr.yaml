@@ -70,6 +70,10 @@ spec:
               value: "9707"
             - name: URL
               value: "http://prowlarr.media.svc.cluster.local:80"
+            - name: PROWLARR_BACKFILL
+              value: "true"
+            - name: ENABLE_ADDITIONAL_METRICS
+              value: "true"
             - name: APIKEY
               valueFrom:
                 secretKeyRef:
