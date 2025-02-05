@@ -114,24 +114,28 @@ victoria-metrics-k8s-stack:
       hosts:
       - vma.dex136.xyz
   kubelet:
-    spec:
-      interval: 60s
-      # drop high cardinality label and useless metrics for cadvisor and kubelet
-      metricRelabelConfigs:
-        - action: labeldrop
-          regex: (uid|pod_uid|id)
-        - action: labeldrop
-          regex: (name)
-        - action: drop
-          source_labels: [__name__]
-          regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
-      relabelConfigs:
-        - action: labelmap
-          regex: __meta_kubernetes_node_label_(.+)
-        - sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
-        - targetLabel: "job"
-          replacement: "kubelet"
+    vmScrape:
+      spec:
+        interval: "60s"
+        # drop high cardinality label and useless metrics for cadvisor and kubelet
+        metricRelabelConfigs:
+          - action: labeldrop
+            regex: (uid|pod_uid|id|extensions_.+|feature_.+|intel_.+|plan_.+)
+          - action: labeldrop
+            regex: (name)
+          - action: drop
+            source_labels: [__name__]
+            regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+          - action: drop
+            source_labels: [__name__]
+            regex: 'container_spec.*'
+        relabelConfigs:
+          - action: labelmap
+            regex: __meta_kubernetes_node_label_(.+)
+          - sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          - targetLabel: "job"
+            replacement: "kubelet"
     enabled: true
   kubeEtcd:
     enabled: true
