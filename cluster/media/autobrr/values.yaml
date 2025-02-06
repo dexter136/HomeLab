@@ -55,6 +55,11 @@ app-template:
   ingress:
     app:
       className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "Autobrr"
+        gethomepage.dev/icon: autobrr.svg
+        gethomepage.dev/group: Media
       hosts:
         - host: autobrr.dex136.xyz
           paths:
