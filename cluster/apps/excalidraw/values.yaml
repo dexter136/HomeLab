@@ -1,0 +1,52 @@
+app-template:
+  controllers:
+    excalidraw:
+      replicas: 2
+      strategy: RollingUpdate
+      containers:
+        app:
+          image:
+            repository: docker.io/excalidraw/excalidraw
+            tag: latest@sha256:7f719f71a068c6c53b515cfcddcd0b41577ed2361f73f113ec8904dd948f0ab6
+            pullPolicy: IfNotPresent
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+          resources:
+            requests:
+              cpu: 5m
+              memory: 10Mi
+            limits:
+              memory: 50Mi
+      pod:
+        topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: DoNotSchedule
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: *app
+  service:
+    app:
+      controller: excalidraw
+      ipFamilyPolicy: PreferDualStack
+      ports:
+        http:
+          port: 80
+  ingress:
+    app:
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "excalidraw"
+        gethomepage.dev/icon: excalidraw.svg
+        gethomepage.dev/group: apps
+      hosts:
+        - host: draw.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: http
