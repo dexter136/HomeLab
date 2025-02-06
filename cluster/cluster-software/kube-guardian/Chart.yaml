@@ -1,7 +1,0 @@
-apiVersion: v2
-name: kube-guardian
-version: 0.0.0
-dependencies:
-- name: kube-guardian
-  repository: https://xentra-ai.github.io/kube-guardian
-  version: 0.0.17

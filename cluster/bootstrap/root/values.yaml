@@ -32,7 +32,3 @@ namespaces:
       pod-security.kubernetes.io/enforce: privileged
   - name: external-secrets
   - name: onepassword-connect
-  - name: kube-guardian
-    labels:
-      pod-security.kubernetes.io/enforce: privileged
-      pod-security.kubernetes.io/warn: privileged
