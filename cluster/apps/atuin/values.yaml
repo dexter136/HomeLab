@@ -3,6 +3,8 @@ app-template:
     atuin:
       replicas: 2
       strategy: RollingUpdate
+      labels:
+        app: &app atuin
       annotations:
         reloader.stakater.com/auto: "true"
       initContainers:
@@ -14,7 +16,7 @@ app-template:
             - secretRef:
                 name: atuin-secret
       containers:
-        app:
+        atuin:
           image:
             repository: ghcr.io/atuinsh/atuin
             tag: 18.4.0@sha256:8c6fa0aea944bf2a39665c9c69df1c2c0f9c05207bda5b942d450142285e3ee1
@@ -62,10 +64,12 @@ app-template:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app.kubernetes.io/name: &app atuin
+            app.kubernetes.io/name: *app
   service:
-    app:
-      controller: atuin
+    atuin:
+      controller: *app
+      labels:
+        app: *app
       ports:
         http:
           primary: true
@@ -73,8 +77,8 @@ app-template:
         metrics:
           port: *metricsPort
   serviceMonitor:
-    app:
-      serviceName: atuin
+    atuin:
+      serviceName: *app
       endpoints:
         - port: metrics
           scheme: http
@@ -82,14 +86,14 @@ app-template:
           interval: 1m
           scrapeTimeout: 10s
   ingress:
-    app:
+    atuin:
       className: internal
       hosts:
         - host: sh.dex136.xyz
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

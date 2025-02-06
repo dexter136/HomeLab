@@ -1,6 +1,6 @@
 apiVersion: v2
 name: excalidraw
-version: 0.0.0
+version: 0.0.2
 dependencies:
 - name: app-template
   repository: https://bjw-s.github.io/helm-charts

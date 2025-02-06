@@ -75,6 +75,7 @@ if $diff; then
 
     kubectl diff \
         -f ./tmp/${dir_array[3]} \
+        --recursive \
         -n "$namspace" \
         > ./tmp/diffs/${dir_array[3]}.yaml
 

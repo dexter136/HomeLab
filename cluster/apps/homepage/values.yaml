@@ -3,10 +3,12 @@ app-template:
     homepage:
       replicas: 2
       strategy: RollingUpdate
+      labels:
+        app: &app homepage
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
-        app:
+        homepage:
           image:
             repository: ghcr.io/gethomepage/homepage
             tag: v0.10.9
@@ -22,13 +24,15 @@ app-template:
             limits:
               memory: 2G
   service:
-    app:
-      controller: &app homepage
+    homepage:
+      controller: *app
+      labels:
+        app: *app
       ports:
         http:
           port: 3000
   ingress:
-    app:
+    homepage:
       className: internal
       annotations:
         nginx.ingress.kubernetes.io/affinity: "cookie"
@@ -40,7 +44,7 @@ app-template:
             - path: /
               pathType: Prefix
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

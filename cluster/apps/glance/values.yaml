@@ -3,10 +3,12 @@ app-template:
     glance:
       replicas: 1
       strategy: RollingUpdate
+      labels:
+        app: &app glance
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
-        app:
+        glance:
           image:
             repository: docker.io/glanceapp/glance
             tag: v0.6.4
@@ -33,20 +35,22 @@ app-template:
       fsGroup: 1022
       fsGroupChangePolicy: OnRootMismatch
   service:
-    app:
-      controller: &app glance
+    glance:
+      controller: *app
+      labels:
+        app: *app
       ports:
         http:
           port: 8080
   ingress:
-    app:
+    glance:
       className: internal
       hosts:
         - host: home.dex136.xyz
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

@@ -3,8 +3,10 @@ app-template:
     excalidraw:
       replicas: 2
       strategy: RollingUpdate
+      labels:
+        app: &app excalidraw
       containers:
-        app:
+        excalidraw:
           image:
             repository: docker.io/excalidraw/excalidraw
             tag: latest@sha256:7f719f71a068c6c53b515cfcddcd0b41577ed2361f73f113ec8904dd948f0ab6
@@ -27,20 +29,22 @@ app-template:
             whenUnsatisfiable: DoNotSchedule
             labelSelector:
               matchLabels:
-                app.kubernetes.io/name: excalidraw
+                app.kubernetes.io/name: *app
   service:
-    app:
-      controller: excalidraw
+    excalidraw:
+      controller: *app
+      labels:
+        app: *app
       ipFamilyPolicy: PreferDualStack
       ports:
         http:
           port: 80
   ingress:
-    app:
+    excalidraw:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/name: "excalidraw"
+        gethomepage.dev/name: *app
         gethomepage.dev/icon: excalidraw.svg
         gethomepage.dev/group: apps
       hosts:
@@ -48,5 +52,5 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
