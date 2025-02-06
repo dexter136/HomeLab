@@ -7,20 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: homepage
 data:
-  bookmarks.yaml: |
-    - Documentation:
-      - Kubernetes:
-        - icon: kubernetes.svg
-          href: 'https://kubernetes.io/docs/home/'
-      - Talos:
-        - href: 'https://www.talos.dev/v1.6/'
-          icon: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/talos.png
-      - Longhorn:
-        - href: 'https://longhorn.io/docs/latest/'
-          icon: longhorn.svg
-      - Homelab:
-        - href: 'https://github.com/dexter136/HomeLab'
-          icon: github.svg
+  bookmarks.yaml: ""
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
@@ -53,6 +40,9 @@ data:
     disableCollapse: true
     groupsInitiallyCollapsed: false
     layout:
+      apps:
+        style: column
+        icon: mdi-robot-angry
       Media:
         style: column
         icon: mdi-download-circle
@@ -62,9 +52,6 @@ data:
       System:
         style: column
         icon: mdi-server
-      Documentation:
-        style: column
-        icon: mdi-download-circle
     providers:
       longhorn:
         url: http://longhorn-frontend.longhorn.svc.cluster.local
