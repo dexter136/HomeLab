@@ -1,23 +1,20 @@
 #!/bin/bash
 
-kustomizeApps=("statuspage" "onepassword-connect" "poddownloader" "pg-atuin")
+namespaced=("cluster-software")
 
 diff=false
-namespace=''
 component=''
-while getopts "c:n:d" arg; do
+kustomize=false
+while getopts "c:d" arg; do
   case $arg in
     c)  component=$OPTARG
-        ;;
-    n)  namespace=$OPTARG
         ;;
     d)  diff=true
         ;;
   esac
 done
 
-dir=$(find . -maxdepth 3 -type d -name $component)
-echo $dir
+dir=$(find ./cluster -maxdepth 3 -type d -name $component)
 if [ -z $dir ]; then
     echo "Could not find app directory. Find had no result."
     exit 1
@@ -29,17 +26,36 @@ if [ ${#dir_array[@]} -ne 4 ]; then
     exit 1
 fi
 
-echo "Found application ${dir_array[3]}. Running build."
+echo "Found application ${dir_array[3]}."
 
-if [[ " ${kustomizeApps[@]} " =~ " $component " ]]; then
+if [ -f "$dir/Chart.yaml" ]; then
+    echo "Found Chart.yaml, using helm."
+else
+    echo "Did not find Chart.yaml, using kustomize."
+    kustomize=true
+fi
+
+if [[ " ${namepsaced[@]} " =~ " ${dir_array[2]} " ]]; then
+    namespace="${dir_array[3]}"
+elif [ " ${dir_array[2]} " == " apps " ]; then
+    namespace="default"
+elif [ " ${dir_array[2]} " == " bootstrap " ]; then
+    namespace="argocd"
+else
+    namespace="${dir_array[2]}"
+fi
+
+rm -rf "./tmp/${dir_array[3]}"
+
+if $kustomize; then
+    mkdir "./tmp/${dir_array[3]}"
     kustomize build $dir \
         --enable-helm \
         --enable-alpha-plugins \
         --enable-exec \
-        > ./tmp/${dir_array[3]}_render.yaml
-    echo "Wrote kustomize output to ./tmp/${dir_array[3]}_render.yaml"
+        --output "./tmp/${dir_array[3]}"
+    echo "Wrote kustomize output to ./tmp/${dir_array[3]}"
 else
-    echo $namespace
     helm template \
         $component \
         $dir \
@@ -47,17 +63,20 @@ else
         --include-crds \
         --namespace $namespace \
         --values "$dir/values.yaml" \
-        > ./tmp/${dir_array[3]}_render.yaml
-    echo "Wrote helm output to ./tmp/${dir_array[3]}_render.yaml"
+        --output-dir "./tmp/${dir_array[3]}"
+    echo "Wrote helm output to ./tmp/${dir_array[3]}"
 fi
 
 if $diff; then
-    echo "Running diff..."
+
+    if [ ! -d "./tmp/diffs" ]; then
+        mkdir "./tmp/diffs"
+    fi
 
     kubectl diff \
-        -f ./tmp/${dir_array[3]}_render.yaml \
+        -f ./tmp/${dir_array[3]} \
         -n "$namspace" \
-        > ./tmp/${dir_array[3]}_diff.yaml
+        > ./tmp/diffs/${dir_array[3]}.yaml
 
-    echo "diff output written to ./tmp/${dir_array[3]}_diff.yaml"
+    echo "diff output written to ./tmp/diffs/${dir_array[3]}.yaml"
 fi
