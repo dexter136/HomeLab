@@ -58,6 +58,9 @@ app-template:
         gethomepage.dev/name: "Tautulli"
         gethomepage.dev/icon: tautulli.svg
         gethomepage.dev/group: Media
+        gethomepage.dev/widget.type: tautulli
+        gethomepage.dev/widget.url: http://tautulli.media
+        gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_TAUTULLI_TOKEN}}" }}'
       hosts:
         - host: tautulli.dex136.xyz
           paths:

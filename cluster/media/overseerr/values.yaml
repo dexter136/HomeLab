@@ -66,6 +66,9 @@ app-template:
         gethomepage.dev/name: "Overseerr"
         gethomepage.dev/icon: overseerr.svg
         gethomepage.dev/group: Media
+        gethomepage.dev/widget.type: overseerr
+        gethomepage.dev/widget.url: http://overseerr.media
+        gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_OVERSEERR_TOKEN}}" }}'
         gethomepage.dev/pod-selector: >-
           app.kubernetes.io/instance in (
               overseerr
