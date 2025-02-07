@@ -35,7 +35,7 @@ else
     kustomize=true
 fi
 
-if [[ " ${namepsaced[@]} " =~ " ${dir_array[2]} " ]]; then
+if [[ " ${namespaced[@]} " =~ " ${dir_array[2]} " ]]; then
     namespace="${dir_array[3]}"
 elif [ " ${dir_array[2]} " == " apps " ]; then
     namespace="default"
