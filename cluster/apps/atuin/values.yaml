@@ -68,6 +68,9 @@ app-template:
   service:
     atuin:
       controller: *app
+      type: LoadBalancer
+      annotations:
+        io.cilium/lb-ipam-ips: 192.168.3.245
       labels:
         app: *app
       ports:
