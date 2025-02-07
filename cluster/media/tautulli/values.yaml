@@ -3,8 +3,10 @@ app-template:
     tautulli:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app tautulli
       containers:
-        app:
+        tautulli:
           image:
             repository: ghcr.io/tautulli/tautulli
             tag: v2.15.1@sha256:7755360de25d5b60aaf67a0aa4f1f71fb4fc12a1a668bb9ced09e9f4ab5239cd
@@ -45,13 +47,15 @@ app-template:
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
   service:
-    app:
+    tautulli:
       controller: tautulli
+      labels:
+        app: *app
       ports:
         http:
           port: *port
   ingress:
-    app:
+    tautulli:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
@@ -66,7 +70,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

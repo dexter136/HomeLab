@@ -3,10 +3,12 @@ app-template:
     cloudflared:
       replicas: 3
       strategy: RollingUpdate
+      labels:
+        app: &app cloudflared
       annotations:
         reloader.stakater.com/auto: "true"
       containers:
-        app:
+        cloudflared:
           image:
             repository: docker.io/cloudflare/cloudflared
             tag: 2025.2.0@sha256:6e2df069aaf5a8c0bf304b674ff31c0ed07c974534b4303a8c6e57d93c6c9224
@@ -59,14 +61,16 @@ app-template:
           matchLabels:
             app.kubernetes.io/name: cloudflared
   service:
-    app:
-      controller: cloudflared
+    cloudflared:
+      controller: *app
+      labels:
+        app: *app
       ports:
         http:
           port: *port
   serviceMonitor:
-    app:
-      serviceName: cloudflared
+    cloudflared:
+      serviceName: *app
       endpoints:
         - port: http
           scheme: http

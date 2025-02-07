@@ -3,8 +3,10 @@ app-template:
     autobrr:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app autobrr
       containers:
-        app:
+        autobrr:
           image:
             repository: ghcr.io/autobrr/autobrr
             tag: v1.58.0@sha256:9b11c36605da242933b93dfc0c572bd17fa05af9aba2ae70deafe4977ba8048b
@@ -47,13 +49,15 @@ app-template:
       fsGroupChangePolicy: OnRootMismatch
       seccompProfile: { type: RuntimeDefault }
   service:
-    app:
+    autobrr:
       controller: autobrr
+      labels:
+        app: *app
       ports:
         http:
           port: *port
   ingress:
-    app:
+    autobrr:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
@@ -68,7 +72,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

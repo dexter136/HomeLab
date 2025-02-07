@@ -5,8 +5,10 @@ app-template:
       strategy: RollingUpdate
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app kromgo
       containers:
-        app:
+        kromgo:
           image:
             repository: ghcr.io/kashalls/kromgo
             tag: v0.4.4@sha256:4f6770a49ffa2d1a96517761d677ababe5fa966a5da398530cc35ee4714c315b
@@ -59,15 +61,17 @@ app-template:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app.kubernetes.io/name: &app kromgo
+            app.kubernetes.io/name: *app
   service:
-    app:
+    kromgo:
       controller: kromgo
+      labels:
+        app: *app
       ports:
         http:
           port: 80
   ingress:
-    app:
+    kromgo:
       className: external
       annotations:
         external-dns.alpha.kubernetes.io/target: external.dex136.xyz
@@ -76,7 +80,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config-file:

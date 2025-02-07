@@ -3,8 +3,10 @@ app-template:
     pihole-exporter:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app pihole-exporter
       containers:
-        app:
+        pihole-exporter:
           env:
             TZ: America/New_York
             PIHOLE_HOSTNAME: 192.168.3.40
@@ -21,6 +23,8 @@ app-template:
   service:
     pihole-exporter:
       controller: pihole-exporter
+      labels:
+        app: *app
       ports:
         metrics:
           port: *port

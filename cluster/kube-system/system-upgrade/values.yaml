@@ -2,8 +2,10 @@ app-template:
   controllers:
     system-upgrade:
       strategy: RollingUpdate
+      labels:
+        app: &app system-upgrade
       containers:
-        app:
+        system-upgrade:
           image:
             repository: docker.io/rancher/system-upgrade-controller
             tag: v0.14.2@sha256:3cdbfdd90f814702cefb832fc4bdb09ea93865a4d06c6bafd019d1dc6a9f34c9
@@ -18,7 +20,7 @@ app-template:
             SYSTEM_UPGRADE_JOB_PRIVILEGED: true
             SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: 900
             SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
-            SYSTEM_UPGRADE_CONTROLLER_NAME: &app system-upgrade
+            SYSTEM_UPGRADE_CONTROLLER_NAME: *app
             SYSTEM_UPGRADE_CONTROLLER_NAMESPACE:
               valueFrom:
                 fieldRef:

@@ -3,8 +3,10 @@ app-template:
     sonarr:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app sonarr
       containers:
-        app:
+        sonarr:
           image:
             repository: ghcr.io/onedr0p/sonarr
             tag: 4.0.12
@@ -50,13 +52,15 @@ app-template:
           fsGroupChangePolicy: OnRootMismatch
           supplementalGroups: [10000]
   service:
-    app:
+    sonarr:
       controller: sonarr
+      labels:
+        app: *app
       ports:
         http:
           port: *port
   ingress:
-    app:
+    sonarr:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
@@ -71,7 +75,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:
