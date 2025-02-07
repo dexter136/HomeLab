@@ -1,8 +1,10 @@
 app-template:
   controllers:
     unpoller:
+      labels:
+        app: &app unpoller
       containers:
-        app:
+        unpoller:
           image:
             repository: ghcr.io/unpoller/unpoller
             tag: v2.14.1@sha256:9ba73b1793ef332ae9b4b719ef0fc09f231d6276bc7b721cbb47961ed7792961
@@ -38,6 +40,8 @@ app-template:
   service:
     app:
       controller: unpoller
+      labels:
+        app: *app
       ports:
         http:
           port: 80

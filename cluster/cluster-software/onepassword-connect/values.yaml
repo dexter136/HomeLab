@@ -4,8 +4,10 @@ app-template:
       strategy: RollingUpdate
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app onepassword-connect
       containers:
-        api:
+        onepassword-connect:
           image:
             repository: docker.io/1password/connect-api
             tag: 1.7.3@sha256:0601c7614e102eada268dbda6ba4b5886ce77713be2c332ec6a2fd0f028484ba
@@ -91,20 +93,22 @@ app-template:
       fsGroupChangePolicy: OnRootMismatch
       seccompProfile: { type: RuntimeDefault }
   service:
-    app:
+    onepassword-connect:
+      labels:
+        app: *app
       controller: onepassword-connect
       ports:
         http:
           port: *apiPort
   ingress:
-    app:
+    onepassword-connect:
       className: internal
       hosts:
         - host: "opc.dex136.xyz"
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

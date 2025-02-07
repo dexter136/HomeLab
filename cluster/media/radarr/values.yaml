@@ -3,8 +3,10 @@ app-template:
     radarr:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app radarr
       containers:
-        app:
+        radarr:
           image:
             repository: ghcr.io/onedr0p/radarr
             tag: 5.18
@@ -51,13 +53,15 @@ app-template:
           fsGroupChangePolicy: OnRootMismatch
           supplementalGroups: [10000]
   service:
-    app:
+    radarr:
       controller: radarr
+      labels:
+        app: *app
       ports:
         http:
           port: *port
   ingress:
-    app:
+    radarr:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
@@ -72,7 +76,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

@@ -3,8 +3,10 @@ app-template:
     overseerr:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app overseerr
       containers:
-        app:
+        overseerr:
           image:
             repository: ghcr.io/sct/overseerr
             tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
@@ -42,8 +44,10 @@ app-template:
           fsGroup: 568
           fsGroupChangePolicy: OnRootMismatch
   service:
-    app:
+    overseerr:
       controller: overseerr
+      labels:
+        app: *app
       ports:
         http:
           port: *port
@@ -57,9 +61,9 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
-    app:
+    overseerr:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
@@ -78,7 +82,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:

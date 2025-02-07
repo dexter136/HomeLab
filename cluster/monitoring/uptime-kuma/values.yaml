@@ -3,8 +3,10 @@ app-template:
     uptime-kuma:
       annotations:
         reloader.stakater.com/auto: "true"
+      labels:
+        app: &app uptime-kuma
       containers:
-        app:
+        uptime-kuma:
           env:
             TZ: America/New_York
           image:
@@ -21,14 +23,16 @@ app-template:
             limits:
               memory: 150Mi
   service:
-    app:
-      controller: uptime-kuma
+    uptime-kuma:
+      controller: *app
+      labels:
+        app: *app
       ports:
         http:
           port: 3001
           protocol: TCP
   ingress:
-    app:
+    uptime-kuma:
       className: external
       annotations:
         gethomepage.dev/enabled: "true"
@@ -41,7 +45,7 @@ app-template:
           paths:
             - path: /
               service:
-                identifier: app
+                identifier: *app
                 port: http
   persistence:
     config:
