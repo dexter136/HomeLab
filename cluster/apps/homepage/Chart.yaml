@@ -1,6 +1,6 @@
 apiVersion: v2
 name: homepage
-version: 0.0.2
+version: 0.0.4
 dependencies:
 - name: app-template
   repository: https://bjw-s.github.io/helm-charts

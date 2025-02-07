@@ -39,7 +39,7 @@ app-template:
         nginx.ingress.kubernetes.io/session-cookie-name: "homepagesession"
         nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
       hosts:
-        - host: homepage.dex136.xyz
+        - host: home.dex136.xyz
           paths:
             - path: /
               pathType: Prefix

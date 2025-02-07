@@ -45,8 +45,13 @@ app-template:
   ingress:
     glance:
       className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: *app
+        gethomepage.dev/icon: glance.svg
+        gethomepage.dev/group: apps
       hosts:
-        - host: home.dex136.xyz
+        - host: glance.dex136.xyz
           paths:
             - path: /
               service:
