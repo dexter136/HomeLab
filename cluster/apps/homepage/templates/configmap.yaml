@@ -27,9 +27,6 @@ data:
     favicon: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
     useEqualHeights: true
     theme: dark
-    background:
-      image: https://images.unsplash.com/photo-1712175847805-8010d80e050a?auto=format&fit=crop&w=2560&q=80
-      opacity: 20
     color: slate
     headerStyle: clean
     quicklaunch:
@@ -37,20 +34,26 @@ data:
       hideInternetSearch: true
       showSearchSuggestions: true
       hideVisitURL: true
-    disableCollapse: true
     groupsInitiallyCollapsed: false
     layout:
       apps:
-        style: column
+        style: row
+        columns: 4
         icon: mdi-robot-angry
       Media:
-        style: column
+        style: row
+        columns: 4
+        initiallyCollapsed: true
         icon: mdi-download-circle
       Monitoring:
-        style: column
+        style: row
+        columns: 4
+        initiallyCollapsed: true
         icon: mdi-chart-line
       System:
-        style: column
+        style: row
+        columns: 4
+        initiallyCollapsed: true
         icon: mdi-server
     providers:
       longhorn:

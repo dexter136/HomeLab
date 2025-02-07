@@ -72,10 +72,3 @@ data:
                     subreddit: buildapc
                     show-thumbnails: true
                     collapse-after: 6
-      - name: dashboard
-        columns:
-          - size: full
-            widgets:
-              - type: iframe
-                source: https://homepage.dex136.xyz
-                height: 1000
