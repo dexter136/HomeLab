@@ -1,0 +1,29 @@
+---
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: snapshot-default
+spec:
+  cron: "5 */6 * * *"
+  task: "snapshot"
+  groups:
+  - default
+  retain: 4
+  concurrency: 1
+  labels:
+    jobname: snapshot-twice-daily
+---
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: backup-default
+spec:
+  cron: "15 8 */2 * *"
+  task: "backup"
+  groups:
+  - default
+  retain: 2
+  concurrency: 1
+  labels:
+    jobname: backup-weekly
+---

@@ -1,0 +1,139 @@
+{{ define "machineconfigtemplate" -}}
+machine:
+  install:
+    disk: {{ .node.disk }}
+    image: factory.talos.dev/installer/{{ (datasource "inventory").talos_factory_key }}:{{ (datasource "inventory").talos_version }}
+    extraKernelArgs:
+      - mitigations=off
+      - pcie_aspm=off
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:{{ (ds "inventory").kubernetes_version }}
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+        - bind
+        - rshared
+        - rw
+    nodeIP:
+      validSubnets:
+        - 192.168.3.0/24
+    extraArgs:
+      rotate-server-certificates: true
+    defaultRuntimeSeccompProfileEnabled: true
+  network:
+    nameservers:
+      - 192.168.3.40
+      - 1.1.1.1
+    interfaces:
+      - interface: {{ .node.interface }}
+        dhcp: true
+        {{- if eq .node.type "controlplane" }}
+        vip:
+          ip: {{ (ds "inventory").cluster_virtual_ip }}
+        {{- end }}
+    hostname: {{ .node.name }}
+  features:
+    hostDNS:
+      forwardKubeDNSToHost: false
+    rbac: true
+    stableHostname: true
+    {{- if eq .node.type "controlplane" }}
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - kube-system
+    {{- end }}
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    kubePrism:
+      enabled: true
+      port: 7445
+  files:
+    - content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+      path: /etc/cri/conf.d/20-customization.part
+      op: create
+    - content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.1
+        hard=True
+        noatime=True
+        nodiratime=True
+        rsize=131072
+        wsize=131072
+        nconnect=8
+      permissions: 420
+      path: /etc/nfsmount.conf
+      op: overwrite
+  sysctls:
+    fs.inotify.max_queued_events: 65536
+    fs.inotify.max_user_instances: 8192
+    fs.inotify.max_user_watches: 524288
+    net.core.rmem_max: 2500000
+    net.core.wmem_max: 2500000
+  nodeLabels:
+    topology.kubernetes.io/region: main
+    topology.kubernetes.io/zone: {{ .node.type }}
+    {{- range $key, $value := .node.extraLabels }}
+    {{ $key }} : {{ $value }}
+    {{- end }}
+cluster:
+  network:
+    cni:
+      name: "none"
+    podSubnets:
+      - 10.42.0.0/16
+    serviceSubnets:
+      - 10.96.0.0/12
+  discovery:
+    enabled: true
+    registries:
+        kubernetes:
+          disabled: true
+        service:
+          disabled: false
+  coreDNS:
+    disabled: true
+  {{- if eq .node.type "controlplane" }}
+  allowSchedulingOnControlPlanes: true
+  allowSchedulingOnMasters: true
+  apiServer:
+    certSANs:
+    - "{{ (ds "inventory").controlplane_proxy_hostname }}"
+    - {{ (ds "inventory").controlplane_proxy_ip }}
+    - {{ (ds "inventory").cluster_virtual_ip }}
+    - 127.0.0.1
+    disablePodSecurityPolicy: true
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+  proxy:
+    image: registry.k8s.io/kube-proxy:{{ (ds "inventory").kubernetes_version }}
+    disabled: true
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:{{ (ds "inventory").kubernetes_version }}
+    extraArgs:
+      bind-address: "0.0.0.0"
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:{{ (ds "inventory").kubernetes_version }}
+    extraArgs:
+      bind-address: "0.0.0.0"
+  etcd:
+    extraArgs:
+      listen-metrics-urls: "http://0.0.0.0:2381"
+  {{- end }}
+{{ end }}
+
+{{ defineDatasource "inventory" "configs/inventory.yaml" }}
+{{- range $node := (datasource "inventory").nodes}}
+{{- $ctx := dict "node" $node }}
+{{- $outPath := printf "tmp/%s.yaml" $node.name }}
+{{- tmpl.Exec "machineconfigtemplate" $ctx | file.Write $outPath }}
+{{- end -}}

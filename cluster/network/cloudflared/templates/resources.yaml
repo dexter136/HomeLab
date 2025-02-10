@@ -1,0 +1,25 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudflared
+spec:
+  endpoints:
+    - dnsName: external.dex136.xyz
+      recordType: CNAME
+      targets: ["homelab-tunnel.dex136.xyz"]
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-configmap
+data:
+  config.yaml: |
+    originRequest:
+      originServerName: external.dex136.xyz
+    ingress:
+    - hostname: 'dex136.xyz'
+      service: https://nginx-external-controller.network
+    - hostname: '*.dex136.xyz'
+      service: https://nginx-external-controller.network
+    - service: http_status:404

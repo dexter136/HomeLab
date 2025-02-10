@@ -1,0 +1,72 @@
+app-template:
+  controllers:
+    unpackerr:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        app: &app unpackerr
+      containers:
+        unpackerr:
+          image:
+            repository: ghcr.io/unpackerr/unpackerr
+            tag: 0.14.5@sha256:dc72256942ce50d1c8a1aeb5aa85b6ae2680a36eefd2182129d8d210fce78044
+          env:
+            TZ: America/New_York
+            UN_WEBSERVER_METRICS: true
+            UN_WEBSERVER_LOG_FILE: /logs/webserver.log
+            UN_ACTIVITY: true
+            UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local
+            UN_SONARR_0_PATHS_0: /complete
+            UN_RADARR_0_URL: http://radarr.media.svc.cluster.local
+            UN_RADARR_0_PATHS_0: /complete
+          envFrom:
+            - secretRef:
+                name: unpackerr-secret
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              memory: 4Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          runAsNonRoot: true
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+          supplementalGroups: [10000]
+  service:
+    unpackerr:
+      controller: unpackerr
+      labels:
+        app: *app
+      ports:
+        http:
+          port: 5656
+  serviceMonitor:
+    app:
+      serviceName: unpackerr
+      endpoints:
+        - port: http
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
+  persistence:
+    logs:
+      type: emptyDir
+    complete:
+      type: nfs
+      path: /volume1/Torrents
+      server: 192.168.3.40
+      globalMounts:
+        - path: /torrents

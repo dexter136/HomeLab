@@ -1,0 +1,54 @@
+app-template:
+  controllers:
+    uptime-kuma:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        app: &app uptime-kuma
+      containers:
+        uptime-kuma:
+          env:
+            TZ: America/New_York
+          image:
+            repository: louislam/uptime-kuma
+            tag: 1.23.16@sha256:431fee3be822b04861cf0e35daf4beef6b7cb37391c5f26c3ad6e12ce280fe18
+          ports:
+            - name: http
+              containerPort: 3001
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              memory: 150Mi
+  service:
+    uptime-kuma:
+      controller: *app
+      labels:
+        app: *app
+      ports:
+        http:
+          port: 3001
+          protocol: TCP
+  ingress:
+    uptime-kuma:
+      className: external
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/icon: uptime-kuma.svg
+        gethomepage.dev/name: "Uptime Kuma"
+        gethomepage.dev/group: Monitoring
+        external-dns.alpha.kubernetes.io/target: "external.dex136.xyz"
+      hosts:
+        - host: kuma.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: *app
+                port: http
+  persistence:
+    data:
+      existingClaim: pvc-uptime-kuma
+      globalMounts:
+        - path: /app/data

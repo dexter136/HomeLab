@@ -1,0 +1,34 @@
+git:
+  repo: https://github.com/aisling136/HomeLab
+  revision: main
+applications:
+  - name: apps
+    namespace: default
+    noCreateNamespace: true
+  - name: bootstrap
+    namespace: argocd
+    projectName: argocd
+  - name: cluster-software
+    projectName: system
+  - name: database
+    projectName: database
+    namespace: database
+  - name: media
+    namespace: media
+  - name: monitoring
+    namespace: monitoring
+    labels:
+      pod-security.kubernetes.io/audit: privileged
+      pod-security.kubernetes.io/enforce: privileged
+      pod-security.kubernetes.io/warn: privileged
+  - name: kube-system
+    namespace: kube-system
+    noCreateNamespace: true
+  - name: network
+    namespace: network
+namespaces:
+  - name: longhorn
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+  - name: external-secrets
+  - name: onepassword-connect

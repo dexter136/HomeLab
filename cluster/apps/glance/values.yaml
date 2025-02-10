@@ -1,0 +1,63 @@
+app-template:
+  controllers:
+    glance:
+      replicas: 1
+      strategy: RollingUpdate
+      labels:
+        app: &app glance
+      annotations:
+        reloader.stakater.com/auto: "true"
+      containers:
+        glance:
+          image:
+            repository: docker.io/glanceapp/glance
+            tag: v0.7.1
+          env:
+            TZ: America/NewYork
+          args:
+            - --config
+            - /config/glance.yaml
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 15m
+              memory: 200M
+            limits:
+              memory: 2G
+  defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1022
+      runAsGroup: 1022
+      fsGroup: 1022
+      fsGroupChangePolicy: OnRootMismatch
+  service:
+    glance:
+      controller: *app
+      labels:
+        app: *app
+      ports:
+        http:
+          port: 8080
+  ingress:
+    glance:
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: *app
+        gethomepage.dev/icon: glance.svg
+        gethomepage.dev/group: apps
+      hosts:
+        - host: glance.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: *app
+                port: http
+  persistence:
+    config:
+      type: configMap
+      name: glance-config

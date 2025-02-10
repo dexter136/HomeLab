@@ -1,0 +1,26 @@
+{{ define "talostfvars" -}}
+controlplane = {
+{{- range $node := (datasource "inventory").nodes }}
+{{- if eq $node.type "controlplane" }}
+  "{{ $node.ip }}" = "{{ $node.name }}"
+{{- end -}}
+{{- end }}
+}
+
+worker = {
+{{- range $node := (datasource "inventory").nodes }}
+{{- if eq $node.type "worker" }}
+  "{{ $node.ip }}" = "{{ $node.name }}"
+{{- end -}}
+{{- end }}
+}
+
+cluster_name       = "{{ ( datasource "inventory").cluster_name }}"
+cluster_endpoint   = "{{ (datasource "inventory").cluster_virtual_ip }}"
+kubernetes_version = "{{ (datasource "inventory").kubernetes_version }}"
+talos_version      = "{{ (datasource "inventory").talos_version }}"
+{{ end -}}
+
+{{ defineDatasource "inventory" "configs/inventory.yaml" }}
+{{- $outPath := "tmp/cluster-build.tfvars" }}
+{{- tmpl.Exec "talostfvars" | file.Write $outPath }}

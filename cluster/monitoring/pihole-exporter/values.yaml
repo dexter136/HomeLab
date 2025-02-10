@@ -1,0 +1,40 @@
+app-template:
+  controllers:
+    pihole-exporter:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        app: &app pihole-exporter
+      containers:
+        pihole-exporter:
+          env:
+            TZ: America/New_York
+            PIHOLE_HOSTNAME: 192.168.3.40
+            PORT: &port 9517
+            PIHOLE_PORT: 8080
+            PIHOLE_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-password
+                  key: pihole-pass
+          image:
+            repository: ekofr/pihole-exporter
+            tag: latest
+  service:
+    pihole-exporter:
+      controller: pihole-exporter
+      labels:
+        app: *app
+      ports:
+        metrics:
+          port: *port
+  serviceMonitor:
+    main:
+      enabled: true
+      serviceName: pihole-exporter
+      endpoints:
+        - port: "metrics"
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s

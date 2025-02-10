@@ -1,0 +1,119 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radarr-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: radarr-exporter
+    app.kubernetes.io/instance: radarr-exporter
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: radarr-exporter
+    app.kubernetes.io/instance: radarr-exporter
+  ports:
+    - name: monitoring
+      port: 9707
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: radarr-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: radarr-exporter
+    app.kubernetes.io/instance: radarr-exporter
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: radarr-exporter
+      app.kubernetes.io/instance: radarr-exporter
+  endpoints:
+    - port: monitoring
+      interval: 4m
+      scrapeTimeout: 90s
+      path: /metrics
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: radarr-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: radarr-exporter
+    app.kubernetes.io/instance: radarr-exporter
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: radarr-exporter
+      app.kubernetes.io/instance: radarr-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: radarr-exporter
+        app.kubernetes.io/instance: radarr-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "monitoring"
+    spec:
+      containers:
+        - name: radarr-exporter
+          image: ghcr.io/onedr0p/exportarr:v2.0.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - radarr
+          env:
+            - name: PORT
+              value: "9707"
+            - name: URL
+              value: "http://radarr.media.svc.cluster.local:80"
+            - name: ENABLE_ADDITIONAL_METRICS
+              value: "true"
+            - name: APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: radarr-secret
+                  key: RADARR__AUTH__APIKEY
+          ports:
+            - name: monitoring
+              containerPort: 9707
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: radarr
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: radarr-secret
+    template:
+      engineVersion: v2
+      data:
+        RADARR__AUTH__APIKEY: {{"'{{ .RADARR_API_KEY }}'"}}
+  dataFrom:
+    - extract:
+        key: radarr

@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: statuspage-service
+spec:
+  selector:
+    app: statuspage
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statuspage
+spec:
+  selector:
+    matchLabels:
+      app: statuspage
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: statuspage
+    spec:
+      containers:
+      - name: statuspage
+        image: ghcr.io/dexter136/argocdstatus:0.3.0
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
+        env:
+          - name: TZ
+            value: America/New_York
+        envFrom:
+          - secretRef:
+              name: statuspage
+        resources:
+          requests:
+            cpu: 2m
+            memory: 100Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/icon: mdi-bottle-tonic-plus
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/name: "ArgoStatus"
+    gethomepage.dev/pod-selector: >-
+        app in (
+          statuspage
+        )
+    external-dns.alpha.kubernetes.io/target: external.dex136.xyz
+  name: statuspage
+spec:
+  ingressClassName: external
+  rules:
+    - host: statuspage.dex136.xyz
+      http:
+        paths:
+          - backend:
+              service:
+                name: statuspage-service
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

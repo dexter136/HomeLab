@@ -1,0 +1,42 @@
+longhorn:
+  longhornUI:
+    replicas: 1
+  ingress:
+    enabled: true
+    ingressClassName: internal
+    host: longhorn.dex136.xyz
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/icon: longhorn.svg
+      gethomepage.dev/name: "Longhorn"
+      gethomepage.dev/group: "System"
+      gethomepage.dev/pod-selector: >-
+          app.kubernetes.io/instance in (
+              longhorn
+          )
+  metrics:
+    serviceMonitor:
+      enabled: true
+  defaultSettings:
+    orphanAutoDeletion: true
+    restoreVolumeRecurringJobs: true
+    storageOverProvisioningPercentage: 100
+    storageMinimalAvailablePercentage: 10
+    concurrentAutomaticEngineUpgradePerNodeLimit: 1
+    nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+
+  defaultBackupStore:
+    backupTarget: nfs://192.168.3.40:/volume1/cluster/longhorn
+    pollInterval: 0
+storageClasses:
+    - name: hajimari
+    - name: media
+      snapshotCron: "1 */6 * * *"
+      backupCron: "05 9 * * *"
+    - name: monitoring
+      snapshotCron: "11 */12 * * *"
+      backupCron: "05 10 * * *"
+    - name: database
+      snapshotCron: "1 * * * *"
+      backupCron: "1 */12 * * *"
+      numberOfReplicas: 1

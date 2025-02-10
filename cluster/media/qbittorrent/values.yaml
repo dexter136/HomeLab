@@ -1,0 +1,83 @@
+app-template:
+  controllers:
+    qbittorrent:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        app: &app qbittorrent
+      containers:
+        qbittorrent:
+          image:
+            repository: ghcr.io/onedr0p/qbittorrent
+            tag: 5.0.3@sha256:ef7b54df65ed34aec0809024061fc55b322cc8b3882dfebde499fb3f50f5bb62
+          env:
+            TZ: America/New_York
+            QBT_WEBUI_PORT: &port 80
+            QBT_TORRENTING_PORT: &bittorrentPort 50413
+          probes:
+            liveness:
+              enabled: true
+            readiness:
+              enabled: true
+            startup:
+              enabled: true
+              spec:
+                failureThreshold: 30
+                periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 4Gi
+      pod:
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
+          fsGroupChangePolicy: OnRootMismatch
+          supplementalGroups: [10000]
+  service:
+    qbittorrent:
+      controller: qbittorrent
+      type: LoadBalancer
+      labels:
+        app: *app
+      annotations:
+        io.cilium/lb-ipam-ips: 192.168.3.242
+      ports:
+        http:
+          port: *port
+        bittorrent:
+          enabled: true
+          port: *bittorrentPort
+          protocol: TCP
+  ingress:
+    qbittorrent:
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "Qbittorrent"
+        gethomepage.dev/icon: qbittorrent.svg
+        gethomepage.dev/group: Media
+        gethomepage.dev/widget.type: qbittorrent
+        gethomepage.dev/widget.url: http://qbittorrent.media
+      hosts:
+        - host: qb.dex136.xyz
+          paths:
+            - path: /
+              service:
+                identifier: *app
+                port: http
+  persistence:
+    config:
+      existingClaim: qbittorrent
+    media:
+      type: nfs
+      server: 192.168.3.40
+      path: /volume1/Torrents/
+      globalMounts:
+        - path: /torrents

@@ -1,0 +1,95 @@
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  bookmarks.yaml: ""
+  docker.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
+  services.yaml: |
+    - System:
+      - NAS:
+          href: 'https://nas.aisling.dev'
+          icon: synology.svg
+      - PiHole:
+          href: 'http://192.168.3.40:8080/admin'
+          icon: pi-hole.svg
+      - Unifi:
+          href: 'https://192.168.1.1'
+          icon: unifi.svg
+  settings.yaml: |
+    title: Dashboard
+    favicon: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
+    useEqualHeights: true
+    theme: dark
+    color: slate
+    headerStyle: clean
+    quicklaunch:
+      searchDescriptions: true
+      hideInternetSearch: true
+      showSearchSuggestions: true
+      hideVisitURL: true
+    groupsInitiallyCollapsed: false
+    layout:
+      apps:
+        style: row
+        columns: 4
+        icon: mdi-robot-angry
+      Media:
+        style: row
+        columns: 4
+        initiallyCollapsed: true
+        icon: mdi-download-circle
+      Monitoring:
+        style: row
+        columns: 4
+        initiallyCollapsed: true
+        icon: mdi-chart-line
+      System:
+        style: row
+        columns: 4
+        initiallyCollapsed: true
+        icon: mdi-server
+    providers:
+      longhorn:
+        url: http://longhorn-frontend.longhorn.svc.cluster.local
+  widgets.yaml: |
+    - search:
+        provider: [google]
+        focus: false
+        target: _blank
+    - kubernetes:
+        cluster:
+          cpu: true
+          memory: true
+          show: true
+          showLabel: true
+        nodes:
+          cpu: true
+          memory: true
+          show: false
+          showLabel: true
+    - datetime:
+        text_size: l
+        format:
+          timeStyle: short
+          dateStyle: short
+          hourCycle: h23
+    - unifi_console:
+        url: https://192.168.1.1:443
+        username: {{"{{HOMEPAGE_VAR_UNIFI_USERNAME}}"}}
+        password: {{"{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"}}
+    - longhorn:
+        expanded: true
+        total: true
+    - openmeteo:
+        latitude: 42.6220
+        longitude: -73.8326
+        timezone: America/New_York
+        units: imperial
+        cache: 15

@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vl-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: monitoring
+  resources:
+    requests:
+      storage: 20Gi

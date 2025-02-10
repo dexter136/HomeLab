@@ -1,0 +1,15 @@
+Chart.lock
+*.tfstate
+.terraform/
+*.tgz
+.terraform.lock.hcl
+generated_configs/
+*.tfplan
+KUBE_CONFIG
+TALOS_CONFIG
+*.agekey
+*.key
+.tool-versions
+charts/
+/tmp
+kubeconfig

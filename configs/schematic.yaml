@@ -1,0 +1,10 @@
+customization:
+  extraKernelArgs:
+    - mitigations=off
+    - pcie_aspm=off
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/i915
+      - siderolabs/intel-ucode
+      - siderolabs/iscsi-tools
+      - siderolabs/util-linux-tools

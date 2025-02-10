@@ -1,0 +1,47 @@
+nodes:
+  - ip: 192.168.3.22
+    disk: /dev/sda
+    interface: eno1
+    name: worker-2
+    type: worker
+    extraLabels:
+  - ip: 192.168.3.10
+    disk: /dev/nvme0n1
+    interface: eno1
+    name: control-0
+    type: controlplane
+    extraLabels:
+  - ip: 192.168.3.11
+    disk: /dev/sda
+    interface: eno1
+    name: control-1
+    type: controlplane
+    extraLabels:
+  - ip: 192.168.3.12
+    disk: /dev/nvme0n1
+    interface: eno1
+    name: control-2
+    type: controlplane
+    extraLabels:
+  - ip: 192.168.3.20
+    disk: /dev/nvme0n1
+    interface: eno1
+    name: worker-0
+    type: worker
+    extraLabels:
+  - ip: 192.168.3.21
+    disk: /dev/nvme0n1
+    interface: enp2s0
+    name: worker-1
+    type: worker
+    extraLabels:
+      transcode: true
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetes_version: v1.32.1
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talos_version: v1.9.3
+talos_factory_key: "ac1b37c517712298c49093ffc9a6313a8f50dd7efdbca991658877ce0720723d"
+cluster_name: aisling-homelab
+controlplane_proxy_hostname: kube.dex136.xyz
+controlplane_proxy_ip: 192.168.3.8
+cluster_virtual_ip: 192.168.3.9
