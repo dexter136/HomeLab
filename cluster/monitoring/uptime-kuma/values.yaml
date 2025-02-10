@@ -48,9 +48,7 @@ app-template:
                 identifier: *app
                 port: http
   persistence:
-    config:
+    data:
       existingClaim: pvc-uptime-kuma
-      advancedMounts:
-        uptime-kuma:
-          app:
-            - path: /app/data
+      globalMounts:
+        - path: /app/data
