@@ -1,5 +1,5 @@
 git:
-  repo: https://github.com/dexter136/HomeLab
+  repo: https://github.com/aisling136/HomeLab
   revision: main
 applications:
   - name: apps
