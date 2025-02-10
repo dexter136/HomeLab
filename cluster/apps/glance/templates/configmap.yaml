@@ -8,8 +8,8 @@ metadata:
 data:
   glance.yaml: |
     branding:
-      logo-url: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
-      favicon-url: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
+      logo-url: https://raw.githubusercontent.com/aisling136/homelab/main/.icons/aisling.png
+      favicon-url: https://raw.githubusercontent.com/aisling136/homelab/main/.icons/aisling.png
       custom-footer: |
         <p></p>
     theme:
@@ -27,7 +27,7 @@ data:
                 location: Delmar, New York, United States
                 hour-format: 24h
               - type: repository
-                repository: dexter136/homelab
+                repository: aisling136/homelab
                 pull-requests-limit: 5
                 issues-limit: -1
                 commits-limit: -1

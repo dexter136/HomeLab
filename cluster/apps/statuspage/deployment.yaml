@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: statuspage
-        image: ghcr.io/dexter136/argocdstatus:0.3.0
+        image: ghcr.io/aisling136/argocdstatus:0.3.0
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 80

@@ -24,7 +24,7 @@ data:
           icon: unifi.svg
   settings.yaml: |
     title: Dashboard
-    favicon: https://raw.githubusercontent.com/dexter136/homelab/main/.icons/aisling.png
+    favicon: https://raw.githubusercontent.com/aisling136/homelab/main/.icons/aisling.png
     useEqualHeights: true
     theme: dark
     color: slate
