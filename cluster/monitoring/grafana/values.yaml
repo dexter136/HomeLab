@@ -184,7 +184,7 @@ grafana:
       k8s-views-pods:
         # renovate: depName="Kubernetes / Views / Pods"
         gnetId: 15760
-        revision: 34
+        revision: 36
         datasource: Prometheus
       k8s-volumes:
         # renovate: depName="K8s / Storage / Volumes / Cluster"
