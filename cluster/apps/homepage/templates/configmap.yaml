@@ -6,6 +6,7 @@ metadata:
   name: homepage-config
   labels:
     app.kubernetes.io/name: homepage
+  namespace: {{ .Release.Namespace }}
 data:
   bookmarks.yaml: ""
   docker.yaml: ""

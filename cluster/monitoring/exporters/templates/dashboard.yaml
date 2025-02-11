@@ -4,6 +4,7 @@ metadata:
   labels:
     grafana_dashboard: '1'
   name: exportarr-dashboard
+  namespace: {{ .Release.Namespace }}
 data:
   exportarr.json: |-
     {

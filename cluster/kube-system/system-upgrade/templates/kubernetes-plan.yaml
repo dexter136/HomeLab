@@ -4,6 +4,7 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: kubernetes
+  namespace: {{ .Release.Namespace }}
 spec:
   # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
   version: v1.32.1

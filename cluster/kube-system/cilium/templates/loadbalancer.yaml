@@ -5,6 +5,7 @@ metadata:
   name: l2-policy
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  namespace: {{ .Release.Namespace }}
 spec:
   loadBalancerIPs: true
   interfaces: ["^en.*"]
@@ -18,6 +19,7 @@ metadata:
   name: l2-pool
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  namespace: {{ .Release.Namespace }}
 spec:
   allowFirstLastIPs: "Yes"
   blocks:

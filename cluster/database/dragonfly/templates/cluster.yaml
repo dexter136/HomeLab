@@ -4,6 +4,7 @@ apiVersion: dragonflydb.io/v1alpha1
 kind: Dragonfly
 metadata:
   name: dragonfly
+  namespace: {{ .Release.Namespace }}
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.26.3
   replicas: 3

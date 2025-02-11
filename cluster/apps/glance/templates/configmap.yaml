@@ -5,6 +5,7 @@ metadata:
   name: glance-config
   labels:
     app.kubernetes.io/name: glance
+  namespace: {{ .Release.Namespace }}
 data:
   glance.yaml: |
     branding:

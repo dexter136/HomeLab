@@ -3,6 +3,7 @@ apiVersion: longhorn.io/v1beta1
 kind: RecurringJob
 metadata:
   name: snapshot-default
+  namespace: {{ .Release.Namespace }}
 spec:
   cron: "5 */6 * * *"
   task: "snapshot"
@@ -17,6 +18,7 @@ apiVersion: longhorn.io/v1beta1
 kind: RecurringJob
 metadata:
   name: backup-default
+  namespace: {{ .Release.Namespace }}
 spec:
   cron: "15 8 */2 * *"
   task: "backup"

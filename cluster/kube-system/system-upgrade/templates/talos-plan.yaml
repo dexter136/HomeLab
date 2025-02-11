@@ -4,6 +4,7 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: talos
+  namespace: {{ .Release.Namespace }}
 spec:
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   version: v1.9.3
