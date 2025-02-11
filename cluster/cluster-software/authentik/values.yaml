@@ -1,0 +1,22 @@
+authentik:
+  global:
+    envFrom:
+      - secretRef:
+          name: authentik-secret
+  authentik:
+    postgresql:
+      host: pg-authentik-rw.database.svc.cluster.local
+    redis:
+      host: dragonfly.database.svc.cluster.local
+  server:
+    initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16.6
+          envFrom:
+            - secretRef:
+                name: authentik-secret
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      hosts:
+        - sso.dex136.xyz

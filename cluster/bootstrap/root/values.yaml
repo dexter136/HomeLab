@@ -32,3 +32,4 @@ namespaces:
       pod-security.kubernetes.io/enforce: privileged
   - name: external-secrets
   - name: onepassword-connect
+  - name: authentik
