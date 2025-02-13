@@ -37,7 +37,7 @@ nodes:
     extraLabels:
       transcode: true
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetes_version: v1.32.1
+kubernetes_version: v1.32.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talos_version: v1.9.3
 talos_factory_key: "ac1b37c517712298c49093ffc9a6313a8f50dd7efdbca991658877ce0720723d"
