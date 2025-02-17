@@ -6,7 +6,7 @@ metadata:
   name: dragonfly
   namespace: {{ .Release.Namespace }}
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.27.0
+  image: ghcr.io/dragonflydb/dragonfly:v1.27.1
   replicas: 3
   env:
     - name: MAX_MEMORY
