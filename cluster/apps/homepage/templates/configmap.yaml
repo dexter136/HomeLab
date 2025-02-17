@@ -23,6 +23,9 @@ data:
       - Unifi:
           href: 'https://192.168.1.1'
           icon: unifi.svg
+      - Crypt:
+          href: 'https://crypt.dex136.xyz'
+          icon: truenas.svg
   settings.yaml: |
     title: Dashboard
     favicon: https://raw.githubusercontent.com/aisling136/homelab/main/.icons/aisling.png
