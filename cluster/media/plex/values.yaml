@@ -100,8 +100,8 @@ app-template:
       type: emptyDir
     media:
       type: nfs
-      server: 192.168.3.40
-      path: /volume1/MediaLibrary/
+      server: crypt
+      path: /mnt/pool0/media
       globalMounts:
         - path: /media
           readOnly: true
