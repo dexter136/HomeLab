@@ -34,3 +34,9 @@ spec:
               items:
                 - key: config
                   path: config.yaml
+          securityContext:
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 568
+            runAsNonRoot: true
+            runAsUser: 568
