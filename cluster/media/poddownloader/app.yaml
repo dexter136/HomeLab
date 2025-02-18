@@ -16,18 +16,18 @@ spec:
           restartPolicy: Never
           containers:
           - name: poddown
-            image: ghcr.io/aisling136/podcastdownloader:0.3
+            image: ghcr.io/aisling136/podcastdownloader:0.3.1
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - name: podcasts
-              mountPath: /podcasts
+              mountPath: /media
             - name: config-volume
               mountPath: /config
           volumes:
           - name: podcasts
             nfs:
               server: crypt
-              path: /mnt/pool0/media/Podcasts
+              path: /mnt/pool0/media
           - name: config-volume
             secret:
               secretName: podcasts
