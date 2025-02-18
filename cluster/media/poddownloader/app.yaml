@@ -26,8 +26,8 @@ spec:
           volumes:
           - name: podcasts
             nfs:
-              server: 192.168.3.40
-              path: /volume1/MediaLibrary/Podcasts
+              server: crypt
+              path: /mnt/pool0/media/Podcasts
           - name: config-volume
             secret:
               secretName: podcasts
