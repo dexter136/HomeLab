@@ -21,13 +21,14 @@ spec:
             volumeMounts:
             - name: podcasts
               mountPath: /podcasts
+              subPath: Podcasts
             - name: config-volume
               mountPath: /config
           volumes:
           - name: podcasts
             nfs:
               server: crypt
-              path: /mnt/pool0/media/Podcasts
+              path: /mnt/pool0/media
           - name: config-volume
             secret:
               secretName: podcasts
