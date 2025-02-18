@@ -89,13 +89,7 @@ app-template:
       type: emptyDir
     media:
       type: nfs
-      server: 192.168.3.40
-      path: /volume1/MediaLibrary/
+      server: crypt
+      path: /mnt/pool0/media
       globalMounts:
         - path: /media
-    complete:
-      type: nfs
-      path: /volume1/Torrents
-      server: 192.168.3.40
-      globalMounts:
-        - path: /torrents
