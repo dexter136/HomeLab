@@ -40,3 +40,5 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
             runAsUser: 568
+            supplementalGroups:
+              - 10000
