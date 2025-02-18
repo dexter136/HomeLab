@@ -77,7 +77,7 @@ app-template:
       existingClaim: qbittorrent
     media:
       type: nfs
-      server: 192.168.3.40
-      path: /volume1/Torrents/
+      server: crypt
+      path: /mnt/pool0/media
       globalMounts:
-        - path: /torrents
+        - path: /media
