@@ -140,12 +140,6 @@ grafana:
         revision: 1
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
-      pihole:
-        # renovate: depName="pi-hole-exporter"
-        gnetId: 10176
-        revision: 3
-        datasource:
-          - { name: DS_PROMETHEUS, value: Prometheus }
       cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842

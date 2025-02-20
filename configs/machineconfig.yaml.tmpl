@@ -24,8 +24,7 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
   network:
     nameservers:
-      - 192.168.3.40
-      - 1.1.1.1
+      - 192.168.3.1
     interfaces:
       - interface: {{ .node.interface }}
         dhcp: true
