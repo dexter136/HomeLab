@@ -4,4 +4,4 @@ version: 0.0.0
 dependencies:
 - name: dragonfly
   repository: oci://ghcr.io/dragonflydb/dragonfly/helm
-  version: v1.27.0
+  version: v1.27.1
